@@ -26,7 +26,7 @@ Status: voorstel, afgeleid van het prototype (tab "Datamodel en rollen" in het c
 - **Wij, voor het coachrapport**: verwerker namens de coach. Verwerkersovereenkomst in de licentie.
 - **Wij, voor de benchmark**: verwerkingsverantwoordelijke, omdat de data voor een eigen doel wordt gebruikt (artikel 28 lid 10 AVG). Grondslag: aparte toestemming van de deelnemer.
 - Gepseudonimiseerde data blijft persoonsgegeven. De benchmark krijgt nooit toegang tot `identiteit`.
-- Voor deelnemers in Saoedi-Arabië geldt daarnaast de PDPL.
+- Alleen deelnemers in Europa; opslag en verwerking in de EU.
 
 Juridische toets van deze rolverdeling is nodig vóór livegang.
 

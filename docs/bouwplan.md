@@ -1,12 +1,12 @@
 # Bouwplan
 
-Status: voorstel. Eerste sessie werkt fase 0 en 1 uit; daarna per fase een pull request.
+Status: vastgesteld op 2026-10-24. Per fase een pull request.
 
-## Voorgestelde techniek
+## Techniek
 
-Open besluit voor de eigenaar; dit is het startvoorstel.
+Akkoord eigenaar op 2026-10-24.
 
-| Onderdeel | Voorstel | Reden |
+| Onderdeel | Keuze | Reden |
 |---|---|---|
 | App | Webapp (PWA) in TypeScript, Next.js | Eén codebase voor telefoon en laptop, geen app store nodig |
 | Database | PostgreSQL in een EU-regio | Relationeel model past bij dit datamodel; EU-opslag voor de AVG |
@@ -15,7 +15,7 @@ Open besluit voor de eigenaar; dit is het startvoorstel.
 | Psychometrische analyse | R-scripts in `analyse/` (lavaan voor CFA en invariantie, thurstonianIRT voor gedwongen keuze) | Gangbare, controleerbare pakketten |
 | Hosting | Te kiezen, EU-regio, met previewversie per pull request | Testen vanaf de telefoon via de previewlink |
 
-Voor deelnemers in Saoedi-Arabië geldt de PDPL. Dat kan een aparte opslaglocatie vergen; besluit nemen vóór fase 5.
+Alleen deelnemers in Europa. Alle opslag en verwerking in de EU; de registratie accepteert alleen Europese landen.
 
 ## Fasen
 
@@ -51,7 +51,7 @@ Voor deelnemers in Saoedi-Arabië geldt de PDPL. Dat kan een aparte opslaglocati
 - Klaar als: tests bewijzen dat een coach alleen eigen cliënten ziet en dat zonder toestemming niets gedeeld wordt.
 
 ### Fase 5: Registratie en achtergrondkenmerken
-- Registratieformulier met vaste lijsten (harde regel 12): beroep (ISCO-08), sector (NACE Rev. 2.1 en ISIC), leiderschapsniveau, aantal medewerkers, geboortejaar, land en regio (ISO 3166-2), opleiding (ISCED), gender optioneel.
+- Registratieformulier met vaste lijsten (harde regel 12): beroep (ISCO-08), sector (NACE Rev. 2.1), leiderschapsniveau, aantal medewerkers, geboortejaar, land en regio (ISO 3166-2), opleiding (ISCED), gender optioneel.
 - Profielsnapshot per afname.
 - Klaar als: er geen vrij tekstveld voor achtergrondkenmerken bestaat.
 
@@ -77,4 +77,4 @@ Voor deelnemers in Saoedi-Arabië geldt de PDPL. Dat kan een aparte opslaglocati
 ## Buiten de code
 - Psycholoog of psychometricus voor itemrevisie en pilotopzet.
 - Ontwerp en licentie van de beelden voor fase 1.
-- Juridische toets: AVG-rollen, DPIA, licentievoorwaarden, PDPL.
+- Juridische toets: AVG-rollen, DPIA, licentievoorwaarden.

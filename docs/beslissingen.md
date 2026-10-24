@@ -10,3 +10,5 @@
 | 2026-10-23 | Energie gemeten als behoeftebevrediging en -frustratie (zelfdeterminatietheorie) | Aantoonbare samenhang met vitaliteit |
 | 2026-10-23 | Alle toegang via gelicentieerde coaches | Keuze eigenaar |
 | 2026-10-23 | Groepscijfers vanaf n ≥ 10, groepsvergelijking alleen bij aangetoonde meetinvariantie | Herleidbaarheid voorkomen; vergelijkingen moeten betekenis hebben. Drempel is een ontwerpkeuze, geen wettelijke norm |
+| 2026-10-24 | Techniek: webapp (PWA) in TypeScript met Next.js, PostgreSQL in een EU-regio, R voor psychometrische analyse | Akkoord eigenaar op het voorstel in het bouwplan |
+| 2026-10-24 | Alleen deelnemers in Europa | Keuze eigenaar. Eén privacyregime en EU-opslag; geen PDPL, geen ISIC nodig |

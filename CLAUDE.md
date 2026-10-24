@@ -1,6 +1,6 @@
 # Leiderschapskompas
 
-Digitale test die persoonlijkheid, leiderschap en drijfveren in beeld brengt, met een rapport voor de deelnemer, een uitgebreid rapport en dashboard voor de coach, en een geanonimiseerde benchmark. Coaches zetten de test in onder een licentie van ons bedrijf. Er is geen directe toegang voor opdrachtgevers of werkgevers.
+Digitale test die persoonlijkheid, leiderschap en drijfveren in beeld brengt, met een rapport voor de deelnemer, een uitgebreid rapport en dashboard voor de coach, en een geanonimiseerde benchmark. Coaches zetten de test in onder een licentie van ons bedrijf. Er is geen directe toegang voor opdrachtgevers of werkgevers. De test is alleen voor deelnemers in Europa.
 
 Lees voor je begint:
 - `docs/bouwplan.md`: fasen, volgorde en definitie van klaar per fase.
@@ -26,7 +26,7 @@ Deze regels gelden voor elke wijziging. Een wijziging die er een breekt, wordt n
 ### Data en privacy
 10. Bewaar per antwoord altijd: item-ID, itemversie, ruwe waarde, reactietijd in ms, getoonde positie, en de scoringsversie. Scores moeten na elke scoringswijziging opnieuw te berekenen zijn.
 11. Identiteit (naam, e-mail) staat in een aparte, versleutelde opslag en is alleen gekoppeld via een pseudoniem-ID. Analyse- en benchmarkcode krijgt nooit toegang tot die opslag.
-12. Achtergrondkenmerken komen uit vaste lijsten (ISCO-08, NACE/ISIC, ISCED, ISO 3166-2) met de versie van de lijst. Geen vrije tekst. Ze horen bij de afname, niet bij de persoon.
+12. Achtergrondkenmerken komen uit vaste lijsten (ISCO-08, NACE Rev. 2.1, ISCED, ISO 3166-2) met de versie van de lijst. Geen vrije tekst. Ze horen bij de afname, niet bij de persoon.
 13. Geen bijzondere persoonsgegevens (artikel 9 AVG): geen etniciteit, religie, gezondheid. Gender is optioneel en heeft de optie "zeg ik liever niet".
 14. Twee aparte toestemmingen: rapport delen met de coach, en opname in de benchmark. Zonder benchmarktoestemming telt een afname daar niet mee. Intrekken moet altijd kunnen.
 15. Groepscijfers alleen bij n ≥ 10, server-side afgedwongen, ook bij gecombineerde filters. De UI verbergt het niet alleen, de API levert het niet.
