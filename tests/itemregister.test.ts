@@ -60,6 +60,11 @@ describe("regel 8: geen namen van bestaande instrumenten", () => {
     },
   );
 
+  it("laat het Engelse woord Dutch als taal ongemoeid", () => {
+    const likert = echt.items.findIndex((i) => i.format === "likert");
+    expect(regels(metItem((i) => { i.tekst = "I enjoy working with my Dutch colleagues."; }, likert))).not.toContain("8");
+  });
+
   it("laat gewone deelnemertekst ongemoeid", () => {
     const likert = echt.items.findIndex((i) => i.format === "likert");
     expect(regels(metItem((i) => { i.tekst = "Ik werk graag samen met mijn Nederlandse en Duitse collega's."; }, likert))).not.toContain("8");

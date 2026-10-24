@@ -11,6 +11,8 @@
 | 2026-10-23 | Alle toegang via gelicentieerde coaches | Keuze eigenaar |
 | 2026-10-23 | Groepscijfers vanaf n ≥ 10, groepsvergelijking alleen bij aangetoonde meetinvariantie | Herleidbaarheid voorkomen; vergelijkingen moeten betekenis hebben. Drempel is een ontwerpkeuze, geen wettelijke norm |
 | 2026-10-24 | Techniek: webapp (PWA) in TypeScript met Next.js, PostgreSQL in een EU-regio, R voor psychometrische analyse | Akkoord eigenaar op het voorstel in het bouwplan |
-| 2026-10-24 | Alleen deelnemers in Europa | Keuze eigenaar. Eén privacyregime en EU-opslag; geen PDPL, geen ISIC nodig |
+| 2026-10-24 | Alleen deelnemers in de EU, hoofdmarkt Nederland | Keuze eigenaar. Eén privacyregime (AVG) en EU-opslag; geen PDPL, geen ISIC; VK en Zwitserland vallen erbuiten |
 | 2026-10-24 | Versies: Next.js 16.3.8, React 19.2.8, Vitest 3.2.4, Node 22 | Laatste niet-afgekeurde versies die minstens twee weken oud zijn; Next.js 15.5.4 is door de uitgever gemarkeerd met een beveiligingslek |
 | 2026-10-24 | Itemregister wordt in CI gecontroleerd op harde regels 1, 2, 8 en 9 | Een vraag zonder verantwoording of met een merknaam kan niet gemerged worden |
+| 2026-10-24 | Talen: Nederlands, later Engels; geen Arabisch | Keuze eigenaar; volgt uit de beperking tot de EU |
+| 2026-10-24 | Merkcontrole: afkortingen (TKI, PMAI, MBTI, DUTCH) alleen in hoofdletters, namen ongeacht hoofdletters | Anders zou het gewone Engelse woord "Dutch" in een toekomstige Engelse versie ten onrechte worden geblokkeerd |

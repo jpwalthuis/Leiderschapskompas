@@ -1,6 +1,6 @@
 # Leiderschapskompas
 
-Digitale test die persoonlijkheid, leiderschap en drijfveren in beeld brengt, met een rapport voor de deelnemer, een uitgebreid rapport en dashboard voor de coach, en een geanonimiseerde benchmark. Coaches zetten de test in onder een licentie van ons bedrijf. Er is geen directe toegang voor opdrachtgevers of werkgevers. De test is alleen voor deelnemers in Europa.
+Digitale test die persoonlijkheid, leiderschap en drijfveren in beeld brengt, met een rapport voor de deelnemer, een uitgebreid rapport en dashboard voor de coach, en een geanonimiseerde benchmark. Coaches zetten de test in onder een licentie van ons bedrijf. Er is geen directe toegang voor opdrachtgevers of werkgevers. De test is alleen voor deelnemers in de EU, met Nederland als hoofdmarkt.
 
 Lees voor je begint:
 - `docs/bouwplan.md`: fasen, volgorde en definitie van klaar per fase.
@@ -35,7 +35,7 @@ Deze regels gelden voor elke wijziging. Een wijziging die er een breekt, wordt n
 
 ### Techniek
 18. Mobiel eerst. De app moet goed werken op een telefoon en op een opengevouwen vouwtelefoon.
-19. UI in het Nederlands, met teksten uit vertaalbestanden zodat Engels en Arabisch (rechts-naar-links) later toe te voegen zijn.
+19. UI in het Nederlands, met teksten uit vertaalbestanden zodat Engels later toe te voegen is.
 20. Scoring is een pure, geteste module zonder database- of UI-afhankelijkheden.
 21. Elke fase in het bouwplan eindigt met werkende tests. Schrijf voor scoring en privacyregels eerst de test.
 

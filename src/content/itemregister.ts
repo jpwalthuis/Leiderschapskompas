@@ -73,8 +73,13 @@ export interface Fout {
 }
 
 /** Namen en merken die nooit in een deelnemertekst mogen staan (harde regel 8). */
-export const VERBODEN_TERMEN =
-  /\b(TKI|Thomas[\s-]?Kilmann|PMAI|Pearson[\s-]?Marr|MBTI|Myers[\s-]?Briggs|DUTCH)\b/i;
+export const VERBODEN_AFKORTINGEN = /\b(TKI|PMAI|MBTI|DUTCH)\b/;
+export const VERBODEN_NAMEN = /\b(Thomas[\s-]?Kilmann|Pearson[\s-]?Marr|Myers[\s-]?Briggs)\b/i;
+
+/** Eerste verboden term in een tekst, of null. Afkortingen alleen in hoofdletters, zodat "Dutch" als taal mag. */
+export function verbodenTerm(tekst: string): string | null {
+  return (tekst.match(VERBODEN_AFKORTINGEN) ?? tekst.match(VERBODEN_NAMEN))?.[0] ?? null;
+}
 
 const leeg = (v: unknown): boolean => typeof v !== "string" || v.trim() === "";
 const isNiveau = (v: unknown): v is Bewijsniveau =>
@@ -138,8 +143,8 @@ export function valideerItemregister(register: Itemregister): Fout[] {
 
     // Regel 8: geen namen of merken van bestaande instrumenten in deelnemerteksten
     for (const tekst of deelnemerteksten(item)) {
-      const treffer = tekst.match(VERBODEN_TERMEN);
-      if (treffer) fout(id, "8", `Deelnemertekst noemt "${treffer[0]}".`);
+      const treffer = verbodenTerm(tekst);
+      if (treffer) fout(id, "8", `Deelnemertekst noemt "${treffer}".`);
     }
   }
   return fouten;
