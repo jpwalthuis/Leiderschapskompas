@@ -43,3 +43,6 @@ Deze regels gelden voor elke wijziging. Een wijziging die er een breekt, wordt n
 - Werk per fase uit het bouwplan, in een eigen branch, en sluit af met een pull request.
 - Bij twijfel over een inhoudelijke of juridische keuze: niet zelf invullen, maar als open vraag in de PR-beschrijving zetten.
 - Leg nieuwe ontwerpbeslissingen vast in `docs/beslissingen.md` (datum, besluit, reden).
+
+## Next.js
+@AGENTS.md

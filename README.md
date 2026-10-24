@@ -10,3 +10,14 @@ Persoonlijkheidstest voor coaches: persoonlijkheid, leiderschap en drijfveren, g
 - `prototype/leiderschapskompas.html`: klikbaar prototype, open in een browser.
 
 Status: prototype. De vragen zijn nog niet psychometrisch getoetst.
+
+## Lokaal draaien
+
+```bash
+npm ci
+npm run dev      # ontwikkelserver op http://localhost:3000
+npm run check    # lint, typen en tests
+npm run build    # productiebuild
+```
+
+CI draait dezelfde controles op elke pull request.

@@ -1,0 +1,11 @@
+{
+  "app": {
+    "naam": "Leiderschapskompas",
+    "omschrijving": "Een test die laat zien hoe je leidt, waar je energie van krijgt en wat er gebeurt als de druk oploopt."
+  },
+  "start": {
+    "status": "In ontwikkeling",
+    "uitleg": "Deze omgeving bevat nog geen test. De eerste versie volgt in de volgende fase.",
+    "itemsGeladen": "{aantal} vragen in het itemregister, allemaal met verantwoording."
+  }
+}
