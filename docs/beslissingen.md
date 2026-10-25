@@ -24,3 +24,9 @@
 | 2026-10-25 | End-to-end tests op telefoonformaat (Pixel 7) en een benadering van een opengevouwen vouwtelefoon (900 × 1000) | Harde regel 18; de vouwmaat is een benadering, geen exacte apparaatmaat |
 | 2026-10-25 | Afname zonder tijdslimieten mogelijk; dan vervallen de reflex- en drukscores (harde regel 5 aangevuld) | Akkoord eigenaar. Toegankelijkheid voor wie meer tijd nodig heeft, zonder ongeldige scores te tonen. Coach zet het per uitnodiging (fase 4); in de demo een vinkje |
 | 2026-10-25 | Terug naar de vorige vraag alleen binnen de stellingen; herziening is een nieuwe poging, de laatste telt (harde regel 10 aangevuld) | Akkoord eigenaar. Bij getimede vragen zou terug gaan de meting ongeldig maken; ruwe data blijft volledig, ook de herzieningen |
+| 2026-10-25 | Eigenaar van de test is Ekana; de app volgt de huisstijl van ekana.nl | Keuze eigenaar |
+| 2026-10-25 | Kleuren bemonsterd van een schermafdruk van ekana.nl: oranje #D8894E, oranje vlak #D78236 / #C96B2A, lichtgrijs #F2F2F2, tekstgrijs #6D6D6D, grijze knoppen #737373; lettertype Cardo | Geen officiële huisstijlgids beschikbaar; te vervangen door de officiële waarden zodra Ekana die levert |
+| 2026-10-25 | Merkoranje alleen decoratief; voor tekst en bediening donkerder tinten van hetzelfde oranje (#9F5823 tekst, #C96B2A balken en focus) | #D8894E haalt op lichtgrijs 2,5:1, onder de WCAG-eis van 4,5:1 voor tekst en 3:1 voor bediening |
+| 2026-10-25 | Cardo voor koppen, vraagteksten en hoofdknoppen; systeemlettertype voor kleine bedieningstekst | Cardo is de letter van ekana.nl; op een telefoon leest kleine tekst beter in een schreefloze letter |
+| 2026-10-25 | Cardo wordt meegeleverd met de app (npm-pakket @fontsource/cardo, OFL-licentie), niet geladen vanaf Google | Geen verzoek naar Google bij elke deelnemer; past bij de AVG-lijn van de app |
+
