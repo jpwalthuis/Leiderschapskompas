@@ -2,31 +2,35 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* Layout: één smalle kolom (telefoon eerst), testscherm met vaste opbouw, rapport als tabbladen Cliënt / Coach / Itemregister */
+/* Layout: één smalle kolom (telefoon eerst), testscherm met vaste opbouw, rapport als tabbladen. Huisstijl Ekana: oranje, lichtgrijs, grijze knoppen, Cardo. */
 :root{
-  --bg:#F3F6F8; --surface:#FFFFFF; --ink:#0E2236; --muted:#566879; --line:#D5DEE5;
-  --navy:#12304D; --teal:#0E7A76; --teal-soft:#DCEFEE; --blue:#2F639B; --blue-soft:#E1EAF4;
-  --amber:#9A5B00; --amber-soft:#F7EBD8; --grey-soft:#E9EDF1; --s1:#00A99E; --s2:#C9692A;
-  --font-display:"Literata",Georgia,"Times New Roman",serif;
+  --bg:#F2F2F2; --surface:#FFFFFF; --ink:#3A3A3A; --muted:#6D6D6D; --line:#DCD7D2;
+  --navy:#9F5823; --teal:#9F5823; --teal-soft:#FAEFE6; --blue:#2F72A8; --blue-soft:#EEF4FA;
+  --amber:#9A5B00; --amber-soft:#F7EBD8; --grey-soft:#E8E4E0; --s1:#C96B2A; --s2:#2F72A8;
+  --merk:#D8894E; --knop:#737373; --knop-tekst:#FFFFFF;
+  --font-display:"Cardo",Georgia,"Times New Roman",serif;
   --font-body:"Public Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   --font-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0A1520; --surface:#102131; --ink:#E5EDF3; --muted:#93A5B6; --line:#22394E;
-  --navy:#A9C9E8; --teal:#46BDB4; --teal-soft:#123A3A; --blue:#7FAEE0; --blue-soft:#16304A;
-  --amber:#E3A852; --amber-soft:#3A2A12; --grey-soft:#1A2B3B; --s1:#2BA89F; --s2:#D86F2C; color-scheme:dark}}
+  --bg:#1B1917; --surface:#24211F; --ink:#EEEAE6; --muted:#B5ADA6; --line:#3A3531;
+  --navy:#EDA877; --teal:#E0915A; --teal-soft:#3A2A1F; --blue:#5592CC; --blue-soft:#1A2430;
+  --amber:#E3A852; --amber-soft:#3A2A12; --grey-soft:#2E2A27; --s1:#D07D45; --s2:#5592CC;
+  --merk:#D8894E; --knop:#5E5A57; --knop-tekst:#EEEAE6; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0A1520; --surface:#102131; --ink:#E5EDF3; --muted:#93A5B6; --line:#22394E;
-  --navy:#A9C9E8; --teal:#46BDB4; --teal-soft:#123A3A; --blue:#7FAEE0; --blue-soft:#16304A;
-  --amber:#E3A852; --amber-soft:#3A2A12; --grey-soft:#1A2B3B; --s1:#2BA89F; --s2:#D86F2C; color-scheme:dark}
+  --bg:#1B1917; --surface:#24211F; --ink:#EEEAE6; --muted:#B5ADA6; --line:#3A3531;
+  --navy:#EDA877; --teal:#E0915A; --teal-soft:#3A2A1F; --blue:#5592CC; --blue-soft:#1A2430;
+  --amber:#E3A852; --amber-soft:#3A2A12; --grey-soft:#2E2A27; --s1:#D07D45; --s2:#5592CC;
+  --merk:#D8894E; --knop:#5E5A57; --knop-tekst:#EEEAE6; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
 .wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
-h1,h2,h3{font-family:var(--font-display);font-weight:650;color:var(--navy);text-wrap:balance;margin:0;line-height:1.2}
-h1{font-size:1.9rem} h2{font-size:1.35rem} h3{font-size:1.05rem}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;color:var(--navy);text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:2.2rem} h2{font-size:1.55rem} h3{font-size:1.2rem;font-weight:700}
+body::before{content:"";position:fixed;inset:0 0 auto;height:max(4px,env(safe-area-inset-top,0px));background:var(--merk);z-index:10}
 p{margin:0;max-width:65ch}
 .muted{color:var(--muted)}
 .eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
@@ -35,7 +39,7 @@ p{margin:0;max-width:65ch}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:10px 14px}
 button:focus-visible,.opt:focus-visible,.pick:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
-.btn-primary{background:var(--teal);border-color:var(--teal);color:var(--surface);font-weight:600}
+.btn-primary{background:var(--knop);border-color:var(--knop);color:var(--knop-tekst);font-family:var(--font-display);font-size:1.05rem;border-radius:999px;padding-inline:20px}
 .btn-ghost{background:transparent}
 .toggle{display:flex;gap:10px;align-items:flex-start}
 .toggle input{margin-top:4px;width:18px;height:18px;accent-color:var(--teal)}
@@ -306,7 +310,7 @@ function render(){
   render.last=S.screen;
 }
 function intro(){
-  return `<div class="stack"><span class="eyebrow">Prototype · niet gevalideerd</span><h1>Leiderschapskompas</h1>
+  return `<div class="stack"><span class="eyebrow">Prototype · niet gevalideerd</span><h1>Leiderschapskompas</h1><p class="muted">Een test van <b style="font-family:var(--font-display);color:var(--navy);font-size:1.05rem">Ekana</b></p>
   <p class="muted">Een test die laat zien hoe je leidt, waar je energie van krijgt en wat er gebeurt als de druk oploopt. Je maakt drie korte fasen, ongeveer zeven minuten. Daarna zie je je eigen rapport; je coach ziet een uitgebreidere versie.</p></div>
   <div class="panel"><div class="phases">
     <div class="phase"><b>1 · Reflex</b><span class="muted">Zes woorden, steeds twee beelden. Kies binnen 2 seconden.</span></div>
