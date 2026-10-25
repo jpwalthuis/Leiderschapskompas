@@ -383,7 +383,7 @@ function score(){
   // reflex
   const rx=P1.map(it=>A[it.id]).filter(v=>v==="A"||v==="C");
   const reflexAg = rx.length?Math.round(rx.filter(v=>v==="A").length/rx.length*100):null;
-  const rts=P1.map(it=>S.rt[it.id]).filter(v=>v!=null&&A[it.id]!=="timeout");
+  const rts=P1.filter(it=>S.rt[it.id]!=null&&A[it.id]!=="timeout").map(it=>S.rt[it.id]);
   const med=a=>{if(!a.length)return null;const s=a.slice().sort((x,y)=>x-y);const m=Math.floor(s.length/2);return s.length%2?s[m]:Math.round((s[m-1]+s[m])/2);};
   const timeouts=[...P1,...DIL,...P3].filter(it=>A[it.id]==="timeout").length;
   const tooFast=P1.filter(it=>S.rt[it.id]!=null&&S.rt[it.id]<300&&A[it.id]!=="timeout").length;
