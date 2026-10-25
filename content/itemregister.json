@@ -1,0 +1,1089 @@
+{
+  "schema_versie": 1,
+  "status": "prototype, niet gevalideerd",
+  "bronnen": {
+    "bakan": {
+      "t": "Bakan, D. (1966). The Duality of Human Existence.",
+      "n": "Introduceert agency en communion als twee basismodaliteiten."
+    },
+    "abele": {
+      "t": "Abele, A. E. & Wojciszke, B. (2007; 2014). Dual Perspective Model; overzicht 'Big Two'.",
+      "n": "Agency en communion als fundamentele inhoudsdimensies, breed gerepliceerd."
+    },
+    "helgeson": {
+      "t": "Helgeson, V. S. (1994). Unmitigated agency and unmitigated communion: an analysis of the negative components of masculinity and femininity.",
+      "n": "Verbindt agency/communion aan de traditionele masculien/feminien-indeling."
+    },
+    "bfi2": {
+      "t": "Soto, C. J. & John, O. P. (2017). The Next Big Five Inventory (BFI-2). JPSP.",
+      "n": "Extraversie als gevalideerde Big Five-dimensie."
+    },
+    "mcgowan": {
+      "t": "McGowan, D. What Is Wrong with Jung?",
+      "n": "Kritisch over Jungs archetypen, maar introversie/extraversie geldt als empirisch toetsbaar deel van Jungs werk."
+    },
+    "sdt": {
+      "t": "Deci, E. L. & Ryan, R. M. (2000); Ryan & Deci (2017). Self-Determination Theory.",
+      "n": "Autonomie, competentie en verbondenheid als psychologische basisbehoeften."
+    },
+    "bpnsfs": {
+      "t": "Chen, B. et al. (2015). BPNSFS; Olafsen, Halvari & Frølund (2021) werkversie; Noorse validatie (2022).",
+      "n": "Behoeftebevrediging en -frustratie hangen sterk en tegengesteld samen met vitaliteit."
+    },
+    "schwartz": {
+      "t": "Schwartz, S. H. (2012). An Overview of the Schwartz Theory of Basic Values.",
+      "n": "Validiteit van de waardentheorie onderbouwd met data uit 82 landen."
+    },
+    "pvq": {
+      "t": "Schwartz, S. H. et al. (2001). Portrait Values Questionnaire. J. Cross-Cult. Psych. 32, 519-542.",
+      "n": "Waarden gemeten via concrete, minder abstracte beschrijvingen."
+    },
+    "dutch": {
+      "t": "De Dreu, Evers, Beersma, Kluwer & Nauta (2001). J. Organizational Behavior 22(6), 645-668.",
+      "n": "Vijf conflictstrategieën; goede tot uitstekende psychometrie; zelf-, tegenpartij- en observatorrapport convergeren voor probleemoplossen, forceren en toegeven, niet voor vermijden."
+    },
+    "tk": {
+      "t": "Thomas, K. W. & Kilmann, R. H. (1974); Kilmann & Thomas (1977).",
+      "n": "Vijf conflictmodi op basis van zorg voor eigen en andermans belang. Model vrij te gebruiken; TKI-items en -naam zijn beschermd."
+    },
+    "vignet": {
+      "t": "Int. J. Conflict Management (2018). Validity of self-reported conflict handling preferences.",
+      "n": "DUTCH voorspelde 4 van 5 stijlen in vignetkeuzes; alleen forceren voorspelde gedrag in een rollenspel."
+    },
+    "tirt": {
+      "t": "Brown, A. & Maydeu-Olivares, A. (2011) EPM 71(3); (2013) Psychological Methods 18(1).",
+      "n": "Thurstonian IRT lost de problemen van ipsatieve scores bij gedwongen keuze op."
+    },
+    "projectief": {
+      "t": "Lilienfeld, S. O., Wood, J. M. & Garb, H. N. (2000). The scientific status of projective techniques.",
+      "n": "Beperkte validiteit en incrementele waarde van projectieve technieken."
+    },
+    "iat": {
+      "t": "Carpenter, T. P., Goedderz, A. & Lai, C. K. (2023). PSPB 49(9).",
+      "n": "Eén impliciete-associatie-afname is te ruisgevoelig voor een traitschatting; aggregeren over afnames helpt."
+    },
+    "pearson": {
+      "t": "Pearson, C. S. & Marr, H. K. Pearson-Marr Archetype Indicator (PMAI), CAPT.",
+      "n": "Twaalf archetypen. Het instrument is beschermd; alleen het concept wordt hier als duiding gebruikt."
+    },
+    "blueprint": {
+      "t": "Assessment Architectuur (eigen document), p. 2: mapping archetypen op agentisch / communaal / geïntegreerd.",
+      "n": "Eigen hypothese, niet empirisch getoetst."
+    }
+  },
+  "waarden": {
+    "ST": {
+      "n": "Bijdragen aan anderen",
+      "s": "dat mijn werk anderen en de samenleving echt verder helpt",
+      "full": "Zelfoverstijging"
+    },
+    "SE": {
+      "n": "Invloed en resultaat",
+      "s": "dat ik invloed heb en zichtbaar resultaat neerzet",
+      "full": "Zelfverheffing"
+    },
+    "OC": {
+      "n": "Vrijheid en vernieuwing",
+      "s": "dat ik vrij ben om nieuwe wegen te verkennen",
+      "full": "Openheid voor verandering"
+    },
+    "CO": {
+      "n": "Zekerheid en structuur",
+      "s": "dat er zekerheid, structuur en betrouwbaarheid is",
+      "full": "Behoud"
+    }
+  },
+  "conflictstijlen": {
+    "forc": "Forceren",
+    "prob": "Probleemoplossen",
+    "comp": "Compromis",
+    "yield": "Toegeven",
+    "avoid": "Vermijden"
+  },
+  "archetype_duiding": {
+    "agentisch": {
+      "label": "Agentisch",
+      "list": [
+        "Strijder: actie, resultaat afdwingen",
+        "Heerser: regie, systemen bouwen",
+        "Ontdekker: autonomie, pionieren",
+        "Schepper: visie omzetten in vorm"
+      ]
+    },
+    "geintegreerd": {
+      "label": "Geïntegreerd",
+      "list": [
+        "Magiër: katalysator van verandering",
+        "Wijze: analyse, waarheid zoeken",
+        "Nar: relativeren, anders kijken",
+        "Rebel: oude systemen doorbreken"
+      ]
+    },
+    "communaal": {
+      "label": "Communaal",
+      "list": [
+        "Zorggever: dienend, teamwelzijn",
+        "Minnaar: verbinding, vertrouwen",
+        "Onschuldige: optimisme, veilige cultuur",
+        "Gewone mens: nuchter, gelijkwaardig"
+      ]
+    }
+  },
+  "items": [
+    {
+      "id": "R1",
+      "versie": 1,
+      "fase": 1,
+      "format": "beeldkeuze",
+      "construct": "Agentische versus communale associatie",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "projectief",
+        "iat"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "experimenteel",
+        "item": "nieuw"
+      },
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.",
+      "woord": "Weerstand",
+      "beeld_agentisch": "wall",
+      "beeld_communaal": "knot",
+      "tijdslimiet_s": 2
+    },
+    {
+      "id": "R2",
+      "versie": 1,
+      "fase": 1,
+      "format": "beeldkeuze",
+      "construct": "Agentische versus communale associatie",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "projectief",
+        "iat"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "experimenteel",
+        "item": "nieuw"
+      },
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.",
+      "woord": "Succes",
+      "beeld_agentisch": "flag",
+      "beeld_communaal": "gears",
+      "tijdslimiet_s": 2
+    },
+    {
+      "id": "R3",
+      "versie": 1,
+      "fase": 1,
+      "format": "beeldkeuze",
+      "construct": "Agentische versus communale associatie",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "projectief",
+        "iat"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "experimenteel",
+        "item": "nieuw"
+      },
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.",
+      "woord": "Leiderschap",
+      "beeld_agentisch": "arrow",
+      "beeld_communaal": "ring",
+      "tijdslimiet_s": 2
+    },
+    {
+      "id": "R4",
+      "versie": 1,
+      "fase": 1,
+      "format": "beeldkeuze",
+      "construct": "Agentische versus communale associatie",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "projectief",
+        "iat"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "experimenteel",
+        "item": "nieuw"
+      },
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.",
+      "woord": "Groei",
+      "beeld_agentisch": "stairs",
+      "beeld_communaal": "roots",
+      "tijdslimiet_s": 2
+    },
+    {
+      "id": "R5",
+      "versie": 1,
+      "fase": 1,
+      "format": "beeldkeuze",
+      "construct": "Agentische versus communale associatie",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "projectief",
+        "iat"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "experimenteel",
+        "item": "nieuw"
+      },
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.",
+      "woord": "Falen",
+      "beeld_agentisch": "miss",
+      "beeld_communaal": "broken",
+      "tijdslimiet_s": 2
+    },
+    {
+      "id": "R6",
+      "versie": 1,
+      "fase": 1,
+      "format": "beeldkeuze",
+      "construct": "Agentische versus communale associatie",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "projectief",
+        "iat"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "experimenteel",
+        "item": "nieuw"
+      },
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.",
+      "woord": "Energie",
+      "beeld_agentisch": "spike",
+      "beeld_communaal": "overlap",
+      "tijdslimiet_s": 2
+    },
+    {
+      "id": "Z1",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Agency",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "helgeson"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Zelfrapportage op een sterk onderbouwd construct. Itemformulering is eigen werk en moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Ik neem graag de leiding als er een doel bereikt moet worden.",
+      "subschaal": "agency",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "Z2",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Agency",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "helgeson"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Zelfrapportage op een sterk onderbouwd construct. Itemformulering is eigen werk en moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Ik zet door, ook als anderen twijfelen.",
+      "subschaal": "agency",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "Z3",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Agency",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "helgeson"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Zelfrapportage op een sterk onderbouwd construct. Itemformulering is eigen werk en moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Ik beoordeel mijn werk vooral op het resultaat.",
+      "subschaal": "agency",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "Z4",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Communion",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "helgeson"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Zelfrapportage op een sterk onderbouwd construct. Itemformulering is eigen werk en moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Ik merk snel hoe het met anderen in het team gaat.",
+      "subschaal": "communion",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "Z5",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Communion",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "helgeson"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Zelfrapportage op een sterk onderbouwd construct. Itemformulering is eigen werk en moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Ik investeer tijd in relaties, ook als dat niets direct oplevert.",
+      "subschaal": "communion",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "Z6",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Communion",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "helgeson"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Zelfrapportage op een sterk onderbouwd construct. Itemformulering is eigen werk en moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Ik vind het belangrijk dat iedereen zich gehoord voelt.",
+      "subschaal": "communion",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "E1",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Extraversie (sociabiliteit)",
+      "kader": "Big Five: extraversie (Jungs introversie/extraversie)",
+      "bronnen": [
+        "bfi2",
+        "mcgowan"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Gemeten als Big Five-extraversie. Jungs uitleg als 'richting van levensenergie' is theorie; de meetbare kern is extraversie.",
+      "tekst": "Ik krijg energie van gesprekken met veel mensen.",
+      "subschaal": "extra",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "E2",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Extraversie (energieniveau, omgekeerd)",
+      "kader": "Big Five: extraversie (Jungs introversie/extraversie)",
+      "bronnen": [
+        "bfi2",
+        "mcgowan"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Gemeten als Big Five-extraversie. Jungs uitleg als 'richting van levensenergie' is theorie; de meetbare kern is extraversie.",
+      "tekst": "Na een dag vol overleg heb ik tijd alleen nodig om op te laden.",
+      "subschaal": "extra",
+      "omgekeerd": true,
+      "schaal": "1-5"
+    },
+    {
+      "id": "E3",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Extraversie (assertiviteit)",
+      "kader": "Big Five: extraversie (Jungs introversie/extraversie)",
+      "bronnen": [
+        "bfi2",
+        "mcgowan"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Gemeten als Big Five-extraversie. Jungs uitleg als 'richting van levensenergie' is theorie; de meetbare kern is extraversie.",
+      "tekst": "In een groep neem ik makkelijk het woord.",
+      "subschaal": "extra",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "E4",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Extraversie (omgekeerd)",
+      "kader": "Big Five: extraversie (Jungs introversie/extraversie)",
+      "bronnen": [
+        "bfi2",
+        "mcgowan"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Gemeten als Big Five-extraversie. Jungs uitleg als 'richting van levensenergie' is theorie; de meetbare kern is extraversie.",
+      "tekst": "Ik werk het liefst in stilte aan mijn eigen taken.",
+      "subschaal": "extra",
+      "omgekeerd": true,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B1",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Autonomie: bevrediging (energiebron)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Energie geven en energie verliezen worden gemeten als behoeftebevrediging en behoeftefrustratie, die aantoonbaar met vitaliteit samenhangen. Prototype: één item per subschaal; productie: minimaal vier.",
+      "tekst": "In mijn werk kan ik zelf kiezen hoe ik dingen aanpak.",
+      "subschaal": "satA",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B2",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Competentie: bevrediging (energiebron)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Energie geven en energie verliezen worden gemeten als behoeftebevrediging en behoeftefrustratie, die aantoonbaar met vitaliteit samenhangen. Prototype: één item per subschaal; productie: minimaal vier.",
+      "tekst": "Ik voel me bekwaam in wat ik doe.",
+      "subschaal": "satC",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B3",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Verbondenheid: bevrediging (energiebron)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Energie geven en energie verliezen worden gemeten als behoeftebevrediging en behoeftefrustratie, die aantoonbaar met vitaliteit samenhangen. Prototype: één item per subschaal; productie: minimaal vier.",
+      "tekst": "Ik voel me verbonden met de mensen met wie ik werk.",
+      "subschaal": "satR",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B4",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Autonomie: frustratie (energielek)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Energie geven en energie verliezen worden gemeten als behoeftebevrediging en behoeftefrustratie, die aantoonbaar met vitaliteit samenhangen. Prototype: één item per subschaal; productie: minimaal vier.",
+      "tekst": "Ik voel me in mijn werk vaak gedwongen tot dingen die ik niet zelf kies.",
+      "subschaal": "frA",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B5",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Competentie: frustratie (energielek)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Energie geven en energie verliezen worden gemeten als behoeftebevrediging en behoeftefrustratie, die aantoonbaar met vitaliteit samenhangen. Prototype: één item per subschaal; productie: minimaal vier.",
+      "tekst": "Ik twijfel vaak of ik mijn werk goed genoeg doe.",
+      "subschaal": "frC",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B6",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Verbondenheid: frustratie (energielek)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Energie geven en energie verliezen worden gemeten als behoeftebevrediging en behoeftefrustratie, die aantoonbaar met vitaliteit samenhangen. Prototype: één item per subschaal; productie: minimaal vier.",
+      "tekst": "Ik voel me in mijn werkomgeving op afstand gehouden.",
+      "subschaal": "frR",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C1",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Forceren",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Strategie uit het dual concern-model, gemeten in rust. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Bij een meningsverschil houd ik vast aan mijn standpunt tot de ander overstag gaat.",
+      "subschaal": "forc",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C2",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Probleemoplossen",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Strategie uit het dual concern-model, gemeten in rust. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Bij een meningsverschil onderzoek ik met de ander wat ieder echt nodig heeft, tot we iets vinden waar we allebei achter staan.",
+      "subschaal": "prob",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C3",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Compromis",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Strategie uit het dual concern-model, gemeten in rust. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Bij een meningsverschil stel ik voor dat we allebei iets inleveren.",
+      "subschaal": "comp",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C4",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Toegeven",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Strategie uit het dual concern-model, gemeten in rust. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Bij een meningsverschil pas ik me aan wat de ander wil, ook als ik het er niet mee eens ben.",
+      "subschaal": "yield",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C5",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Vermijden",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Strategie uit het dual concern-model, gemeten in rust. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Bij een meningsverschil laat ik het onderwerp liever rusten dan dat ik het gesprek aanga.",
+      "subschaal": "avoid",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "W1",
+      "versie": 1,
+      "fase": 2,
+      "format": "dilemma",
+      "construct": "Zelfverheffing versus Zelfoverstijging",
+      "kader": "Schwartz-waardentheorie: vier hogere-orde-waarden",
+      "bronnen": [
+        "schwartz",
+        "pvq",
+        "tirt"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "matig",
+        "item": "nieuw"
+      },
+      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft.",
+      "vraag": "Wat weegt voor jou zwaarder in je werk?",
+      "optie_a": {
+        "waarde": "SE",
+        "tekst": "dat ik invloed heb en zichtbaar resultaat neerzet"
+      },
+      "optie_b": {
+        "waarde": "ST",
+        "tekst": "dat mijn werk anderen en de samenleving echt verder helpt"
+      },
+      "tijdslimiet_s": 8
+    },
+    {
+      "id": "W2",
+      "versie": 1,
+      "fase": 2,
+      "format": "dilemma",
+      "construct": "Openheid voor verandering versus Behoud",
+      "kader": "Schwartz-waardentheorie: vier hogere-orde-waarden",
+      "bronnen": [
+        "schwartz",
+        "pvq",
+        "tirt"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "matig",
+        "item": "nieuw"
+      },
+      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft.",
+      "vraag": "Wat weegt voor jou zwaarder in je werk?",
+      "optie_a": {
+        "waarde": "OC",
+        "tekst": "dat ik vrij ben om nieuwe wegen te verkennen"
+      },
+      "optie_b": {
+        "waarde": "CO",
+        "tekst": "dat er zekerheid, structuur en betrouwbaarheid is"
+      },
+      "tijdslimiet_s": 8
+    },
+    {
+      "id": "W3",
+      "versie": 1,
+      "fase": 2,
+      "format": "dilemma",
+      "construct": "Openheid voor verandering versus Zelfoverstijging",
+      "kader": "Schwartz-waardentheorie: vier hogere-orde-waarden",
+      "bronnen": [
+        "schwartz",
+        "pvq",
+        "tirt"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "matig",
+        "item": "nieuw"
+      },
+      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft.",
+      "vraag": "Wat weegt voor jou zwaarder in je werk?",
+      "optie_a": {
+        "waarde": "OC",
+        "tekst": "dat ik vrij ben om nieuwe wegen te verkennen"
+      },
+      "optie_b": {
+        "waarde": "ST",
+        "tekst": "dat mijn werk anderen en de samenleving echt verder helpt"
+      },
+      "tijdslimiet_s": 8
+    },
+    {
+      "id": "W4",
+      "versie": 1,
+      "fase": 2,
+      "format": "dilemma",
+      "construct": "Behoud versus Zelfverheffing",
+      "kader": "Schwartz-waardentheorie: vier hogere-orde-waarden",
+      "bronnen": [
+        "schwartz",
+        "pvq",
+        "tirt"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "matig",
+        "item": "nieuw"
+      },
+      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft.",
+      "vraag": "Wat weegt voor jou zwaarder in je werk?",
+      "optie_a": {
+        "waarde": "CO",
+        "tekst": "dat er zekerheid, structuur en betrouwbaarheid is"
+      },
+      "optie_b": {
+        "waarde": "SE",
+        "tekst": "dat ik invloed heb en zichtbaar resultaat neerzet"
+      },
+      "tijdslimiet_s": 8
+    },
+    {
+      "id": "W5",
+      "versie": 1,
+      "fase": 2,
+      "format": "dilemma",
+      "construct": "Zelfoverstijging versus Behoud",
+      "kader": "Schwartz-waardentheorie: vier hogere-orde-waarden",
+      "bronnen": [
+        "schwartz",
+        "pvq",
+        "tirt"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "matig",
+        "item": "nieuw"
+      },
+      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft.",
+      "vraag": "Wat weegt voor jou zwaarder in je werk?",
+      "optie_a": {
+        "waarde": "ST",
+        "tekst": "dat mijn werk anderen en de samenleving echt verder helpt"
+      },
+      "optie_b": {
+        "waarde": "CO",
+        "tekst": "dat er zekerheid, structuur en betrouwbaarheid is"
+      },
+      "tijdslimiet_s": 8
+    },
+    {
+      "id": "W6",
+      "versie": 1,
+      "fase": 2,
+      "format": "dilemma",
+      "construct": "Zelfverheffing versus Openheid voor verandering",
+      "kader": "Schwartz-waardentheorie: vier hogere-orde-waarden",
+      "bronnen": [
+        "schwartz",
+        "pvq",
+        "tirt"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "matig",
+        "item": "nieuw"
+      },
+      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft.",
+      "vraag": "Wat weegt voor jou zwaarder in je werk?",
+      "optie_a": {
+        "waarde": "SE",
+        "tekst": "dat ik invloed heb en zichtbaar resultaat neerzet"
+      },
+      "optie_b": {
+        "waarde": "OC",
+        "tekst": "dat ik vrij ben om nieuwe wegen te verkennen"
+      },
+      "tijdslimiet_s": 8
+    },
+    {
+      "id": "W7",
+      "versie": 1,
+      "fase": 2,
+      "format": "dilemma",
+      "construct": "Agentische versus communale zorg",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "abele",
+        "tirt"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "matig",
+        "item": "nieuw"
+      },
+      "toelichting": "Afkomstig uit de blueprint (fase 2). Meet welke dimensie zwaarder weegt als het misgaat. Derde meetmethode op hetzelfde construct, ter triangulatie.",
+      "vraag": "Wat vind jij erger?",
+      "optie_a": {
+        "pool": "agentisch",
+        "tekst": "Een project dat mislukt doordat er geen regie en structuur was."
+      },
+      "optie_b": {
+        "pool": "communaal",
+        "tekst": "Een project dat mislukt doordat het team ruzie kreeg."
+      },
+      "tijdslimiet_s": 8
+    },
+    {
+      "id": "W8",
+      "versie": 1,
+      "fase": 2,
+      "format": "dilemma",
+      "construct": "Agentische versus communale zorg",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "abele",
+        "tirt"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "matig",
+        "item": "nieuw"
+      },
+      "toelichting": "Zie W7.",
+      "vraag": "Wat vind jij erger?",
+      "optie_a": {
+        "pool": "agentisch",
+        "tekst": "Dat je een doel niet haalt dat je jezelf had gesteld."
+      },
+      "optie_b": {
+        "pool": "communaal",
+        "tekst": "Dat iemand in je team zich door jou niet gesteund voelde."
+      },
+      "tijdslimiet_s": 8
+    },
+    {
+      "id": "D1",
+      "versie": 1,
+      "fase": 3,
+      "format": "vignet",
+      "construct": "Conflictstrategie onder oplopende druk",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk",
+        "vignet"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "matig",
+        "item": "nieuw"
+      },
+      "toelichting": "Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk?",
+      "tekst": "Een collega presenteert in het managementoverleg jouw idee als het zijne.",
+      "tijdslimiet_s": 15,
+      "drukniveau": "Druk 1 van 4",
+      "opties": {
+        "forc": "Ik corrigeer het direct in de vergadering: het idee komt van mij.",
+        "prob": "Ik spreek hem na afloop aan om samen uit te zoeken hoe dit ging en hoe we het rechtzetten.",
+        "comp": "Ik stel voor dat we het idee voortaan samen presenteren.",
+        "yield": "Ik laat het zo; het gaat om het resultaat.",
+        "avoid": "Ik zeg er niets over en houd voortaan meer afstand."
+      }
+    },
+    {
+      "id": "D2",
+      "versie": 1,
+      "fase": 3,
+      "format": "vignet",
+      "construct": "Conflictstrategie onder oplopende druk",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk",
+        "vignet"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "matig",
+        "item": "nieuw"
+      },
+      "toelichting": "Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk?",
+      "tekst": "Twee teamleden zijn het fundamenteel oneens over de prioriteit. De klant wacht op jullie antwoord.",
+      "tijdslimiet_s": 12,
+      "drukniveau": "Druk 2 van 4",
+      "opties": {
+        "forc": "Ik hak de knoop zelf door en communiceer het besluit.",
+        "prob": "Ik zet ze kort bij elkaar om de belangen achter beide standpunten boven tafel te krijgen.",
+        "comp": "We doen van beide voorstellen een deel.",
+        "yield": "Ik volg degene die het hardst aandringt, dan is het klaar.",
+        "avoid": "Ik vraag de klant om uitstel en laat het even rusten."
+      }
+    },
+    {
+      "id": "D3",
+      "versie": 1,
+      "fase": 3,
+      "format": "vignet",
+      "construct": "Conflictstrategie onder oplopende druk",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk",
+        "vignet"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "matig",
+        "item": "nieuw"
+      },
+      "toelichting": "Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk?",
+      "tekst": "Je leidinggevende wil een besluit doordrukken waarvan jij denkt dat het je team schaadt. Het overleg eindigt over vijf minuten.",
+      "tijdslimiet_s": 9,
+      "drukniveau": "Druk 3 van 4",
+      "opties": {
+        "forc": "Ik zeg nu duidelijk dat ik dit besluit niet steun en waarom.",
+        "prob": "Ik vraag om tien minuten extra om het samen anders op te lossen.",
+        "yield": "Ik ga akkoord; het is uiteindelijk haar besluit.",
+        "avoid": "Ik houd me stil en zie later wel wat ik ermee doe."
+      }
+    },
+    {
+      "id": "D4",
+      "versie": 1,
+      "fase": 3,
+      "format": "vignet",
+      "construct": "Conflictstrategie onder oplopende druk",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk",
+        "vignet"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "matig",
+        "item": "nieuw"
+      },
+      "toelichting": "Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk?",
+      "tekst": "Midden in een crisisoverleg verwijt een stakeholder jou publiekelijk een fout die niet van jou is. Er moet nu gereageerd worden.",
+      "tijdslimiet_s": 7,
+      "drukniveau": "Druk 4 van 4",
+      "opties": {
+        "forc": "Ik weerleg het direct en zet de feiten op tafel.",
+        "yield": "Ik neem het op me om de rust te bewaren.",
+        "avoid": "Ik ga er niet op in en stuur het gesprek terug naar de crisis."
+      }
+    }
+  ]
+}

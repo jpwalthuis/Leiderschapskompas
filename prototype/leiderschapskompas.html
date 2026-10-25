@@ -1,0 +1,775 @@
+<title>Leiderschapskompas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: één smalle kolom (telefoon eerst), testscherm met vaste opbouw, rapport als tabbladen Cliënt / Coach / Itemregister */
+:root{
+  --bg:#F3F6F8; --surface:#FFFFFF; --ink:#0E2236; --muted:#566879; --line:#D5DEE5;
+  --navy:#12304D; --teal:#0E7A76; --teal-soft:#DCEFEE; --blue:#2F639B; --blue-soft:#E1EAF4;
+  --amber:#9A5B00; --amber-soft:#F7EBD8; --grey-soft:#E9EDF1; --s1:#00A99E; --s2:#C9692A;
+  --font-display:"Literata",Georgia,"Times New Roman",serif;
+  --font-body:"Public Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0A1520; --surface:#102131; --ink:#E5EDF3; --muted:#93A5B6; --line:#22394E;
+  --navy:#A9C9E8; --teal:#46BDB4; --teal-soft:#123A3A; --blue:#7FAEE0; --blue-soft:#16304A;
+  --amber:#E3A852; --amber-soft:#3A2A12; --grey-soft:#1A2B3B; --s1:#2BA89F; --s2:#D86F2C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A1520; --surface:#102131; --ink:#E5EDF3; --muted:#93A5B6; --line:#22394E;
+  --navy:#A9C9E8; --teal:#46BDB4; --teal-soft:#123A3A; --blue:#7FAEE0; --blue-soft:#16304A;
+  --amber:#E3A852; --amber-soft:#3A2A12; --grey-soft:#1A2B3B; --s1:#2BA89F; --s2:#D86F2C; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--font-display);font-weight:650;color:var(--navy);text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:1.9rem} h2{font-size:1.35rem} h3{font-size:1.05rem}
+p{margin:0;max-width:65ch}
+.muted{color:var(--muted)}
+.eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.stack{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:10px 14px}
+button:focus-visible,.opt:focus-visible,.pick:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.btn-primary{background:var(--teal);border-color:var(--teal);color:var(--surface);font-weight:600}
+.btn-ghost{background:transparent}
+.toggle{display:flex;gap:10px;align-items:flex-start}
+.toggle input{margin-top:4px;width:18px;height:18px;accent-color:var(--teal)}
+.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:560px){.phases{grid-template-columns:1fr}}
+.phase{border-top:3px solid var(--teal);padding-top:8px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.phase b{font-family:var(--font-display);color:var(--navy)}
+.progress{height:4px;background:var(--grey-soft);border-radius:4px;overflow:hidden}
+.progress > i{display:block;height:100%;background:var(--teal)}
+.qhead{display:flex;justify-content:space-between;gap:10px;font-family:var(--font-mono);font-size:.75rem;color:var(--muted);flex-wrap:wrap}
+.word{font-family:var(--font-display);font-size:2rem;color:var(--navy);text-align:center}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pick{border:2px solid var(--line);background:var(--surface);border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;max-width:100%;color:var(--ink)}
+.pick:hover{border-color:var(--teal)}
+.pick svg{width:100%;height:100%}
+.timer{height:6px;background:var(--grey-soft);border-radius:6px;overflow:hidden}
+.timer > i{display:block;height:100%;background:var(--amber);transform-origin:left;transform:scaleX(1)}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.scale button{padding:12px 4px;font-weight:600;font-variant-numeric:tabular-nums}
+.scale-labels{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted)}
+.opt{text-align:left;width:100%;padding:12px 14px;line-height:1.4}
+.opt:hover{border-color:var(--teal)}
+.why{border-left:3px solid var(--line);padding:8px 12px;background:var(--grey-soft);border-radius:0 8px 8px 0;display:flex;flex-direction:column;gap:6px;font-size:.85rem}
+.why dl{display:grid;grid-template-columns:max-content 1fr;gap:2px 10px;margin:0}
+.why dt{color:var(--muted)} .why dd{margin:0;min-width:0}
+.chip{display:inline-block;font-family:var(--font-mono);font-size:.7rem;padding:2px 8px;border-radius:20px;white-space:nowrap;font-weight:600}
+.ev-sterk{background:var(--teal-soft);color:var(--teal)}
+.ev-matig{background:var(--blue-soft);color:var(--blue)}
+.ev-experimenteel{background:var(--amber-soft);color:var(--amber)}
+.ev-nieuw{background:var(--grey-soft);color:var(--muted);border:1px dashed var(--muted)}
+.ev-duiding{background:var(--grey-soft);color:var(--muted)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{border:none;border-bottom:3px solid transparent;border-radius:0;background:transparent;padding:10px 12px;color:var(--muted);font-weight:600;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--teal)}
+.bar{display:grid;grid-template-columns:minmax(0,9.5rem) 1fr 2.6rem;gap:10px;align-items:center;font-size:.9rem}
+.bar .track{height:10px;background:var(--grey-soft);border-radius:6px;position:relative;overflow:hidden}
+.bar .fill{position:absolute;inset:0 auto 0 0;background:var(--teal);border-radius:6px}
+.bar .fill.alt{background:var(--blue)}
+.bar .fill.exp{background:repeating-linear-gradient(45deg,var(--amber),var(--amber) 4px,var(--amber-soft) 4px,var(--amber-soft) 8px)}
+.bar .num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;text-align:right;color:var(--muted)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--muted)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.callout{background:var(--teal-soft);border-radius:8px;padding:12px 14px;color:var(--ink)}
+.callout.warn{background:var(--amber-soft)}
+.arche{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:560px){.arche{grid-template-columns:1fr}}
+.arche .col{display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:8px;border:1px solid var(--line);min-width:0}
+.arche .col.on{border:2px solid var(--teal);background:var(--teal-soft)}
+.arche .col h4{margin:0;font-size:.8rem;font-family:var(--font-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.arche .col span{font-size:.88rem}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:.8rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--grey-soft);position:sticky;top:0}
+td.code{font-family:var(--font-mono);white-space:nowrap}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kv div{border:1px solid var(--line);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kv b{font-family:var(--font-mono);font-size:1.1rem;font-variant-numeric:tabular-nums;color:var(--navy)}
+.kv span{font-size:.78rem;color:var(--muted)}
+ul.clean{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.refs li{font-size:.82rem}
+.sample-badge{font-family:var(--font-mono);font-size:.72rem;background:var(--amber-soft);color:var(--amber);padding:4px 8px;border-radius:6px;align-self:flex-start}
+.wrap.wide{max-width:1040px}
+.filters{display:flex;gap:10px;flex-wrap:wrap}
+.filters label{display:flex;flex-direction:column;gap:4px;font-size:.78rem;color:var(--muted);min-width:0;flex:1 1 160px}
+select{font:inherit;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:100%}
+.dgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.dgrid{grid-template-columns:1fr}}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font-family:var(--font-mono);font-size:9px}
+.matrix table{min-width:0}
+.matrix td.cell{text-align:center;font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-weight:600}
+.dprow,.dpaxis{display:grid;grid-template-columns:minmax(0,11rem) 1fr 5rem;gap:10px;align-items:center}
+.dprow{font-size:.85rem}
+.dpaxis{font-family:var(--font-mono);font-size:.7rem;color:var(--muted)}
+@media (max-width:520px){.dprow,.dpaxis{grid-template-columns:minmax(0,7.5rem) 1fr 4rem}.dprow{font-size:.78rem}}
+.dptrack{position:relative;height:20px;border-bottom:1px solid var(--line)}
+.ticks{position:relative;height:14px}
+.ticks span{position:absolute;transform:translateX(-50%)}
+.dptrack .ref{position:absolute;top:-2px;bottom:-2px;width:0;border-left:1.5px dashed var(--muted)}
+.dptrack .ci{position:absolute;top:9px;height:2px;background:var(--s1)}
+.dptrack .dot{position:absolute;top:4px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--s1);box-shadow:0 0 0 2px var(--surface)}
+.dprow .num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--muted);text-align:right;font-size:.78rem}
+.supp{font-size:.78rem;color:var(--muted);font-style:italic}
+.entities{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.entity{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.entity b{font-family:var(--font-mono);font-size:.8rem;color:var(--navy)}
+.entity span{font-size:.82rem;color:var(--muted)}
+.entity.vault{border-style:dashed}
+.tip{position:fixed;z-index:20;pointer-events:none;background:var(--ink);color:var(--surface);font-size:.78rem;padding:6px 9px;border-radius:6px;max-width:240px}
+.clientlist td{white-space:nowrap}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap" id="app"></div>
+
+<script>
+/* ===================== BRONNEN ===================== */
+const SRC = {
+  bakan:{t:"Bakan, D. (1966). The Duality of Human Existence.",n:"Introduceert agency en communion als twee basismodaliteiten."},
+  abele:{t:"Abele, A. E. & Wojciszke, B. (2007; 2014). Dual Perspective Model; overzicht 'Big Two'.",n:"Agency en communion als fundamentele inhoudsdimensies, breed gerepliceerd."},
+  helgeson:{t:"Helgeson, V. S. (1994). Unmitigated agency and unmitigated communion: an analysis of the negative components of masculinity and femininity.",n:"Verbindt agency/communion aan de traditionele masculien/feminien-indeling."},
+  bfi2:{t:"Soto, C. J. & John, O. P. (2017). The Next Big Five Inventory (BFI-2). JPSP.",n:"Extraversie als gevalideerde Big Five-dimensie."},
+  mcgowan:{t:"McGowan, D. What Is Wrong with Jung?",n:"Kritisch over Jungs archetypen, maar introversie/extraversie geldt als empirisch toetsbaar deel van Jungs werk."},
+  sdt:{t:"Deci, E. L. & Ryan, R. M. (2000); Ryan & Deci (2017). Self-Determination Theory.",n:"Autonomie, competentie en verbondenheid als psychologische basisbehoeften."},
+  bpnsfs:{t:"Chen, B. et al. (2015). BPNSFS; Olafsen, Halvari & Frølund (2021) werkversie; Noorse validatie (2022).",n:"Behoeftebevrediging en -frustratie hangen sterk en tegengesteld samen met vitaliteit."},
+  schwartz:{t:"Schwartz, S. H. (2012). An Overview of the Schwartz Theory of Basic Values.",n:"Validiteit van de waardentheorie onderbouwd met data uit 82 landen."},
+  pvq:{t:"Schwartz, S. H. et al. (2001). Portrait Values Questionnaire. J. Cross-Cult. Psych. 32, 519-542.",n:"Waarden gemeten via concrete, minder abstracte beschrijvingen."},
+  dutch:{t:"De Dreu, Evers, Beersma, Kluwer & Nauta (2001). J. Organizational Behavior 22(6), 645-668.",n:"Vijf conflictstrategieën; goede tot uitstekende psychometrie; zelf-, tegenpartij- en observatorrapport convergeren voor probleemoplossen, forceren en toegeven, niet voor vermijden."},
+  tk:{t:"Thomas, K. W. & Kilmann, R. H. (1974); Kilmann & Thomas (1977).",n:"Vijf conflictmodi op basis van zorg voor eigen en andermans belang. Model vrij te gebruiken; TKI-items en -naam zijn beschermd."},
+  vignet:{t:"Int. J. Conflict Management (2018). Validity of self-reported conflict handling preferences.",n:"DUTCH voorspelde 4 van 5 stijlen in vignetkeuzes; alleen forceren voorspelde gedrag in een rollenspel."},
+  tirt:{t:"Brown, A. & Maydeu-Olivares, A. (2011) EPM 71(3); (2013) Psychological Methods 18(1).",n:"Thurstonian IRT lost de problemen van ipsatieve scores bij gedwongen keuze op."},
+  projectief:{t:"Lilienfeld, S. O., Wood, J. M. & Garb, H. N. (2000). The scientific status of projective techniques.",n:"Beperkte validiteit en incrementele waarde van projectieve technieken."},
+  iat:{t:"Carpenter, T. P., Goedderz, A. & Lai, C. K. (2023). PSPB 49(9).",n:"Eén impliciete-associatie-afname is te ruisgevoelig voor een traitschatting; aggregeren over afnames helpt."},
+  pearson:{t:"Pearson, C. S. & Marr, H. K. Pearson-Marr Archetype Indicator (PMAI), CAPT.",n:"Twaalf archetypen. Het instrument is beschermd; alleen het concept wordt hier als duiding gebruikt."},
+  blueprint:{t:"Assessment Architectuur (eigen document), p. 2: mapping archetypen op agentisch / communaal / geïntegreerd.",n:"Eigen hypothese, niet empirisch getoetst."}
+};
+
+/* ===================== KADERS ===================== */
+const K = {
+  big2:"Big Two: agency (daadkracht) en communion (verbinding)",
+  extra:"Big Five: extraversie (Jungs introversie/extraversie)",
+  sdt:"Zelfdeterminatietheorie: basisbehoeften",
+  waarden:"Schwartz-waardentheorie: vier hogere-orde-waarden",
+  conflict:"Dual concern-model: vijf conflictstrategieën"
+};
+
+/* ===================== ITEMS ===================== */
+// ev: {c: construct, m: methode, i: item}
+const EV_REFLEX = {c:"sterk",m:"experimenteel",i:"nieuw"};
+const P1 = [
+  {id:"R1",word:"Weerstand",A:"wall",C:"knot"},
+  {id:"R2",word:"Succes",A:"flag",C:"gears"},
+  {id:"R3",word:"Leiderschap",A:"arrow",C:"ring"},
+  {id:"R4",word:"Groei",A:"stairs",C:"roots"},
+  {id:"R5",word:"Falen",A:"miss",C:"broken"},
+  {id:"R6",word:"Energie",A:"spike",C:"overlap"}
+].map(x=>({...x,construct:"Agentische versus communale associatie",kader:K.big2,src:["bakan","abele","projectief","iat"],ev:EV_REFLEX,
+  note:"Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag."}));
+
+const LK = [
+  {id:"Z1",d:"agency",t:"Ik neem graag de leiding als er een doel bereikt moet worden.",construct:"Agency"},
+  {id:"Z2",d:"agency",t:"Ik zet door, ook als anderen twijfelen.",construct:"Agency"},
+  {id:"Z3",d:"agency",t:"Ik beoordeel mijn werk vooral op het resultaat.",construct:"Agency"},
+  {id:"Z4",d:"communion",t:"Ik merk snel hoe het met anderen in het team gaat.",construct:"Communion"},
+  {id:"Z5",d:"communion",t:"Ik investeer tijd in relaties, ook als dat niets direct oplevert.",construct:"Communion"},
+  {id:"Z6",d:"communion",t:"Ik vind het belangrijk dat iedereen zich gehoord voelt.",construct:"Communion"},
+  {id:"E1",d:"extra",t:"Ik krijg energie van gesprekken met veel mensen.",construct:"Extraversie (sociabiliteit)"},
+  {id:"E2",d:"extra",r:1,t:"Na een dag vol overleg heb ik tijd alleen nodig om op te laden.",construct:"Extraversie (energieniveau, omgekeerd)"},
+  {id:"E3",d:"extra",t:"In een groep neem ik makkelijk het woord.",construct:"Extraversie (assertiviteit)"},
+  {id:"E4",d:"extra",r:1,t:"Ik werk het liefst in stilte aan mijn eigen taken.",construct:"Extraversie (omgekeerd)"},
+  {id:"B1",d:"satA",t:"In mijn werk kan ik zelf kiezen hoe ik dingen aanpak.",construct:"Autonomie: bevrediging (energiebron)"},
+  {id:"B2",d:"satC",t:"Ik voel me bekwaam in wat ik doe.",construct:"Competentie: bevrediging (energiebron)"},
+  {id:"B3",d:"satR",t:"Ik voel me verbonden met de mensen met wie ik werk.",construct:"Verbondenheid: bevrediging (energiebron)"},
+  {id:"B4",d:"frA",t:"Ik voel me in mijn werk vaak gedwongen tot dingen die ik niet zelf kies.",construct:"Autonomie: frustratie (energielek)"},
+  {id:"B5",d:"frC",t:"Ik twijfel vaak of ik mijn werk goed genoeg doe.",construct:"Competentie: frustratie (energielek)"},
+  {id:"B6",d:"frR",t:"Ik voel me in mijn werkomgeving op afstand gehouden.",construct:"Verbondenheid: frustratie (energielek)"},
+  {id:"C1",d:"forc",t:"Bij een meningsverschil houd ik vast aan mijn standpunt tot de ander overstag gaat.",construct:"Forceren"},
+  {id:"C2",d:"prob",t:"Bij een meningsverschil onderzoek ik met de ander wat ieder echt nodig heeft, tot we iets vinden waar we allebei achter staan.",construct:"Probleemoplossen"},
+  {id:"C3",d:"comp",t:"Bij een meningsverschil stel ik voor dat we allebei iets inleveren.",construct:"Compromis"},
+  {id:"C4",d:"yield",t:"Bij een meningsverschil pas ik me aan wat de ander wil, ook als ik het er niet mee eens ben.",construct:"Toegeven"},
+  {id:"C5",d:"avoid",t:"Bij een meningsverschil laat ik het onderwerp liever rusten dan dat ik het gesprek aanga.",construct:"Vermijden"}
+].map(x=>{
+  const g = x.id[0];
+  if(g==="Z") return {...x,kader:K.big2,src:["bakan","abele","helgeson"],ev:{c:"sterk",m:"sterk",i:"nieuw"},note:"Zelfrapportage op een sterk onderbouwd construct. Itemformulering is eigen werk en moet in de pilot psychometrisch worden getoetst."};
+  if(g==="E") return {...x,kader:K.extra,src:["bfi2","mcgowan"],ev:{c:"sterk",m:"sterk",i:"nieuw"},note:"Gemeten als Big Five-extraversie. Jungs uitleg als 'richting van levensenergie' is theorie; de meetbare kern is extraversie."};
+  if(g==="B") return {...x,kader:K.sdt,src:["sdt","bpnsfs"],ev:{c:"sterk",m:"sterk",i:"nieuw"},note:"Energie geven en energie verliezen worden gemeten als behoeftebevrediging en behoeftefrustratie, die aantoonbaar met vitaliteit samenhangen. Prototype: één item per subschaal; productie: minimaal vier."};
+  return {...x,kader:K.conflict,src:["dutch","tk"],ev:{c:"sterk",m:"sterk",i:"nieuw"},note:"Strategie uit het dual concern-model, gemeten in rust. Eigen formulering; geen TKI- of DUTCH-items overgenomen."};
+});
+
+const VAL = {
+  ST:{n:"Bijdragen aan anderen",s:"dat mijn werk anderen en de samenleving echt verder helpt",full:"Zelfoverstijging"},
+  SE:{n:"Invloed en resultaat",s:"dat ik invloed heb en zichtbaar resultaat neerzet",full:"Zelfverheffing"},
+  OC:{n:"Vrijheid en vernieuwing",s:"dat ik vrij ben om nieuwe wegen te verkennen",full:"Openheid voor verandering"},
+  CO:{n:"Zekerheid en structuur",s:"dat er zekerheid, structuur en betrouwbaarheid is",full:"Behoud"}
+};
+const DIL = [["SE","ST"],["OC","CO"],["OC","ST"],["CO","SE"],["ST","CO"],["SE","OC"]].map((p,i)=>({
+  id:"W"+(i+1),type:"waarde",a:p[0],b:p[1],q:"Wat weegt voor jou zwaarder in je werk?",
+  construct:VAL[p[0]].full+" versus "+VAL[p[1]].full,kader:K.waarden,src:["schwartz","pvq","tirt"],ev:{c:"sterk",m:"matig",i:"nieuw"},
+  note:"Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft."}));
+DIL.push(
+  {id:"W7",type:"erger",q:"Wat vind jij erger?",a:"A",b:"C",ta:"Een project dat mislukt doordat er geen regie en structuur was.",tb:"Een project dat mislukt doordat het team ruzie kreeg.",
+   construct:"Agentische versus communale zorg",kader:K.big2,src:["abele","tirt"],ev:{c:"sterk",m:"matig",i:"nieuw"},note:"Afkomstig uit de blueprint (fase 2). Meet welke dimensie zwaarder weegt als het misgaat. Derde meetmethode op hetzelfde construct, ter triangulatie."},
+  {id:"W8",type:"erger",q:"Wat vind jij erger?",a:"A",b:"C",ta:"Dat je een doel niet haalt dat je jezelf had gesteld.",tb:"Dat iemand in je team zich door jou niet gesteund voelde.",
+   construct:"Agentische versus communale zorg",kader:K.big2,src:["abele","tirt"],ev:{c:"sterk",m:"matig",i:"nieuw"},note:"Zie W7."}
+);
+
+const STY = {forc:"Forceren",prob:"Probleemoplossen",comp:"Compromis",yield:"Toegeven",avoid:"Vermijden"};
+const P3 = [
+  {id:"D1",sec:15,lvl:"Druk 1 van 4",t:"Een collega presenteert in het managementoverleg jouw idee als het zijne.",
+   o:{forc:"Ik corrigeer het direct in de vergadering: het idee komt van mij.",prob:"Ik spreek hem na afloop aan om samen uit te zoeken hoe dit ging en hoe we het rechtzetten.",comp:"Ik stel voor dat we het idee voortaan samen presenteren.",yield:"Ik laat het zo; het gaat om het resultaat.",avoid:"Ik zeg er niets over en houd voortaan meer afstand."}},
+  {id:"D2",sec:12,lvl:"Druk 2 van 4",t:"Twee teamleden zijn het fundamenteel oneens over de prioriteit. De klant wacht op jullie antwoord.",
+   o:{forc:"Ik hak de knoop zelf door en communiceer het besluit.",prob:"Ik zet ze kort bij elkaar om de belangen achter beide standpunten boven tafel te krijgen.",comp:"We doen van beide voorstellen een deel.",yield:"Ik volg degene die het hardst aandringt, dan is het klaar.",avoid:"Ik vraag de klant om uitstel en laat het even rusten."}},
+  {id:"D3",sec:9,lvl:"Druk 3 van 4",t:"Je leidinggevende wil een besluit doordrukken waarvan jij denkt dat het je team schaadt. Het overleg eindigt over vijf minuten.",
+   o:{forc:"Ik zeg nu duidelijk dat ik dit besluit niet steun en waarom.",prob:"Ik vraag om tien minuten extra om het samen anders op te lossen.",yield:"Ik ga akkoord; het is uiteindelijk haar besluit.",avoid:"Ik houd me stil en zie later wel wat ik ermee doe."}},
+  {id:"D4",sec:7,lvl:"Druk 4 van 4",t:"Midden in een crisisoverleg verwijt een stakeholder jou publiekelijk een fout die niet van jou is. Er moet nu gereageerd worden.",
+   o:{forc:"Ik weerleg het direct en zet de feiten op tafel.",yield:"Ik neem het op me om de rust te bewaren.",avoid:"Ik ga er niet op in en stuur het gesprek terug naar de crisis."}}
+].map(x=>({...x,construct:"Conflictstrategie onder oplopende druk",kader:K.conflict,src:["dutch","tk","vignet"],ev:{c:"sterk",m:"matig",i:"nieuw"},
+  note:"Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk?"}));
+
+const ARCH = {
+  agentisch:{label:"Agentisch",list:["Strijder: actie, resultaat afdwingen","Heerser: regie, systemen bouwen","Ontdekker: autonomie, pionieren","Schepper: visie omzetten in vorm"]},
+  geintegreerd:{label:"Geïntegreerd",list:["Magiër: katalysator van verandering","Wijze: analyse, waarheid zoeken","Nar: relativeren, anders kijken","Rebel: oude systemen doorbreken"]},
+  communaal:{label:"Communaal",list:["Zorggever: dienend, teamwelzijn","Minnaar: verbinding, vertrouwen","Onschuldige: optimisme, veilige cultuur","Gewone mens: nuchter, gelijkwaardig"]}
+};
+
+/* ===================== BEELDEN (abstract, eigen ontwerp) ===================== */
+const IMG = {
+ wall:`<g stroke="currentColor" stroke-width="2" fill="none"><rect x="15" y="20" width="90" height="56"/><path d="M15 34h90M15 48h90M15 62h90M45 20v14M75 20v14M30 34v14M60 34v14M90 34v14M45 48v14M75 48v14M30 62v14M60 62v14M90 62v14"/></g>`,
+ knot:`<g stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"><path d="M8 48 C30 48 38 30 54 30 C70 30 72 56 58 60 C44 64 40 40 60 36 C78 32 84 48 112 48"/></g>`,
+ flag:`<g stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"><path d="M10 80 L52 26 L72 52 L84 40 L112 80 Z"/><path d="M52 26 V6"/><path d="M52 6 L70 11 L52 16" fill="currentColor"/></g>`,
+ gears:`<g stroke="currentColor" stroke-width="2" fill="none"><circle cx="44" cy="46" r="18"/><circle cx="44" cy="46" r="6"/><circle cx="78" cy="38" r="12"/><circle cx="78" cy="38" r="4"/><circle cx="80" cy="68" r="10"/><circle cx="80" cy="68" r="3"/><path d="M44 22v6M44 64v6M20 46h6M62 46h6M27 29l4 4M57 59l4 4M27 63l4-4M57 33l4-4M78 22v4M78 50v4M94 38h-4M62 38h4M80 54v4M80 78v4M66 68h4M90 68h4"/></g>`,
+ arrow:`<g stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"><path d="M14 70 H50 M14 56 H44 M14 42 H96"/><path d="M86 34 L98 42 L86 50"/></g>`,
+ ring:`<g stroke="currentColor" stroke-width="2" fill="none"><circle cx="60" cy="46" r="28" stroke-dasharray="3 4"/><circle cx="60" cy="18" r="6" fill="currentColor"/><circle cx="88" cy="46" r="6" fill="currentColor"/><circle cx="60" cy="74" r="6" fill="currentColor"/><circle cx="32" cy="46" r="6" fill="currentColor"/><circle cx="80" cy="26" r="6" fill="currentColor"/><circle cx="40" cy="66" r="6" fill="currentColor"/></g>`,
+ stairs:`<g stroke="currentColor" stroke-width="2.5" fill="none" stroke-linejoin="round"><path d="M12 80 H32 V64 H52 V48 H72 V32 H92 V16 H108"/><path d="M98 10 L108 16 L98 22"/></g>`,
+ roots:`<g stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"><path d="M60 8 V44"/><path d="M60 44 C60 60 40 62 28 80 M60 44 C60 62 80 62 92 80 M60 44 V82 M48 60 C42 64 36 66 22 66 M72 60 C78 64 84 66 98 66"/><path d="M60 22 C52 18 46 20 42 14 M60 30 C68 26 74 28 78 22"/></g>`,
+ miss:`<g stroke="currentColor" stroke-width="2" fill="none"><circle cx="54" cy="46" r="30"/><circle cx="54" cy="46" r="18"/><circle cx="54" cy="46" r="6"/><path d="M108 14 L92 22" stroke-width="3"/><path d="M92 22 L88 16 M92 22 L86 26"/></g>`,
+ broken:`<g stroke="currentColor" stroke-width="2" fill="none"><circle cx="26" cy="46" r="12" fill="currentColor"/><circle cx="94" cy="46" r="12" fill="currentColor"/><path d="M38 46 H54 M66 46 H82" stroke-width="3"/><path d="M54 38 L58 46 L54 54 M66 38 L62 46 L66 54"/></g>`,
+ spike:`<g stroke="currentColor" stroke-width="2.5" fill="none" stroke-linejoin="round"><path d="M8 70 H40 L52 16 L64 80 L74 50 H112"/></g>`,
+ overlap:`<g stroke="currentColor" stroke-width="2" fill="none"><circle cx="48" cy="46" r="26"/><circle cx="72" cy="46" r="26"/></g>`,
+ circle:`<circle cx="60" cy="46" r="28" stroke="currentColor" stroke-width="2.5" fill="none"/>`,
+ square:`<rect x="34" y="20" width="52" height="52" stroke="currentColor" stroke-width="2.5" fill="none"/>`
+};
+const svg = k => `<svg viewBox="0 0 120 92" aria-hidden="true">${IMG[k]}</svg>`;
+
+/* ===================== STAAT ===================== */
+const S = {screen:"intro",showWhy:true,i:0,ans:{},rt:{},side:{},tab:"client",sample:false};
+let timerHandle=null, t0=0;
+const app = document.getElementById("app");
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const evChip = (lvl,lab) => `<span class="chip ev-${lvl}">${lab?lab+": ":""}${lvl}</span>`;
+
+function whyBox(it){
+  if(!S.showWhy) return "";
+  return `<details class="why"><summary>Verantwoording · ${esc(it.id)}</summary>
+  <dl><dt>Construct</dt><dd>${esc(it.construct)}</dd><dt>Kader</dt><dd>${esc(it.kader)}</dd>
+  <dt>Bewijs</dt><dd class="row">${evChip(it.ev.c,"construct")}${evChip(it.ev.m,"methode")}${evChip(it.ev.i,"item")}</dd>
+  <dt>Bronnen</dt><dd>${it.src.map(k=>esc(SRC[k].t)).join("<br>")}</dd></dl>
+  <p>${esc(it.note)}</p></details>`;
+}
+const FLOW = ()=>[
+  {s:"p1intro"},{s:"practice"},...P1.map((_,i)=>({s:"p1",i})),
+  {s:"p2intro"},...LK.map((_,i)=>({s:"lk",i})),...DIL.map((_,i)=>({s:"dil",i})),
+  {s:"p3intro"},...P3.map((_,i)=>({s:"p3",i})),{s:"report"}];
+let step=-1;
+function next(){ clearTimer(); step++; const f=FLOW()[step]; S.screen=f.s; S.i=f.i; render(); }
+function clearTimer(){ if(timerHandle){clearTimeout(timerHandle);timerHandle=null;} }
+const totalQ = P1.length+LK.length+DIL.length+P3.length;
+function progress(){ const f=FLOW(); let done=0; for(let k=0;k<step;k++){ if(["p1","lk","dil","p3"].includes(f[k].s)) done++; } return Math.round(done/totalQ*100); }
+function head(label){ return `<div class="progress" aria-hidden="true"><i style="width:${progress()}%"></i></div><div class="qhead"><span>${label}</span><span>${progress()}%</span></div>`; }
+function startClock(sec,onTimeout,barId){
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    t0=performance.now();
+    const bar=document.getElementById(barId);
+    if(bar){ bar.style.transition=`transform ${sec}s linear`; bar.style.transform="scaleX(0)"; }
+    timerHandle=setTimeout(onTimeout,sec*1000);
+  }));
+}
+function record(id,val){ S.ans[id]=val; S.rt[id]=t0?Math.round(performance.now()-t0):null; t0=0; }
+
+/* ===================== SCHERMEN ===================== */
+function render(){
+  const r = {intro,p1intro,practice,p1,p2intro,lk,dil,p3intro,p3,report,dash}[S.screen];
+  app.innerHTML = r();
+  app.classList.toggle("wide",S.screen==="dash");
+  bind();
+  if(render.last!==S.screen) window.scrollTo(0,0);
+  render.last=S.screen;
+}
+function intro(){
+  return `<div class="stack"><span class="eyebrow">Prototype · niet gevalideerd</span><h1>Leiderschapskompas</h1>
+  <p class="muted">Een test die laat zien hoe je leidt, waar je energie van krijgt en wat er gebeurt als de druk oploopt. Je maakt drie korte fasen, ongeveer zeven minuten. Daarna zie je je eigen rapport; je coach ziet een uitgebreidere versie.</p></div>
+  <div class="panel"><div class="phases">
+    <div class="phase"><b>1 · Reflex</b><span class="muted">Zes woorden, steeds twee beelden. Kies binnen 2 seconden.</span></div>
+    <div class="phase"><b>2 · Zelfbeeld</b><span class="muted">Stellingen en dilemma's over hoe je werkt en wat je drijft.</span></div>
+    <div class="phase"><b>3 · Onder druk</b><span class="muted">Vier conflicten. De tijd wordt korter, de opties minder.</span></div>
+  </div></div>
+  <div class="panel">
+    <label class="toggle" for="whyToggle"><input type="checkbox" id="whyToggle" ${S.showWhy?"checked":""}><span><b>Toon verantwoording bij elke vraag</b><br><span class="muted">Construct, theoretisch kader, bronnen en bewijsniveau. Bedoeld voor review; in de echte test staat dit alleen in het coachrapport.</span></span></label>
+    <div class="row"><button class="btn-primary" id="start">Start de test</button><button id="sample">Bekijk voorbeeldrapport (fictief)</button><button class="btn-ghost" id="register">Itemregister</button><button id="dash">Coachdashboard (fictieve data)</button></div>
+  </div>
+  <div class="panel"><h3>Hoe het bewijsniveau werkt</h3>
+  <p class="muted">Elke vraag krijgt drie oordelen. Zo is per vraag zichtbaar wat bewezen is en wat nog getoetst moet worden.</p>
+  <ul class="clean"><li><b>Construct</b>: is de eigenschap die we meten wetenschappelijk onderbouwd?</li><li><b>Methode</b>: is de vraagvorm (stelling, gedwongen keuze, snelle beeldkeuze) een bewezen manier om dat te meten?</li><li><b>Item</b>: is deze specifieke vraag al getoetst? Voor alle vragen geldt nu ${evChip("nieuw")}: dat gebeurt in de pilot.</li></ul>
+  <div class="legend">${evChip("sterk")}${evChip("matig")}${evChip("experimenteel")}${evChip("nieuw")}</div>
+  <p class="muted">Er wordt niets opgeslagen of verstuurd. Alle antwoorden blijven in dit browservenster.</p></div>`;
+}
+function p1intro(){
+  return `${head("Fase 1 · Reflex")}<div class="panel"><span class="eyebrow">Fase 1</span><h2>Kies wat je het eerst raakt</h2>
+  <p>Je ziet een woord en twee abstracte beelden. Tik binnen 2 seconden op het beeld dat het best bij het woord past. Er is geen goed of fout. Te laat is ook een antwoord.</p>
+  <p class="muted">Op een toetsenbord kun je de pijltjes links en rechts gebruiken. Eerst een oefenronde.</p>
+  <button class="btn-primary" id="go">Oefenronde</button></div>`;
+}
+function pairHTML(word,left,right,label){
+  return `${head(label)}<div class="panel"><div class="word">${esc(word)}</div>
+  <div class="timer"><i id="bar"></i></div>
+  <div class="pair"><button class="pick" data-k="L" aria-label="Linker beeld">${svg(left)}</button><button class="pick" data-k="R" aria-label="Rechter beeld">${svg(right)}</button></div></div>`;
+}
+function practice(){ return pairHTML("Vorm","circle","square","Oefenronde"); }
+function p1(){
+  const it=P1[S.i]; if(S.side[it.id]===undefined) S.side[it.id]=Math.random()<.5;
+  const flip=S.side[it.id]; const L=flip?it.C:it.A, R=flip?it.A:it.C;
+  return pairHTML(it.word,L,R,`Fase 1 · ${S.i+1} van ${P1.length}`)+whyBox(it);
+}
+function p2intro(){
+  return `${head("Fase 2 · Zelfbeeld")}<div class="panel"><span class="eyebrow">Fase 2</span><h2>Hoe zie je jezelf?</h2>
+  <p>Eerst ${LK.length} stellingen over hoe je werkt. Geef aan in hoeverre ze bij je passen. Daarna ${DIL.length} dilemma's: kies binnen 8 seconden wat zwaarder weegt.</p>
+  <button class="btn-primary" id="go">Verder</button></div>`;
+}
+function lk(){
+  const it=LK[S.i];
+  const sel=S.ans[it.id];
+  return `${head(`Fase 2 · Stelling ${S.i+1} van ${LK.length}`)}<div class="panel"><p style="font-size:1.08rem">${esc(it.t)}</p>
+  <div class="scale" role="group" aria-label="Antwoordschaal">${[1,2,3,4,5].map(v=>`<button data-v="${v}" ${sel===v?'class="btn-primary"':''} aria-label="${v}">${v}</button>`).join("")}</div>
+  <div class="scale-labels"><span>Past niet bij mij</span><span>Past helemaal</span></div></div>${whyBox(it)}`;
+}
+function dil(){
+  const it=DIL[S.i];
+  const ta = it.type==="waarde" ? VAL[it.a].s : it.ta, tb = it.type==="waarde" ? VAL[it.b].s : it.tb;
+  return `${head(`Fase 2 · Dilemma ${S.i+1} van ${DIL.length}`)}<div class="panel"><p style="font-size:1.08rem"><b>${esc(it.q)}</b></p>
+  <div class="timer"><i id="bar"></i></div>
+  <div class="stack"><button class="opt" data-k="a">${esc(ta.charAt(0).toUpperCase()+ta.slice(1))}</button><button class="opt" data-k="b">${esc(tb.charAt(0).toUpperCase()+tb.slice(1))}</button></div></div>${whyBox(it)}`;
+}
+function p3intro(){
+  return `${head("Fase 3 · Onder druk")}<div class="panel"><span class="eyebrow">Fase 3</span><h2>Wat doe je als het spannend wordt?</h2>
+  <p>Vier situaties. Kies wat je in het eerste moment werkelijk zou doen, niet wat het beste klinkt. Bij elke situatie wordt de tijd korter en vallen er opties weg.</p>
+  <button class="btn-primary" id="go">Start fase 3</button></div>`;
+}
+function p3(){
+  const it=P3[S.i]; const keys=Object.keys(it.o);
+  if(!S.side[it.id]) S.side[it.id]=keys.slice().sort(()=>Math.random()-.5);
+  return `${head(`Fase 3 · ${it.lvl}`)}<div class="panel"><span class="eyebrow">${it.sec} seconden · ${keys.length} opties</span><p style="font-size:1.08rem">${esc(it.t)}</p>
+  <div class="timer"><i id="bar"></i></div>
+  <div class="stack">${S.side[it.id].map(k=>`<button class="opt" data-k="${k}">${esc(it.o[k])}</button>`).join("")}</div></div>${whyBox(it)}`;
+}
+
+/* ===================== SCORING ===================== */
+const pct = m => m==null?null:Math.round((m-1)/4*100);
+function score(){
+  const A=S.ans, mean=ids=>{const v=ids.map(id=>{const it=LK.find(x=>x.id===id);let a=A[id];if(a==null)return null;return it.r?6-a:a;}).filter(x=>x!=null);return v.length?v.reduce((p,c)=>p+c,0)/v.length:null;};
+  const byD=d=>LK.filter(x=>x.d===d).map(x=>x.id);
+  const agency=pct(mean(byD("agency"))), communion=pct(mean(byD("communion"))), extra=pct(mean(byD("extra")));
+  const sdt={}; ["A","C","R"].forEach(n=>{sdt[n]={sat:pct(mean(byD("sat"+n))),fr:pct(mean(byD("fr"+n)))};});
+  const conf={}; Object.keys(STY).forEach(k=>conf[k]=pct(mean(byD(k))));
+  // reflex
+  const rx=P1.map(it=>A[it.id]).filter(v=>v==="A"||v==="C");
+  const reflexAg = rx.length?Math.round(rx.filter(v=>v==="A").length/rx.length*100):null;
+  const rts=P1.map(it=>S.rt[it.id]).filter(v=>v!=null&&A[it.id]!=="timeout");
+  const med=a=>{if(!a.length)return null;const s=a.slice().sort((x,y)=>x-y);const m=Math.floor(s.length/2);return s.length%2?s[m]:Math.round((s[m-1]+s[m])/2);};
+  const timeouts=[...P1,...DIL,...P3].filter(it=>A[it.id]==="timeout").length;
+  const tooFast=P1.filter(it=>S.rt[it.id]!=null&&S.rt[it.id]<300&&A[it.id]!=="timeout").length;
+  // waarden
+  const vw={ST:0,SE:0,OC:0,CO:0};
+  DIL.filter(d=>d.type==="waarde").forEach(d=>{const v=A[d.id]; if(v==="a")vw[d.a]++; else if(v==="b")vw[d.b]++;});
+  const vRank=Object.keys(vw).sort((x,y)=>vw[y]-vw[x]);
+  const erger=DIL.filter(d=>d.type==="erger").map(d=>A[d.id]==="a"?"A":A[d.id]==="b"?"C":null);
+  // conflict onder druk
+  const druk=P3.map(it=>({id:it.id,k:A[it.id]}));
+  const lk=LK.map(it=>A[it.id]).filter(v=>v!=null);
+  const straight=lk.length>8 && new Set(lk).size===1;
+  const diff=agency-communion;
+  const group=Math.abs(diff)<=12?"geintegreerd":diff>0?"agentisch":"communaal";
+  return {agency,communion,extra,sdt,conf,reflexAg,rtMed:med(rts),timeouts,tooFast,vw,vRank,erger,druk,straight,group,rx:rx.length};
+}
+const band = v => v==null?"onbekend":v<35?"laag":v<=65?"gemiddeld":"hoog";
+function barRow(label,v,cls=""){ return `<div class="bar"><span>${esc(label)}</span><div class="track"><div class="fill ${cls}" style="width:${v??0}%"></div></div><span class="num">${v??"–"}</span></div>`; }
+
+/* ===================== RAPPORT ===================== */
+function report(){
+  const r=score();
+  const tabs=[["client","Cliënt"],["coach","Coach"],["register","Itemregister"],["bronnen","Bronnen"]];
+  return `${S.sample?'<span class="sample-badge">Voorbeeldrapport met fictieve antwoorden</span>':""}
+  <div class="stack"><span class="eyebrow">Rapport · prototype</span><h1>Jouw leiderschapsprofiel</h1></div>
+  <div class="tabs" role="tablist">${tabs.map(([k,l])=>`<button role="tab" data-tab="${k}" aria-selected="${S.tab===k}">${l}</button>`).join("")}</div>
+  ${{client:clientView,coach:coachView,register:registerView,bronnen:sourcesView}[S.tab](r)}
+  <div class="row"><button id="restart">Opnieuw beginnen</button></div>`;
+}
+function summary(r){
+  const lead = r.group==="agentisch"?"Je leidt vooral vanuit daadkracht: doelen stellen, doorzetten, resultaat neerzetten."
+    : r.group==="communaal"?"Je leidt vooral vanuit verbinding: zien wat mensen nodig hebben en zorgen dat het team samen blijft."
+    : "Daadkracht en verbinding zijn bij jou ongeveer in balans; je kunt van het ene naar het andere schakelen.";
+  const en = r.extra>65?"Je haalt energie vooral uit contact en interactie.":r.extra<35?"Je laadt vooral op in rust en alleen-tijd.":"Je haalt energie zowel uit contact als uit rust.";
+  const top = VAL[r.vRank[0]].n.toLowerCase();
+  return `${lead} ${en} In je keuzes weegt <b>${esc(top)}</b> het zwaarst.`;
+}
+function clientView(r){
+  const gap = r.reflexAg==null?null:r.reflexAg-r.agency;
+  const gapTxt = gap==null?"Je hebt in fase 1 geen beelden binnen de tijd gekozen, dus er is geen reflexindicatie."
+    : Math.abs(gap)<=20?"Je snelle beeldkeuzes liggen in lijn met hoe je jezelf beschrijft."
+    : gap>0?"In je snelle beeldkeuzes koos je vaker voor daadkracht dan je zelfbeeld laat zien. Dat kan een gespreksonderwerp zijn met je coach."
+    : "In je snelle beeldkeuzes koos je vaker voor verbinding dan je zelfbeeld laat zien. Dat kan een gespreksonderwerp zijn met je coach.";
+  const needs={A:"Autonomie",C:"Competentie",R:"Verbondenheid"};
+  const src=Object.keys(needs).filter(n=>r.sdt[n].sat>65).map(n=>needs[n].toLowerCase());
+  const leak=Object.keys(needs).filter(n=>r.sdt[n].fr>50).map(n=>needs[n].toLowerCase());
+  const rustTop=Object.keys(r.conf).sort((a,b)=>r.conf[b]-r.conf[a])[0];
+  const late=r.druk.slice(2).map(d=>d.k).filter(k=>STY[k]);
+  const drukTop=late.length?late[late.length-1]:null;
+  return `<div class="panel"><h2>In het kort</h2><p>${summary(r)}</p></div>
+
+  <div class="panel"><span class="eyebrow">Gerichtheid</span><h2>Daadkracht en verbinding</h2>
+  <p class="muted">Psychologen noemen dit agency en communion. Vroeger heette dit masculiene en feminiene kracht; het staat los van je geslacht. Iedereen heeft beide.</p>
+  ${barRow("Daadkracht",r.agency)}${barRow("Verbinding",r.communion,"alt")}${barRow("Reflex: daadkracht",r.reflexAg,"exp")}
+  <div class="legend"><span><i class="sw" style="background:var(--teal)"></i>zelfbeeld</span><span><i class="sw" style="background:var(--amber)"></i>reflexindicatie (experimenteel)</span></div>
+  <p>${gapTxt}</p>
+  <p class="muted">Een score van 0 tot 100 laat zien waar je staat ten opzichte van de schaal, niet ten opzichte van andere mensen. Vergelijking met anderen kan pas na de pilot, als er normgroepen zijn.</p></div>
+
+  <div class="panel"><span class="eyebrow">Energie</span><h2>Waar je energie van krijgt en waar je die verliest</h2>
+  ${barRow("Extraversie",r.extra)}
+  <p class="muted">${r.extra>65?"Contact en interactie geven je energie.":r.extra<35?"Rust en alleen-tijd laden je op; veel overleg kost je energie.":"Je zit in het midden: je kunt goed met beide, mits het in balans is."}</p>
+  <h3>Je drie basisbehoeften in je werk</h3>
+  ${Object.keys(needs).map(n=>barRow(needs[n]+": vervuld",r.sdt[n].sat)+barRow(needs[n]+": gefrustreerd",r.sdt[n].fr,"exp")).join("")}
+  <p>${src.length?`Je energie komt nu vooral uit ${src.join(" en ")}.`:"Geen van de drie behoeften scoort nu duidelijk hoog als energiebron."} ${leak.length?`Energie lekt weg bij ${leak.join(" en ")}: daar voel je je in je werk geremd.`:"Er is geen duidelijk energielek zichtbaar."}</p>
+  <p class="muted">Onderzoek laat zien dat vervulde behoeften samengaan met vitaliteit en gefrustreerde behoeften met uitputting.</p></div>
+
+  <div class="panel"><span class="eyebrow">Drijfveren</span><h2>Wat voor jou zwaarder weegt</h2>
+  ${r.vRank.map(k=>barRow(VAL[k].n,Math.round(r.vw[k]/3*100),"alt")).join("")}
+  <p class="muted">Dit is jouw eigen rangorde: het zegt wat je vaker koos, niet hoe sterk je die waarden hebt vergeleken met anderen.</p></div>
+
+  <div class="panel"><span class="eyebrow">Conflict</span><h2>In rust en onder druk</h2>
+  ${Object.keys(STY).map(k=>barRow(STY[k],r.conf[k])).join("")}
+  <p>In rust past <b>${STY[rustTop].toLowerCase()}</b> het best bij je. ${drukTop?`Toen de druk opliep en opties wegvielen, koos je voor <b>${STY[drukTop].toLowerCase()}</b>.`:"Onder de hoogste druk maakte je geen keuze binnen de tijd."} ${drukTop&&drukTop!==rustTop?"Dat verschil is waardevol: het laat zien waar je op terugvalt.":""}</p>
+  <p class="muted">Geen stijl is beter. Elke stijl past bij bepaalde situaties.</p></div>
+
+  <div class="panel"><span class="eyebrow">Duiding · geen meting</span><h2>Archetypische beelden</h2>
+  <p>Archetypen zijn verhalen waarin mensen zich herkennen. Ze worden hier niet gemeten. Op basis van je balans tussen daadkracht en verbinding passen deze vier beelden het meest bij je. Welke herken je?</p>
+  <div class="arche">${Object.keys(ARCH).map(k=>`<div class="col ${r.group===k?"on":""}"><h4>${ARCH[k].label}</h4>${ARCH[k].list.map(a=>`<span>${esc(a)}</span>`).join("")}</div>`).join("")}</div></div>
+
+  <div class="panel"><h3>Wat dit rapport niet zegt</h3><ul class="clean">
+  <li>Het is geen oordeel over hoe goed je bent als leider.</li>
+  <li>Het is een prototype: de vragen zijn nog niet getoetst. Neem de uitkomsten als gespreksstof, niet als feit.</li>
+  <li>De reflexindicatie is experimenteel. Eén meting zegt weinig; pas herhaling maakt het betrouwbaar.</li></ul></div>`;
+}
+function coachView(r){
+  const q=[];
+  if(r.reflexAg!=null&&Math.abs(r.reflexAg-r.agency)>20) q.push(`Reflex (${r.reflexAg}) en zelfbeeld daadkracht (${r.agency}) wijken ${Math.abs(r.reflexAg-r.agency)} punten af. Vraag: in welke situaties merk je dat je anders reageert dan je van jezelf verwacht?`);
+  const late=r.druk.slice(2).map(d=>d.k);
+  const rustTop=Object.keys(r.conf).sort((a,b)=>r.conf[b]-r.conf[a])[0];
+  if(STY[late[1]]&&late[1]!==rustTop) q.push(`Verschuiving ${STY[rustTop].toLowerCase()} (rust) naar ${STY[late[1]].toLowerCase()} (hoogste druk). Vraag: wat gebeurt er bij jou op het moment dat de tijd op is?`);
+  ["A","C","R"].forEach(n=>{const lbl={A:"autonomie",C:"competentie",R:"verbondenheid"}[n]; if(r.sdt[n].fr>50) q.push(`Frustratie ${lbl} (${r.sdt[n].fr}). Vraag: waar in je werk merk je dit het sterkst, en wat kost het je?`);});
+  const er=r.erger.filter(Boolean); if(er.length===2&&er[0]!==er[1]) q.push("De twee 'wat is erger'-dilemma's gaven tegengestelde antwoorden. Verken welke context het verschil maakt.");
+  if(!q.length) q.push("Profiel is intern consistent. Vraag: welke van de vier archetypische beelden herken je, en welke juist niet?");
+  const flags=[];
+  if(r.timeouts) flags.push(`${r.timeouts} vraag/vragen niet binnen de tijd beantwoord.`);
+  if(r.tooFast) flags.push(`${r.tooFast} reflexkeuze(s) sneller dan 300 ms: mogelijk niet gekeken.`);
+  if(r.straight) flags.push("Alle stellingen kregen hetzelfde antwoord (rechtlijnig antwoordpatroon).");
+  if(r.rx<4) flags.push("Minder dan 4 geldige reflexkeuzes: reflexindicatie niet interpreteren.");
+  return `<div class="panel"><h2>Kerngetallen</h2>
+  <div class="kv"><div><b>${r.agency}</b><span>Agency (zelfbeeld)</span></div><div><b>${r.communion}</b><span>Communion (zelfbeeld)</span></div>
+  <div><b>${r.reflexAg??"–"}</b><span>Reflex agentisch, % van ${r.rx}</span></div><div><b>${r.rtMed??"–"}</b><span>Mediane reactietijd fase 1 (ms)</span></div>
+  <div><b>${r.extra}</b><span>Extraversie</span></div><div><b>${ARCH[r.group].label}</b><span>Balans voor duiding</span></div></div>
+  <p class="muted">Schaal 0–100 = positie op de antwoordschaal. Geen normscores: die volgen uit de pilot.</p></div>
+
+  <div class="panel"><h2>Kwaliteit van de afname</h2>${flags.length?`<div class="callout warn"><ul class="clean">${flags.map(f=>`<li>${esc(f)}</li>`).join("")}</ul></div>`:`<div class="callout">Geen afwijkingen in tijd of antwoordpatroon.</div>`}</div>
+
+  <div class="panel"><h2>Gespreksvragen voor de debrief</h2><ul class="clean">${q.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+
+  <div class="panel"><h2>Basisbehoeften</h2>
+  <div class="tablewrap"><table style="min-width:420px"><thead><tr><th>Behoefte</th><th>Vervuld</th><th>Gefrustreerd</th></tr></thead><tbody>
+  ${[["A","Autonomie"],["C","Competentie"],["R","Verbondenheid"]].map(([n,l])=>`<tr><td>${l}</td><td class="code">${r.sdt[n].sat}</td><td class="code">${r.sdt[n].fr}</td></tr>`).join("")}</tbody></table></div></div>
+
+  <div class="panel"><h2>Conflict onder druk, per situatie</h2>
+  <div class="tablewrap"><table style="min-width:520px"><thead><tr><th>Situatie</th><th>Opties</th><th>Keuze</th><th>Tijd (ms)</th></tr></thead><tbody>
+  ${P3.map(it=>`<tr><td class="code">${it.id}</td><td>${Object.keys(it.o).length} · ${it.sec}s</td><td>${STY[S.ans[it.id]]||"geen keuze"}</td><td class="code">${S.ans[it.id]==="timeout"?"–":(S.rt[it.id]??"–")}</td></tr>`).join("")}</tbody></table></div></div>
+
+  <div class="panel"><h2>Interpretatieregels</h2><ul class="clean">
+  <li>Rapporteer de reflexindicatie alleen naast het zelfbeeld op hetzelfde construct. Bewijsniveau methode: ${evChip("experimenteel")}.</li>
+  <li>Waardenscores zijn in dit prototype ipsatief: alleen de rangorde binnen de persoon is interpreteerbaar.</li>
+  <li>De archetypegroep volgt uit één regel: verschil agency minus communion; binnen 12 punten is geïntegreerd. Dit is ${evChip("duiding")} en geen meting.</li></ul></div>`;
+}
+function registerView(){
+  const all=[...P1,...LK,...DIL,...P3];
+  const text=it=>it.t||it.word||(it.type==="waarde"?VAL[it.a].n+" of "+VAL[it.b].n:it.ta?it.ta+" / "+it.tb:"");
+  return `<div class="panel"><h2>Itemregister</h2>
+  <p class="muted">Elke vraag met construct, kader, bronnen en bewijs op drie niveaus. Archetypen komen hier bewust niet voor: geen enkele vraag claimt een archetype te meten.</p>
+  <div class="tablewrap"><table><thead><tr><th>Code</th><th>Vraag</th><th>Construct</th><th>Kader</th><th>Construct</th><th>Methode</th><th>Item</th><th>Bronnen</th></tr></thead><tbody>
+  ${all.map(it=>`<tr><td class="code">${it.id}</td><td>${esc(text(it))}</td><td>${esc(it.construct)}</td><td>${esc(it.kader)}</td><td>${evChip(it.ev.c)}</td><td>${evChip(it.ev.m)}</td><td>${evChip(it.ev.i)}</td><td>${it.src.map(k=>esc(SRC[k].t.split("(")[0].trim())).join("; ")}</td></tr>`).join("")}
+  </tbody></table></div></div>
+  <div class="panel"><h3>Wat bewust buiten de meting blijft</h3><ul class="clean">
+  <li><b>Archetypen</b>: de empirische basis van Jungs archetypen is omstreden en het gevalideerde archetype-instrument (PMAI) is beschermd. Daarom alleen als duidingslaag, gekoppeld aan de gemeten balans agency/communion.</li>
+  <li><b>Masculien/feminien</b>: gemeten als agency/communion, de onderbouwde vorm van dit idee, los van geslacht.</li>
+  <li><b>Jungs energiebegrip</b>: gemeten als extraversie en als behoeftebevrediging/-frustratie.</li></ul></div>`;
+}
+function sourcesView(){
+  return `<div class="panel"><h2>Bronnen</h2><ul class="clean refs">${Object.values(SRC).map(s=>`<li><b>${esc(s.t)}</b><br><span class="muted">${esc(s.n)}</span></li>`).join("")}</ul></div>`;
+}
+
+/* ===================== INTERACTIE ===================== */
+function bind(){
+  const $=id=>document.getElementById(id);
+  $("whyToggle")?.addEventListener("change",e=>{S.showWhy=e.target.checked;});
+  $("start")?.addEventListener("click",()=>{S.ans={};S.rt={};S.side={};S.sample=false;step=-1;next();});
+  $("sample")?.addEventListener("click",loadSample);
+  $("register")?.addEventListener("click",()=>{S.ans={};S.rt={};S.sample=false;S.tab="register";S.screen="report";step=FLOW().length-1;render();});
+  $("go")?.addEventListener("click",next);
+  $("dash")?.addEventListener("click",()=>{S.screen="dash";render();});
+  if(S.screen==="dash") dashBind();
+  $("restart")?.addEventListener("click",()=>{S.screen="intro";S.tab="client";step=-1;render();});
+  document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{S.tab=b.dataset.tab;render();}));
+
+  if(S.screen==="practice"){
+    const done=()=>next();
+    document.querySelectorAll(".pick").forEach(b=>b.addEventListener("click",done));
+    startClock(2,done,"bar");
+  }
+  if(S.screen==="p1"){
+    const it=P1[S.i], flip=S.side[it.id];
+    const choose=k=>{ if(S.ans[it.id]) return; const pole = k==="L"?(flip?"C":"A"):(flip?"A":"C"); record(it.id,pole); next(); };
+    document.querySelectorAll(".pick").forEach(b=>b.addEventListener("click",()=>choose(b.dataset.k)));
+    startClock(2,()=>{ S.ans[it.id]="timeout"; S.rt[it.id]=null; next(); },"bar");
+  }
+  if(S.screen==="lk"){
+    t0=performance.now();
+    document.querySelectorAll(".scale button").forEach(b=>b.addEventListener("click",()=>{ record(LK[S.i].id,+b.dataset.v); setTimeout(next,120); }));
+  }
+  if(S.screen==="dil"){
+    const it=DIL[S.i];
+    document.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{ if(S.ans[it.id])return; record(it.id,b.dataset.k); next(); }));
+    startClock(8,()=>{ S.ans[it.id]="timeout"; next(); },"bar");
+  }
+  if(S.screen==="p3"){
+    const it=P3[S.i];
+    document.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{ if(S.ans[it.id])return; record(it.id,b.dataset.k); next(); }));
+    startClock(it.sec,()=>{ S.ans[it.id]="timeout"; next(); },"bar");
+  }
+}
+document.addEventListener("keydown",e=>{
+  if(!["p1","practice"].includes(S.screen)) return;
+  const picks=document.querySelectorAll(".pick");
+  if(e.key==="ArrowLeft") picks[0]?.click();
+  if(e.key==="ArrowRight") picks[1]?.click();
+});
+
+function loadSample(){
+  clearTimer();
+  const A={R1:"A",R2:"C",R3:"A",R4:"A",R5:"A",R6:"timeout",
+    Z1:5,Z2:4,Z3:4,Z4:3,Z5:2,Z6:4,E1:4,E2:4,E3:5,E4:2,B1:4,B2:5,B3:3,B4:4,B5:2,B6:2,
+    C1:3,C2:5,C3:3,C4:2,C5:2,W1:"a",W2:"a",W3:"a",W4:"b",W5:"a",W6:"b",W7:"a",W8:"b",
+    D1:"prob",D2:"prob",D3:"forc",D4:"forc"};
+  const RT={R1:612,R2:845,R3:540,R4:701,R5:590,D1:8200,D2:6100,D3:3900,D4:2800};
+  S.ans=A; S.rt=RT; S.sample=true; S.tab="client"; S.screen="report"; step=FLOW().length-1; render();
+}
+/* ===================== DASHBOARD (fictieve data) ===================== */
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const RND=mulberry(20261023);
+const nrm=(m,s)=>{let u=0;while(!u)u=RND();const v=RND();return m+s*Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);};
+const clip=x=>Math.max(0,Math.min(100,Math.round(x)));
+const pickW=(arr,w)=>{let r=RND()*w.reduce((a,b)=>a+b,0);for(let i=0;i<arr.length;i++){r-=w[i];if(r<=0)return arr[i];}return arr[arr.length-1];};
+const SECT={Q:"Gezondheidszorg",F:"Bouw",K:"Financiële dienstverlening",O:"Openbaar bestuur",J:"Informatie en communicatie",C:"Industrie"};
+const ISCO={"1":"Leidinggevenden","2":"Specialisten","3":"Technici en vakspecialisten","4":"Administratief personeel"};
+const NIV=["Geen leidinggevende","Teamleider","Middenmanagement","Directie"];
+const AGE=["<30","30–39","40–49","50–59","60+"];
+const REG={"NL-NH":"Noord-Holland","NL-ZH":"Zuid-Holland","NL-UT":"Utrecht","NL-NB":"Noord-Brabant","SA-01":"Riyad","SA-04":"Oostelijke Provincie"};
+const GEN=["Man","Vrouw","Anders","Zeg ik liever niet"];
+const MYCOACH=7, MINN=10;
+const OPDR={zorg:{n:"Zorggroep Noord",sec:"Q"},bouw:{n:"Bouwbedrijf West",sec:"F"},indiv:{n:"Individuele cliënten",sec:null}};
+function makePerson(i,coach,opdr){
+  const sec = opdr&&OPDR[opdr].sec ? OPDR[opdr].sec : pickW(Object.keys(SECT),[3,2,2,2,2,2]);
+  const niv = pickW([0,1,2,3],[3,4,3,1]);
+  const isco = niv>=2 ? pickW(["1","2"],[3,1]) : pickW(["1","2","3","4"],[1,4,3,2]);
+  const reg = pickW(Object.keys(REG),[3,3,2,2,2,1]);
+  const gen = pickW(GEN,[47,47,2,4]);
+  const age = pickW(AGE,[2,4,4,3,1]);
+  const ag=clip(nrm(46+niv*6,14)), co=clip(nrm(54+(sec==="Q"?8:0)-(sec==="F"?5:0),14)), ex=clip(nrm(52,17));
+  const sdt={A:{sat:clip(nrm(60+niv*3,15)),fr:clip(nrm(sec==="O"?40:32,15))},C:{sat:clip(nrm(66,13)),fr:clip(nrm(30,14))},R:{sat:clip(nrm(62,15)),fr:clip(nrm(28,15))}};
+  const val = ag>co+8 ? pickW(["SE","OC","CO","ST"],[4,3,2,1]) : co>ag+8 ? pickW(["ST","CO","OC","SE"],[4,2,2,1]) : pickW(["SE","OC","CO","ST"],[2,3,2,3]);
+  const rust = ag>co+10 ? pickW(["forc","prob","comp"],[3,4,1]) : co>ag+10 ? pickW(["prob","yield","comp","avoid"],[4,3,2,1]) : pickW(["prob","comp","avoid","forc","yield"],[4,3,1,1,1]);
+  const druk = RND()<.06 ? "timeout" : ag>co+10 ? pickW(["forc","avoid","yield"],[6,2,1]) : co>ag+10 ? pickW(["yield","avoid","forc"],[5,3,2]) : ex<40 ? pickW(["avoid","forc","yield"],[5,2,2]) : pickW(["forc","yield","avoid"],[4,3,3]);
+  const d=new Date(2026,Math.floor(RND()*9),1+Math.floor(RND()*27));
+  return {id:"D-"+String(coach).padStart(2,"0")+String(i).padStart(3,"0"),coach,opdr,sec,niv,isco,reg,gen,age,ag,co,ex,sdt,val,rust,druk,
+    date:`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`};
+}
+const DATA=[];
+(function(){ let k=0;
+  [["zorg",18],["bouw",14],["indiv",14]].forEach(([o,n])=>{for(let j=0;j<n;j++)DATA.push(makePerson(++k,MYCOACH,o));});
+  for(let c=1;c<=16;c++){ if(c===MYCOACH)continue; const n=28+Math.floor(RND()*24); for(let j=0;j<n;j++)DATA.push(makePerson(j+1,c,null)); }
+})();
+const MEAS={ag:{n:"Agency (daadkracht)",g:p=>p.ag},co:{n:"Communion (verbinding)",g:p=>p.co},ex:{n:"Extraversie",g:p=>p.ex},
+  asat:{n:"Autonomie: vervuld",g:p=>p.sdt.A.sat},afr:{n:"Autonomie: gefrustreerd",g:p=>p.sdt.A.fr},rfr:{n:"Verbondenheid: gefrustreerd",g:p=>p.sdt.R.fr}};
+const GROUP={
+  niveau:{n:"Leiderschapsniveau",k:p=>NIV[p.niv],order:NIV,inv:"scalair"},
+  sector:{n:"Sector (NACE-sectie)",k:p=>p.sec+" · "+SECT[p.sec],order:Object.keys(SECT).map(k=>k+" · "+SECT[k]),inv:"scalair"},
+  beroep:{n:"Beroep (ISCO-08 hoofdgroep)",k:p=>p.isco+" · "+ISCO[p.isco],order:Object.keys(ISCO).map(k=>k+" · "+ISCO[k]),inv:"scalair"},
+  leeftijd:{n:"Leeftijdsklasse",k:p=>p.age,order:AGE,inv:"gedeeltelijk"},
+  regio:{n:"Regio (ISO 3166-2)",k:p=>p.reg+" · "+REG[p.reg],order:Object.keys(REG).map(k=>k+" · "+REG[k]),inv:"niet getoetst"},
+  gender:{n:"Gender",k:p=>p.gen,order:GEN,inv:"niet getoetst"}};
+const stats=arr=>{const n=arr.length;if(!n)return{n:0};const m=arr.reduce((a,b)=>a+b,0)/n;const sd=Math.sqrt(arr.reduce((a,b)=>a+(b-m)**2,0)/Math.max(1,n-1));return{n,m,ci:1.96*sd/Math.sqrt(n)};};
+const avg=a=>a.length?Math.round(a.reduce((x,y)=>x+y,0)/a.length):null;
+S.dtab="coach"; S.f={opdr:"all",niv:"all",gen:"all"}; S.bg="niveau"; S.bm="ag";
+const DRUK={forc:"Forceren",yield:"Toegeven",avoid:"Vermijden",timeout:"Geen keuze"};
+
+function sel(id,label,opts,cur){
+  return `<label for="${id}">${esc(label)}<select id="${id}">${opts.map(([v,l])=>`<option value="${esc(v)}" ${String(cur)===String(v)?"selected":""}>${esc(l)}</option>`).join("")}</select></label>`;
+}
+function hbar(label,v,col,tip){
+  return `<div class="bar" data-tip="${esc(tip||label+": "+v)}"><span>${esc(label)}</span><div class="track"><div class="fill" style="width:${v??0}%;background:${col}"></div></div><span class="num">${v??"–"}</span></div>`;
+}
+function dash(){
+  const tabs=[["coach","Mijn cliënten"],["bench","Benchmark"],["model","Datamodel en rollen"]];
+  return `<span class="sample-badge">Fictieve data · ${DATA.length} gesimuleerde deelnemers bij 16 coaches</span>
+  <div class="stack"><span class="eyebrow">Dashboard · coach C-07</span><h1>Coachdashboard</h1>
+  <p class="muted">Coaches werken onder een licentie. Een coach ziet zijn eigen cliënten; de benchmark toont alleen geaggregeerde cijfers over alle licentienemers.</p></div>
+  <div class="tabs" role="tablist">${tabs.map(([k,l])=>`<button role="tab" data-dtab="${k}" aria-selected="${S.dtab===k}">${l}</button>`).join("")}</div>
+  ${{coach:dashCoach,bench:dashBench,model:dashModel}[S.dtab]()}
+  <div class="row"><button id="back">Terug naar start</button></div><div id="tip" class="tip" hidden></div>`;
+}
+function dashCoach(){
+  const mine=DATA.filter(p=>p.coach===MYCOACH);
+  const f=mine.filter(p=>(S.f.opdr==="all"||p.opdr===S.f.opdr)&&(S.f.niv==="all"||p.niv===+S.f.niv)&&(S.f.gen==="all"||p.gen===S.f.gen));
+  const filters=`<div class="filters">
+    ${sel("fOpdr","Opdracht",[["all","Alle opdrachten"],...Object.keys(OPDR).map(k=>[k,OPDR[k].n])],S.f.opdr)}
+    ${sel("fNiv","Leiderschapsniveau",[["all","Alle niveaus"],...NIV.map((n,i)=>[i,n])],S.f.niv)}
+    ${sel("fGen","Gender",[["all","Alle"],...GEN.map(g=>[g,g])],S.f.gen)}</div>`;
+  const group = f.length<MINN
+    ? `<div class="callout warn"><b>Groepsprofiel verborgen.</b> Deze selectie heeft ${f.length} cliënt${f.length===1?"":"en"}. Onder de ${MINN} is een groepsrapport voor een opdrachtgever te herleiden tot personen. De lijst met je eigen cliënten hieronder blijft zichtbaar.</div>`
+    : `<div class="dgrid">
+      <div class="panel chart"><h3>Daadkracht en verbinding</h3><p class="muted">Elke stip is één cliënt. Stippellijnen op 50.</p>${scatter(f)}</div>
+      <div class="panel"><h3>Energie: basisbehoeften</h3>
+        <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>vervuld (energiebron)</span><span><i class="sw" style="background:var(--s2)"></i>gefrustreerd (energielek)</span></div>
+        ${[["A","Autonomie"],["C","Competentie"],["R","Verbondenheid"]].map(([k,l])=>{const s=avg(f.map(p=>p.sdt[k].sat)),fr=avg(f.map(p=>p.sdt[k].fr));return hbar(l+" vervuld",s,"var(--s1)",`${l}, vervuld: gemiddeld ${s}`)+hbar(l+" gefrustreerd",fr,"var(--s2)",`${l}, gefrustreerd: gemiddeld ${fr}`);}).join("")}
+        <p class="muted">Gemiddelden, schaal 0–100.</p></div>
+      <div class="panel matrix"><h3>Conflict: in rust en onder de hoogste druk</h3><p class="muted">Rij: voorkeursstrategie in rust. Kolom: keuze in situatie D4.</p>${matrix(f)}</div>
+      <div class="panel"><h3>Zwaarst wegende drijfveer</h3>
+        ${Object.keys(VAL).map(k=>{const c=f.filter(p=>p.val===k).length;const v=Math.round(c/f.length*100);return hbar(VAL[k].n,v,"var(--s1)",`${VAL[k].n}: ${c} van ${f.length} cliënten (${v}%)`);}).join("")}
+        <p class="muted">Percentage cliënten bij wie deze waarde bovenaan staat.</p></div></div>`;
+  const rows=f.slice().sort((a,b)=>b.date.localeCompare(a.date));
+  return `<div class="panel">${filters}<p class="muted"><b>${f.length}</b> van ${mine.length} cliënten in deze selectie.</p></div>
+  <span class="eyebrow">Groepsprofiel · deelbaar met opdrachtgever vanaf ${MINN} personen</span>${group}
+  <div class="panel"><h3>Mijn cliënten</h3><p class="muted">In de echte app staat hier de naam; die komt uit een aparte, versleutelde opslag en is alleen zichtbaar voor de cliënt en de eigen coach.</p>
+  <div class="tablewrap"><table class="clientlist"><thead><tr><th>Code</th><th>Afname</th><th>Opdracht</th><th>Niveau</th><th>Agency</th><th>Communion</th><th>Drijfveer</th><th>Conflict rust → druk</th></tr></thead><tbody>
+  ${rows.map(p=>`<tr><td class="code">${p.id}</td><td class="code">${p.date}</td><td>${esc(OPDR[p.opdr].n)}</td><td>${NIV[p.niv]}</td><td class="code">${p.ag}</td><td class="code">${p.co}</td><td>${VAL[p.val].n}</td><td>${STY[p.rust]} → ${DRUK[p.druk]}</td></tr>`).join("")}
+  </tbody></table></div></div>`;
+}
+function scatter(arr){
+  const W=340,H=280,L=34,B=38,T=10,RR=10,pw=W-L-RR,ph=H-T-B;
+  const X=v=>L+v/100*pw, Y=v=>T+(100-v)/100*ph;
+  let g="";
+  [0,25,50,75,100].forEach(t=>{
+    const dash=t===50?'stroke-dasharray="4 3"':"", col=t===50?"var(--muted)":"var(--line)";
+    g+=`<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T+ph}" style="stroke:${col}" ${dash}/><line x1="${L}" x2="${L+pw}" y1="${Y(t)}" y2="${Y(t)}" style="stroke:${col}" ${dash}/>`;
+    g+=`<text x="${X(t)}" y="${T+ph+12}" text-anchor="middle">${t}</text><text x="${L-5}" y="${Y(t)+3}" text-anchor="end">${t}</text>`;
+  });
+  g+=`<text x="${L+pw/2}" y="${H-4}" text-anchor="middle">Agency (daadkracht)</text><text transform="translate(9 ${T+ph/2}) rotate(-90)" text-anchor="middle">Communion (verbinding)</text>`;
+  g+=`<text x="${X(98)}" y="${Y(96)}" text-anchor="end">beide hoog</text><text x="${X(2)}" y="${Y(96)}">vooral verbinding</text><text x="${X(98)}" y="${Y(3)}" text-anchor="end">vooral daadkracht</text><text x="${X(2)}" y="${Y(3)}">beide lager</text>`;
+  arr.forEach(p=>{ g+=`<circle cx="${X(p.ag).toFixed(1)}" cy="${Y(p.co).toFixed(1)}" r="5" style="fill:var(--s1);stroke:var(--surface);stroke-width:2" data-tip="${p.id} · agency ${p.ag} · communion ${p.co}"/>`; });
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Spreidingsdiagram agency tegen communion, ${arr.length} cliënten">${g}</svg>`;
+}
+function matrix(arr){
+  const rows=Object.keys(STY), cols=Object.keys(DRUK);
+  const cnt={}; let max=1;
+  rows.forEach(r=>cols.forEach(c=>{const n=arr.filter(p=>p.rust===r&&p.druk===c).length;cnt[r+c]=n;if(n>max)max=n;}));
+  return `<div class="tablewrap"><table><thead><tr><th>Rust ↓ / druk →</th>${cols.map(c=>`<th>${DRUK[c]}</th>`).join("")}</tr></thead><tbody>
+  ${rows.map(r=>`<tr><td>${STY[r]}</td>${cols.map(c=>{const n=cnt[r+c];const p=Math.round(n/max*85);return `<td class="cell" style="background:color-mix(in oklab, var(--s1) ${p}%, var(--surface));color:${p>55?"var(--surface)":"var(--ink)"}" data-tip="In rust ${STY[r].toLowerCase()}, onder druk ${DRUK[c].toLowerCase()}: ${n}">${n||""}</td>`;}).join("")}</tr>`).join("")}
+  </tbody></table></div>`;
+}
+function dashBench(){
+  const g=GROUP[S.bg], m=MEAS[S.bm];
+  const groups=g.order.map(l=>({l,...stats(DATA.filter(p=>g.k(p)===l).map(m.g))}));
+  const tot=stats(DATA.map(m.g));
+  const filters=`<div class="filters">${sel("bGroup","Vergelijk naar",Object.keys(GROUP).map(k=>[k,GROUP[k].n]),S.bg)}${sel("bMeas","Uitkomst",Object.keys(MEAS).map(k=>[k,MEAS[k].n]),S.bm)}</div>`;
+  const invChip = g.inv==="scalair"?`<span class="chip ev-sterk">invariantie: scalair</span>`:g.inv==="gedeeltelijk"?`<span class="chip ev-matig">invariantie: gedeeltelijk</span>`:`<span class="chip ev-experimenteel">invariantie: niet getoetst</span>`;
+  const invTxt = g.inv==="scalair"?"Gemiddelden mogen worden vergeleken: de test meet in deze groepen aantoonbaar hetzelfde."
+    : g.inv==="gedeeltelijk"?"Vergelijken met voorzichtigheid: niet alle vragen werken in elke groep gelijk. In productie tellen alleen de invariante vragen mee."
+    : "Gemiddelden worden niet getoond. Zolang niet is aangetoond dat de test in deze groepen hetzelfde meet, kan een verschil ook uit de vragen zelf komen.";
+  let body;
+  if(g.inv==="niet getoetst"){
+    body=`<div class="callout warn">${invTxt}</div><div class="tablewrap"><table style="min-width:320px"><thead><tr><th>Groep</th><th>Aantal deelnemers</th></tr></thead><tbody>${groups.map(x=>`<tr><td>${esc(x.l)}</td><td class="code">${x.n<MINN?"&lt; "+MINN:x.n}</td></tr>`).join("")}</tbody></table></div>`;
+  } else {
+    const vis=groups.filter(x=>x.n>=MINN);
+    let lo=Math.floor((Math.min(tot.m,...vis.map(x=>x.m-x.ci))-3)/5)*5, hi=Math.ceil((Math.max(tot.m,...vis.map(x=>x.m+x.ci))+3)/5)*5;
+    lo=Math.max(0,lo); hi=Math.min(100,hi);
+    const pos=v=>((v-lo)/(hi-lo)*100).toFixed(2);
+    const step=hi-lo>30?10:5; const ticks=[]; for(let t=lo;t<=hi;t+=step) ticks.push(t);
+    body=`<div class="callout ${g.inv==="scalair"?"":"warn"}">${invTxt}</div>
+    <div class="stack">
+      <div class="dpaxis"><span></span><div class="ticks">${ticks.map(t=>`<span style="left:${pos(t)}%">${t}</span>`).join("")}</div><span style="text-align:right">gem. (n)</span></div>
+      ${groups.map(x=>x.n<MINN
+        ? `<div class="dprow"><span>${esc(x.l)}</span><span class="supp">onderdrukt: minder dan ${MINN} deelnemers</span><span></span></div>`
+        : `<div class="dprow" data-tip="${esc(x.l)}: gemiddeld ${x.m.toFixed(1)}, 95%-interval ${(x.m-x.ci).toFixed(1)}–${(x.m+x.ci).toFixed(1)}, n = ${x.n}"><span>${esc(x.l)}</span>
+          <div class="dptrack"><span class="ref" style="left:${pos(tot.m)}%"></span><span class="ci" style="left:${pos(x.m-x.ci)}%;width:${(2*x.ci/(hi-lo)*100).toFixed(2)}%"></span><span class="dot" style="left:${pos(x.m)}%"></span></div>
+          <span class="num">${x.m.toFixed(1)} (${x.n})</span></div>`).join("")}
+      <div class="legend"><span><i class="sw" style="background:var(--s1);border-radius:50%"></i>groepsgemiddelde met 95%-interval</span><span><i class="sw" style="border-left:2px dashed var(--muted);border-radius:0;width:2px"></i>totaal: ${tot.m.toFixed(1)} (n = ${tot.n})</span></div>
+    </div>
+    <details><summary>Toon als tabel</summary><div class="tablewrap"><table style="min-width:420px"><thead><tr><th>Groep</th><th>n</th><th>Gemiddelde</th><th>95%-interval</th></tr></thead><tbody>
+    ${groups.map(x=>`<tr><td>${esc(x.l)}</td><td class="code">${x.n<MINN?"&lt; "+MINN:x.n}</td><td class="code">${x.n<MINN?"–":x.m.toFixed(1)}</td><td class="code">${x.n<MINN?"–":(x.m-x.ci).toFixed(1)+"–"+(x.m+x.ci).toFixed(1)}</td></tr>`).join("")}</tbody></table></div></details>`;
+  }
+  return `<div class="panel">${filters}<div class="row">${invChip}<span class="muted" style="font-size:.78rem">Invariantiestatus is fictief, ter illustratie van de regel.</span></div></div>
+  <div class="panel"><h3>${esc(m.n)} naar ${esc(g.n.toLowerCase())}</h3>${body}
+  <p class="muted">Alle licentienemers samen, alleen deelnemers die toestemming gaven voor de benchmark. Groepen onder de ${MINN} worden nooit getoond, ook niet in combinatie met andere filters.</p></div>`;
+}
+function dashModel(){
+  const E=[
+    ["Licentienemer","praktijk, licentietype, looptijd, land",0],
+    ["Coach","licentienemer, certificering (datum, versie)",0],
+    ["Opdracht","coach, opdrachtgever, sector (NACE/ISIC met versie), start",0],
+    ["Deelnemer","pseudoniem-ID, eigen coach",0],
+    ["Identiteit","naam, e-mail. Aparte versleutelde opslag; alleen deelnemer en eigen coach",1],
+    ["Afname","deelnemer, opdracht, datum, itemset-versie, scoringsversie",0],
+    ["Profielsnapshot","per afname: beroep (ISCO-08 + versie), sector, leiderschapsniveau, aantal medewerkers, geboortejaar (getoond als klasse), land en regio (ISO 3166-2), gender (optioneel), opleiding (ISCED)",0],
+    ["Antwoord","afname, item, itemversie, waarde, reactietijd (ms), getoonde positie",0],
+    ["Score","afname, construct, waarde, marge, scoringsversie",0],
+    ["Item","het itemregister: tekst per taal, construct, kader, bronnen, bewijs (construct/methode/item), versie",0],
+    ["Toestemming","afname, doel (coachrapport of benchmark), datum, intrekking",0],
+    ["Invariantiestudie","groepsvariabele, construct, niveau (configuraal, metrisch, scalair), steekproef, datum",0],
+    ["Benchmarkaggregaat","groep, construct, n, gemiddelde, interval. Alleen n ≥ 10 en alleen afnames met benchmarktoestemming",0]];
+  return `<div class="panel"><h2>Datamodel</h2><p class="muted">Dertien tabellen. Gestippeld = aparte, versleutelde opslag.</p>
+  <div class="entities">${E.map(([n,f,v])=>`<div class="entity ${v?"vault":""}"><b>${esc(n)}</b><span>${esc(f)}</span></div>`).join("")}</div></div>
+  <div class="panel"><h2>Ontwerpregels</h2><ul class="clean">
+  <li>Ruwe antwoorden en reactietijden worden altijd bewaard met item- en scoringsversie, zodat alle scores na de pilot opnieuw te berekenen zijn.</li>
+  <li>Kenmerken zoals functie en sector horen bij de afname, niet bij de persoon. Een herhaalmeting toont de situatie van dat moment.</li>
+  <li>Alle kenmerken komen uit vaste lijsten (ISCO, NACE/ISIC, ISCED, ISO 3166). Geen vrije tekst.</li>
+  <li>Geen bijzondere persoonsgegevens: geen etniciteit, religie of gezondheid.</li>
+  <li>Het dashboard leest groepscijfers uit de benchmarkaggregaten, nooit rechtstreeks uit individuele scores.</li></ul></div>
+  <div class="panel"><h2>Rollen onder de AVG</h2><ul class="clean">
+  <li><b>Coach</b>: verwerkingsverantwoordelijke voor de gegevens van zijn cliënten (test, rapport, debrief).</li>
+  <li><b>Wij, voor het coachrapport</b>: verwerker namens de coach. De verwerkersovereenkomst zit in de licentie.</li>
+  <li><b>Wij, voor de benchmark</b>: verwerkingsverantwoordelijke, omdat de data dan voor een eigen doel wordt gebruikt (artikel 28 lid 10 AVG). Dat vraagt een eigen grondslag: een aparte toestemming van de deelnemer, die de coach in de test laat vragen.</li>
+  <li>Gepseudonimiseerde data blijft persoonsgegeven onder de AVG. De benchmark krijgt daarom nooit de identiteitstabel.</li>
+  <li>Voor deelnemers in Saoedi-Arabië geldt daarnaast de PDPL, wat ook de opslaglocatie bepaalt.</li></ul></div>`;
+}
+function dashBind(){
+  const $=id=>document.getElementById(id);
+  document.querySelectorAll("[data-dtab]").forEach(b=>b.addEventListener("click",()=>{S.dtab=b.dataset.dtab;render();}));
+  $("back")?.addEventListener("click",()=>{S.screen="intro";render();});
+  $("fOpdr")?.addEventListener("change",e=>{S.f.opdr=e.target.value;render();});
+  $("fNiv")?.addEventListener("change",e=>{S.f.niv=e.target.value;render();});
+  $("fGen")?.addEventListener("change",e=>{S.f.gen=e.target.value;render();});
+  $("bGroup")?.addEventListener("change",e=>{S.bg=e.target.value;render();});
+  $("bMeas")?.addEventListener("change",e=>{S.bm=e.target.value;render();});
+  const tip=$("tip");
+  document.querySelectorAll("[data-tip]").forEach(el=>{
+    el.addEventListener("pointerenter",()=>{tip.textContent=el.dataset.tip;tip.hidden=false;});
+    el.addEventListener("pointermove",ev=>{const x=Math.min(ev.clientX+12,window.innerWidth-250);tip.style.left=x+"px";tip.style.top=(ev.clientY+14)+"px";});
+    el.addEventListener("pointerleave",()=>{tip.hidden=true;});
+  });
+}
+render();
+</script>
