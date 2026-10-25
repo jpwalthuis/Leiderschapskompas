@@ -1,0 +1,71 @@
+/* Kleuren en typografie volgen het prototype (prototype/leiderschapskompas.html). */
+:root {
+  --bg: #f3f6f8;
+  --surface: #ffffff;
+  --ink: #0e2236;
+  --muted: #566879;
+  --line: #d5dee5;
+  --navy: #12304d;
+  --teal: #0e7a76;
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a1520;
+    --surface: #102131;
+    --ink: #e5edf3;
+    --muted: #93a5b6;
+    --line: #22394e;
+    --navy: #a9c9e8;
+    --teal: #46bdb4;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: max(20px, env(safe-area-inset-top, 0px)) max(32px, env(safe-area-inset-bottom, 0px));
+}
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  color: var(--navy);
+  font-size: 1.9rem;
+  line-height: 1.2;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p { margin: 0; max-width: 65ch; }
+
+.muted { color: var(--muted); }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+}

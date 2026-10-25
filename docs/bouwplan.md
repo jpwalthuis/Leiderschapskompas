@@ -15,7 +15,7 @@ Akkoord eigenaar op 2026-10-24.
 | Psychometrische analyse | R-scripts in `analyse/` (lavaan voor CFA en invariantie, thurstonianIRT voor gedwongen keuze) | Gangbare, controleerbare pakketten |
 | Hosting | Te kiezen, EU-regio, met previewversie per pull request | Testen vanaf de telefoon via de previewlink |
 
-Alleen deelnemers in Europa. Alle opslag en verwerking in de EU; de registratie accepteert alleen Europese landen.
+Alleen deelnemers in de EU, met Nederland als hoofdmarkt. Alle opslag en verwerking in de EU; de registratie accepteert alleen EU-lidstaten.
 
 ## Fasen
 
@@ -51,7 +51,7 @@ Alleen deelnemers in Europa. Alle opslag en verwerking in de EU; de registratie 
 - Klaar als: tests bewijzen dat een coach alleen eigen cliënten ziet en dat zonder toestemming niets gedeeld wordt.
 
 ### Fase 5: Registratie en achtergrondkenmerken
-- Registratieformulier met vaste lijsten (harde regel 12): beroep (ISCO-08), sector (NACE Rev. 2.1), leiderschapsniveau, aantal medewerkers, geboortejaar, land en regio (ISO 3166-2), opleiding (ISCED), gender optioneel.
+- Registratieformulier met vaste lijsten (harde regel 12): beroep (ISCO-08), sector (NACE Rev. 2.1), leiderschapsniveau, aantal medewerkers, geboortejaar, land (EU-lidstaat) en regio (ISO 3166-2), opleiding (ISCED), gender optioneel.
 - Profielsnapshot per afname.
 - Klaar als: er geen vrij tekstveld voor achtergrondkenmerken bestaat.
 
