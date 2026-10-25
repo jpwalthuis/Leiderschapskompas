@@ -16,3 +16,9 @@
 | 2026-10-24 | Itemregister wordt in CI gecontroleerd op harde regels 1, 2, 8 en 9 | Een vraag zonder verantwoording of met een merknaam kan niet gemerged worden |
 | 2026-10-24 | Talen: Nederlands, later Engels; geen Arabisch | Keuze eigenaar; volgt uit de beperking tot de EU |
 | 2026-10-24 | Merkcontrole: afkortingen (TKI, PMAI, MBTI, DUTCH) alleen in hoofdletters, namen ongeacht hoofdletters | Anders zou het gewone Engelse woord "Dutch" in een toekomstige Engelse versie ten onrechte worden geblokkeerd |
+| 2026-10-25 | Opslag achter één interface (`AfnameOpslag`); fase 1 bewaart in de browser, fase 4 voegt de database toe | Demo-afname werkt zonder account en zonder server; later wisselen zonder de testmotor te raken |
+| 2026-10-25 | Scoringsversie `ongescoord` tot fase 2 | Regel 10 vraagt een scoringsversie per antwoord; zo is herkenbaar welke afnames nog gescoord moeten worden |
+| 2026-10-25 | Optievolgorde willekeurig per afname en per item (ook bij dilemma's), reproduceerbaar uit een seed; stellingschaal blijft 1 tot 5 | Voorkomt volgorde-effecten; de getoonde positie wordt per antwoord vastgelegd |
+| 2026-10-25 | Reactietijd start na twee animatieframes; alleen het eerste antwoord per item telt | De klok loopt pas als de vraag echt zichtbaar is; dubbel tikken of tikken na de time-out verandert niets |
+| 2026-10-25 | Extra veld `onderbroken` per antwoord: het scherm verloor de focus terwijl de vraag openstond | Reactietijd van zo'n antwoord is onbetrouwbaar; nodig voor de kwaliteitsindicatoren in fase 2 |
+| 2026-10-25 | End-to-end tests op telefoonformaat (Pixel 7) en een benadering van een opengevouwen vouwtelefoon (900 × 1000) | Harde regel 18; de vouwmaat is een benadering, geen exacte apparaatmaat |

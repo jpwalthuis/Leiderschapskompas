@@ -19,7 +19,18 @@ jobs:
         run: npm run lint
       - name: Typen
         run: npm run typecheck
-      - name: Tests (inclusief itemregister, harde regels 1, 2, 8, 9)
+      - name: Unit tests (itemregister, testmotor, opslag)
         run: npm test
       - name: Build
         run: npm run build
+      - name: Browser voor end-to-end tests
+        run: npx playwright install --with-deps chromium
+      - name: End-to-end (volledige afname op telefoon en opengevouwen vouwtelefoon)
+        run: npm run e2e
+      - name: Rapport bij falen
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-rapport
+          path: playwright-report/
+          retention-days: 7

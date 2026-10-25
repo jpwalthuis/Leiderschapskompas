@@ -17,6 +17,7 @@ Status: prototype. De vragen zijn nog niet psychometrisch getoetst.
 npm ci
 npm run dev      # ontwikkelserver op http://localhost:3000
 npm run check    # lint, typen en tests
+npm run e2e      # volledige afname in een browser (na npm run build)
 npm run build    # productiebuild
 ```
 

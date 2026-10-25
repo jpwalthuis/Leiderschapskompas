@@ -5,7 +5,78 @@
   },
   "start": {
     "status": "In ontwikkeling",
-    "uitleg": "Deze omgeving bevat nog geen test. De eerste versie volgt in de volgende fase.",
-    "itemsGeladen": "{aantal} vragen in het itemregister, allemaal met verantwoording."
+    "uitleg": "Probeer de testafname. Je antwoorden blijven in deze browser; er wordt niets verstuurd.",
+    "itemsGeladen": "{aantal} vragen in het itemregister, allemaal met verantwoording.",
+    "naarTest": "Start de demo-afname"
+  },
+  "afname": {
+    "voortgang": "{procent}%",
+    "verder": "Verder",
+    "welkom": {
+      "titel": "Leiderschapskompas",
+      "tekst": "Je maakt drie korte fasen, ongeveer zeven minuten. Er zijn geen goede of foute antwoorden.",
+      "fase1": "Reflex: zes woorden, steeds twee beelden. Kies binnen 2 seconden.",
+      "fase2": "Zelfbeeld: stellingen en dilemma's over hoe je werkt en wat je drijft.",
+      "fase3": "Onder druk: vier conflicten. De tijd wordt korter, de opties minder.",
+      "privacy": "Dit is een demo. Je antwoorden blijven in deze browser en worden nergens naartoe gestuurd.",
+      "start": "Start"
+    },
+    "intro": {
+      "1": {
+        "label": "Fase 1 · Reflex",
+        "titel": "Kies wat je het eerst raakt",
+        "tekst": "Je ziet een woord en twee abstracte beelden. Tik binnen 2 seconden op het beeld dat het best bij het woord past. Er is geen goed of fout. Te laat is ook een antwoord.",
+        "extra": "Op een toetsenbord kun je de pijltjes links en rechts gebruiken. Eerst een oefenronde.",
+        "knop": "Oefenronde"
+      },
+      "2": {
+        "label": "Fase 2 · Zelfbeeld",
+        "titel": "Hoe zie je jezelf?",
+        "tekst": "Eerst stellingen over hoe je werkt: geef aan in hoeverre ze bij je passen. Daarna dilemma's: kies binnen 8 seconden wat zwaarder weegt.",
+        "extra": "",
+        "knop": "Verder"
+      },
+      "3": {
+        "label": "Fase 3 · Onder druk",
+        "titel": "Wat doe je als het spannend wordt?",
+        "tekst": "Vier situaties. Kies wat je in het eerste moment werkelijk zou doen, niet wat het beste klinkt. Bij elke situatie wordt de tijd korter en vallen er opties weg.",
+        "extra": "",
+        "knop": "Start fase 3"
+      }
+    },
+    "oefen": {
+      "label": "Oefenronde",
+      "woord": "Vorm"
+    },
+    "beeldkeuze": {
+      "label": "Fase 1 · {nummer} van {totaal}",
+      "links": "Linker beeld",
+      "rechts": "Rechter beeld"
+    },
+    "stelling": {
+      "label": "Fase 2 · Stelling {nummer} van {totaal}",
+      "schaal": "Antwoordschaal",
+      "laag": "Past niet bij mij",
+      "hoog": "Past helemaal"
+    },
+    "dilemma": {
+      "label": "Fase 2 · Dilemma {nummer} van {totaal}"
+    },
+    "vignet": {
+      "label": "Fase 3 · {drukniveau}",
+      "meta": "{seconden} seconden · {opties} opties"
+    },
+    "einde": {
+      "titel": "Klaar",
+      "tekst": "Je antwoorden zijn opgeslagen in deze browser. Het rapport volgt in een volgende versie.",
+      "antwoorden": "Antwoorden opgeslagen",
+      "timeouts": "Niet op tijd",
+      "onderbroken": "Onderbroken",
+      "itemset": "Itemset",
+      "toonData": "Bekijk de opgeslagen gegevens",
+      "opnieuw": "Nieuwe afname",
+      "wissen": "Wis deze afname"
+    },
+    "tijd": "Tijd die nog over is"
   }
 }
