@@ -33,6 +33,7 @@ Alleen deelnemers in de EU, met Nederland als hoofdmarkt. Alle opslag en verwerk
 - Klaar als: een volledige afname op telefoon slaagt en alle antwoorden met reactietijd en versies zijn opgeslagen.
 
 ### Fase 2: Scoring
+Status: gebouwd (PR fase-2/scoring), scoringsversie 1.0.0.
 - Pure module: agency, communion, extraversie (met omgekeerde items), basisbehoeften (bevrediging en frustratie apart), conflictstrategieën in rust en onder druk, waardenrangorde, reflexindicatie.
 - Scoring rekent met de geldige antwoorden: per item de laatste poging.
 - Afname zonder tijdslimieten: reflexindicatie en conflict onder druk krijgen de status "niet beschikbaar" (harde regel 5).

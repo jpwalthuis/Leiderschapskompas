@@ -17,10 +17,15 @@
 | 2026-10-24 | Talen: Nederlands, later Engels; geen Arabisch | Keuze eigenaar; volgt uit de beperking tot de EU |
 | 2026-10-24 | Merkcontrole: afkortingen (TKI, PMAI, MBTI, DUTCH) alleen in hoofdletters, namen ongeacht hoofdletters | Anders zou het gewone Engelse woord "Dutch" in een toekomstige Engelse versie ten onrechte worden geblokkeerd |
 | 2026-10-25 | Opslag achter één interface (`AfnameOpslag`); fase 1 bewaart in de browser, fase 4 voegt de database toe | Demo-afname werkt zonder account en zonder server; later wisselen zonder de testmotor te raken |
-| 2026-10-25 | Scoringsversie `ongescoord` tot fase 2 | Regel 10 vraagt een scoringsversie per antwoord; zo is herkenbaar welke afnames nog gescoord moeten worden |
+| 2026-10-25 | Scoringsversie `ongescoord` tot fase 2 (vervangen door 1.0.0, zie hieronder) | Regel 10 vraagt een scoringsversie per antwoord; zo is herkenbaar welke afnames nog gescoord moeten worden |
 | 2026-10-25 | Optievolgorde willekeurig per afname en per item (ook bij dilemma's), reproduceerbaar uit een seed; stellingschaal blijft 1 tot 5 | Voorkomt volgorde-effecten; de getoonde positie wordt per antwoord vastgelegd |
 | 2026-10-25 | Reactietijd start na twee animatieframes; bij getimede vragen telt alleen het eerste antwoord | De klok loopt pas als de vraag echt zichtbaar is; dubbel tikken of tikken na de time-out verandert niets |
 | 2026-10-25 | Extra veld `onderbroken` per antwoord: het scherm verloor de focus terwijl de vraag openstond | Reactietijd van zo'n antwoord is onbetrouwbaar; nodig voor de kwaliteitsindicatoren in fase 2 |
 | 2026-10-25 | End-to-end tests op telefoonformaat (Pixel 7) en een benadering van een opengevouwen vouwtelefoon (900 × 1000) | Harde regel 18; de vouwmaat is een benadering, geen exacte apparaatmaat |
 | 2026-10-25 | Afname zonder tijdslimieten mogelijk; dan vervallen de reflex- en drukscores (harde regel 5 aangevuld) | Akkoord eigenaar. Toegankelijkheid voor wie meer tijd nodig heeft, zonder ongeldige scores te tonen. Coach zet het per uitnodiging (fase 4); in de demo een vinkje |
 | 2026-10-25 | Terug naar de vorige vraag alleen binnen de stellingen; herziening is een nieuwe poging, de laatste telt (harde regel 10 aangevuld) | Akkoord eigenaar. Bij getimede vragen zou terug gaan de meting ongeldig maken; ruwe data blijft volledig, ook de herzieningen |
+| 2026-10-25 | Scoringsversie 1.0.0: gemiddelde per schaal als positie op de antwoordschaal, rangorde bij gedwongen keuze | Klassieke scoring tot er pilotdata is voor Thurstonian IRT; uitkomsten gelijk aan het prototype op de voorbeeldantwoorden |
+| 2026-10-25 | Reflexkeuzes onder 300 ms tellen niet mee in de reflexindicatie (wel als "te snel" in de kwaliteit); minimaal 4 geldige keuzes | Afwijking van het prototype, dat ze wel meetelde: zo'n reactie is waarschijnlijk geen keuze. Drempels zijn ontwerpkeuzes, ter toetsing door een psychometricus |
+| 2026-10-25 | Gelijke aantallen bij de waarden geven een gedeelde plaats | Regel 7: alleen rangorde, en een gelijke stand niet kunstmatig opbreken |
+| 2026-10-25 | Conflict onder druk: de keuze bij het laatste vignet geldt als keuze bij hoogste druk; geen keuze bij een time-out | Zelfde opzet als het prototype, nu expliciet vastgelegd |
+

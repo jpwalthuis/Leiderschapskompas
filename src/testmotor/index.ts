@@ -6,8 +6,10 @@
  */
 import type { Item, Itemregister } from "@/content/itemregister";
 
-/** Tot de scoring er is (fase 2) wordt elke afname als ongescoord vastgelegd. */
-export const SCORINGSVERSIE = "ongescoord";
+import { SCORINGSVERSIE } from "@/scoring/versie";
+
+/** Versie van de scoringsregels die bij vastleggen gold; wordt per antwoord bewaard (harde regel 10). */
+export { SCORINGSVERSIE };
 
 export type Fase = 1 | 2 | 3;
 
