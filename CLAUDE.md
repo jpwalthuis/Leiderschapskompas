@@ -1,6 +1,6 @@
 # Leiderschapskompas
 
-Digitale test die persoonlijkheid, leiderschap en drijfveren in beeld brengt, met een rapport voor de deelnemer, een uitgebreid rapport en dashboard voor de coach, en een geanonimiseerde benchmark. Coaches zetten de test in onder een licentie van ons bedrijf. Er is geen directe toegang voor opdrachtgevers of werkgevers. De test is alleen voor deelnemers in de EU, met Nederland als hoofdmarkt.
+Digitale test die persoonlijkheid, leiderschap en drijfveren in beeld brengt, met een rapport voor de deelnemer, een uitgebreid rapport en dashboard voor de coach, en een geanonimiseerde benchmark. Eigenaar van de test is Ekana (ekana.nl); de app volgt de huisstijl van Ekana. Coaches zetten de test in onder een licentie van Ekana. Er is geen directe toegang voor opdrachtgevers of werkgevers. De test is alleen voor deelnemers in de EU, met Nederland als hoofdmarkt.
 
 Lees voor je begint:
 - `docs/bouwplan.md`: fasen, volgorde en definitie van klaar per fase.
@@ -34,7 +34,7 @@ Deze regels gelden voor elke wijziging. Een wijziging die er een breekt, wordt n
 17. Geen echte deelnemerdata in deze repository, in tests of in ontwikkelomgevingen. Gebruik synthetische data (zie de generator in het prototype).
 
 ### Techniek
-18. Mobiel eerst. De app moet goed werken op een telefoon en op een opengevouwen vouwtelefoon.
+18. Mobiel eerst. De app moet goed werken op een telefoon en op een opengevouwen vouwtelefoon. Kleuren komen uit de tokens in `src/app/globals.css` (huisstijl Ekana) en halen WCAG-contrast: 4,5:1 voor tekst, 3:1 voor bediening en grafische elementen. Het merkoranje zelf is te licht voor tekst en is alleen decoratief.
 19. UI in het Nederlands, met teksten uit vertaalbestanden zodat Engels later toe te voegen is.
 20. Scoring is een pure, geteste module zonder database- of UI-afhankelijkheden.
 21. Elke fase in het bouwplan eindigt met werkende tests. Schrijf voor scoring en privacyregels eerst de test.

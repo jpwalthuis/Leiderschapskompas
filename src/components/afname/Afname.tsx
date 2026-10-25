@@ -110,6 +110,7 @@ export function Afname({ register }: { register: Itemregister }) {
     return (
       <div className="stack">
         <h1>{vertaal("afname.welkom.titel")}</h1>
+        <p className="afzender">{vertaal("app.afzender", { eigenaar: "" })}<b>{vertaal("app.eigenaar")}</b></p>
         <p className="muted">{vertaal("afname.welkom.tekst")}</p>
         <section className="paneel">
           <ol className="fasen">

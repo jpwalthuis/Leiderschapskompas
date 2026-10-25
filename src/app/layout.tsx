@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { RICHTING, STANDAARDTAAL, vertaal } from "@/i18n";
+import "@fontsource/cardo/400.css";
+import "@fontsource/cardo/700.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,8 +14,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F3F6F8" },
-    { media: "(prefers-color-scheme: dark)", color: "#0A1520" },
+    { media: "(prefers-color-scheme: light)", color: "#F2F2F2" },
+    { media: "(prefers-color-scheme: dark)", color: "#1B1917" },
   ],
 };
 

@@ -1,13 +1,32 @@
-/* Kleuren en typografie volgen het prototype (prototype/leiderschapskompas.html). */
+/*
+ * Huisstijl Ekana (eigenaar van de test), afgeleid van ekana.nl:
+ * oranje #D8894E (koppen), oranje vlak #D78236 / #C96B2A, lichtgrijs #F2F2F2, tekstgrijs #6D6D6D,
+ * grijze knoppen #737373 met witte tekst, lettertype Cardo.
+ * Kleuren zijn bemonsterd van een schermafdruk; vervang ze door de officiële waarden zodra die er zijn.
+ *
+ * Toegankelijkheid (WCAG 2.2, contrast): het merkoranje #D8894E haalt op lichtgrijs maar 2,5:1 en wordt
+ * daarom alleen decoratief gebruikt. Voor tekst en bediening gebruiken we donkerder tinten van hetzelfde oranje.
+ */
 :root {
-  --bg: #f3f6f8;
+  /* Vlakken en tekst */
+  --bg: #f2f2f2;          /* Ekana lichtgrijs */
   --surface: #ffffff;
-  --ink: #0e2236;
-  --muted: #566879;
-  --line: #d5dee5;
-  --navy: #12304d;
-  --teal: #0e7a76;
-  --font-display: Georgia, "Times New Roman", serif;
+  --ink: #3a3a3a;         /* 11,4:1 op wit */
+  --muted: #6d6d6d;       /* Ekana tekstgrijs; 5,2:1 op wit, 4,6:1 op lichtgrijs */
+  --line: #dcd7d2;
+  --grijs-zacht: #e8e4e0;
+
+  /* Ekana oranje */
+  --merk: #d8894e;        /* alleen decoratief: dunne band, geen tekst */
+  --accent: #c96b2a;      /* balken, focusrand, gekozen rand; 3,7:1 op wit */
+  --accent-tekst: #9f5823;/* koppen, labels, gekozen waarde; 5,4:1 op wit */
+  --accent-zacht: #f6e6d9;
+
+  /* Knoppen zoals op ekana.nl: grijze pil met witte tekst (4,7:1) */
+  --knop: #737373;
+  --knop-tekst: #ffffff;
+
+  --font-display: "Cardo", Georgia, "Times New Roman", serif;
   --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --font-mono: ui-monospace, Menlo, Consolas, monospace;
   color-scheme: light;
@@ -15,13 +34,18 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0a1520;
-    --surface: #102131;
-    --ink: #e5edf3;
-    --muted: #93a5b6;
-    --line: #22394e;
-    --navy: #a9c9e8;
-    --teal: #46bdb4;
+    --bg: #1b1917;
+    --surface: #24211f;
+    --ink: #eeeae6;        /* 13,4:1 */
+    --muted: #b5ada6;      /* 7,2:1 */
+    --line: #3a3531;
+    --grijs-zacht: #2e2a27;
+    --merk: #d8894e;
+    --accent: #e0915a;     /* 6,4:1 */
+    --accent-tekst: #eda877;
+    --accent-zacht: #3a2a1f;
+    --knop: #5e5a57;
+    --knop-tekst: #eeeae6; /* 5,7:1 */
     color-scheme: dark;
   }
 }
@@ -41,6 +65,16 @@ body {
   padding-block: max(20px, env(safe-area-inset-top, 0px)) max(32px, env(safe-area-inset-bottom, 0px));
 }
 
+/* Dunne merkband bovenaan, als verwijzing naar het oranje vlak op ekana.nl */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: max(4px, env(safe-area-inset-top, 0px));
+  background: var(--merk);
+  z-index: 10;
+}
+
 .wrap {
   max-width: 760px;
   margin: 0 auto;
@@ -49,38 +83,34 @@ body {
   gap: 14px;
 }
 
-h1 {
+h1, h2 {
   font-family: var(--font-display);
-  color: var(--navy);
-  font-size: 1.9rem;
-  line-height: 1.2;
+  font-weight: 400;
+  color: var(--accent-tekst);
+  line-height: 1.15;
   margin: 0;
   text-wrap: balance;
 }
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.55rem; }
 
 p { margin: 0; max-width: 65ch; }
 
 .muted { color: var(--muted); }
 
 .eyebrow {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.72rem;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--accent-tekst);
 }
+
+.afzender { font-size: 0.85rem; color: var(--muted); }
+.afzender b { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--accent-tekst); }
 
 /* ---------- Afname ---------- */
-:root {
-  --teal-soft: #dcefee;
-  --grey-soft: #e9edf1;
-  --amber: #9a5b00;
-}
-@media (prefers-color-scheme: dark) {
-  :root { --teal-soft: #123a3a; --grey-soft: #1a2b3b; --amber: #e3a852; }
-}
-
-h2 { font-family: var(--font-display); color: var(--navy); font-size: 1.35rem; line-height: 1.2; margin: 0; text-wrap: balance; }
 .stack { display: flex; flex-direction: column; gap: 14px; }
 .rij { display: flex; flex-wrap: wrap; gap: 10px; }
 .mono { font-family: var(--font-mono); }
@@ -99,28 +129,34 @@ h2 { font-family: var(--font-display); color: var(--navy); font-size: 1.35rem; l
 button, .knop {
   font: inherit;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--ink);
-  padding: 12px 16px;
+  padding: 11px 20px;
   min-height: 44px;
   text-decoration: none;
   display: inline-block;
   touch-action: manipulation;
 }
-button:focus-visible, .knop:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
-.primair { background: var(--teal); border-color: var(--teal); color: var(--surface); font-weight: 600; }
+button:focus-visible, .knop:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.primair {
+  background: var(--knop);
+  border-color: var(--knop);
+  color: var(--knop-tekst);
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+}
 
 .fasen { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
 
-.voortgang { height: 4px; background: var(--grey-soft); border-radius: 4px; overflow: hidden; }
-.voortgang > i { display: block; height: 100%; background: var(--teal); transition: width 0.2s; }
-.qhead { display: flex; justify-content: space-between; gap: 10px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.voortgang { height: 4px; background: var(--grijs-zacht); border-radius: 4px; overflow: hidden; }
+.voortgang > i { display: block; height: 100%; background: var(--accent); transition: width 0.2s; }
+.qhead { display: flex; justify-content: space-between; gap: 10px; font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 
-.woord { font-family: var(--font-display); font-size: 2rem; color: var(--navy); text-align: center; }
-.tijdbalk { height: 6px; background: var(--grey-soft); border-radius: 6px; overflow: hidden; }
-.tijdbalk > i { display: block; height: 100%; background: var(--amber); transform-origin: left; transform: scaleX(1); }
+.woord { font-family: var(--font-display); font-size: 2.2rem; color: var(--accent-tekst); text-align: center; }
+.tijdbalk { height: 6px; background: var(--grijs-zacht); border-radius: 6px; overflow: hidden; }
+.tijdbalk > i { display: block; height: 100%; background: var(--accent); transform-origin: left; transform: scaleX(1); }
 
 .paar { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .beeld {
@@ -135,25 +171,25 @@ button:focus-visible, .knop:focus-visible { outline: 3px solid var(--teal); outl
   color: var(--ink);
 }
 .beeld svg { width: 100%; height: 100%; }
-@media (hover: hover) { .beeld:hover, .optie:hover { border-color: var(--teal); } }
+@media (hover: hover) { .beeld:hover, .optie:hover { border-color: var(--accent); } }
 
-.vraagtekst { font-size: 1.08rem; }
+.vraagtekst { font-family: var(--font-display); font-size: 1.3rem; line-height: 1.4; }
 .schaal { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-.schaal button { padding: 14px 4px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.schaal button { border-radius: 10px; padding: 14px 4px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .schaal-labels { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); }
 
 .opties { display: flex; flex-direction: column; gap: 10px; }
-.optie { text-align: left; width: 100%; line-height: 1.4; }
+.optie { border-radius: 10px; text-align: left; width: 100%; line-height: 1.4; }
 
 .kerncijfers { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 0; }
 .kerncijfers div { border: 1px solid var(--line); border-radius: 8px; padding: 10px; min-width: 0; }
 .kerncijfers dt { font-size: 0.78rem; color: var(--muted); }
-.kerncijfers dd { margin: 0; font-family: var(--font-mono); font-size: 1.05rem; color: var(--navy); overflow-wrap: anywhere; }
+.kerncijfers dd { margin: 0; font-size: 1.1rem; font-variant-numeric: tabular-nums; color: var(--accent-tekst); overflow-wrap: anywhere; }
 
 .data {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  background: var(--grey-soft);
+  background: var(--grijs-zacht);
   border-radius: 8px;
   padding: 12px;
   max-height: 50vh;
@@ -167,10 +203,10 @@ button:focus-visible, .knop:focus-visible { outline: 3px solid var(--teal); outl
 }
 
 /* Stellingen: gekozen waarde en navigatie */
-.schaal button.gekozen { background: var(--teal); border-color: var(--teal); color: var(--surface); }
+.schaal button.gekozen { background: var(--accent-tekst); border-color: var(--accent-tekst); color: var(--surface); }
 .navigatie { display: flex; justify-content: space-between; gap: 10px; }
 
 /* Instelling zonder tijdslimieten */
 .schakelaar { display: flex; gap: 10px; align-items: flex-start; }
-.schakelaar input { margin-top: 4px; width: 20px; height: 20px; accent-color: var(--teal); flex: none; }
-.melding { background: var(--teal-soft); border-radius: 8px; padding: 10px 12px; }
+.schakelaar input { margin-top: 4px; width: 20px; height: 20px; accent-color: var(--accent-tekst); flex: none; }
+.melding { background: var(--accent-zacht); border-radius: 8px; padding: 10px 12px; }

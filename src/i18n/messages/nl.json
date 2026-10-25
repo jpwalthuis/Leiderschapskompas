@@ -1,7 +1,9 @@
 {
   "app": {
     "naam": "Leiderschapskompas",
-    "omschrijving": "Een test die laat zien hoe je leidt, waar je energie van krijgt en wat er gebeurt als de druk oploopt."
+    "omschrijving": "Een test die laat zien hoe je leidt, waar je energie van krijgt en wat er gebeurt als de druk oploopt.",
+    "eigenaar": "Ekana",
+    "afzender": "Een test van {eigenaar}"
   },
   "start": {
     "status": "In ontwikkeling",
