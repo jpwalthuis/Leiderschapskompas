@@ -17,14 +17,14 @@ Deze regels gelden voor elke wijziging. Een wijziging die er een breekt, wordt n
 2. Een onderdeel waarvan het construct niet `sterk` of `matig` is, wordt nooit als meting gescoord. Het mag hooguit als gemarkeerde duiding in een rapport.
 3. Archetypen worden niet gemeten. Ze verschijnen alleen als duidingslaag, afgeleid van de gemeten balans agency/communion, en zijn in de UI zo gelabeld.
 4. Masculien/feminien wordt gemeten als agency/communion en altijd zo uitgelegd: los van geslacht.
-5. De reflexmeting (fase 1, snelle beeldkeuze) is `experimenteel`. Toon haar alleen naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.
+5. De reflexmeting (fase 1, snelle beeldkeuze) is `experimenteel`. Toon haar alleen naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Is een afname zonder tijdslimieten gedaan (instelling van de coach, voor wie meer tijd nodig heeft), dan vervallen de reflex- en drukscores en toont het rapport ze als niet beschikbaar.
 6. Geen normscores of percentielen tot er normdata uit de pilot zijn. Tot dan is 0-100 de positie op de antwoordschaal, en dat staat bij elke score.
 7. Gedwongen-keuzeblokken worden in productie gescoord met Thurstonian IRT. Tot die scoring er is, zijn die scores ipsatief en mag het rapport alleen de rangorde binnen de persoon tonen.
 8. Geen items, namen of merken van bestaande instrumenten: geen TKI, Thomas-Kilmann, PMAI, MBTI of DUTCH-items. De modellen mogen we gebruiken, met eigen formuleringen.
 9. Items zijn geversioneerd. Een gewijzigde tekst is een nieuwe itemversie, nooit een overschrijving.
 
 ### Data en privacy
-10. Bewaar per antwoord altijd: item-ID, itemversie, ruwe waarde, reactietijd in ms, getoonde positie, en de scoringsversie. Scores moeten na elke scoringswijziging opnieuw te berekenen zijn.
+10. Bewaar per antwoord altijd: item-ID, itemversie, ruwe waarde, reactietijd in ms, getoonde positie, en de scoringsversie. Scores moeten na elke scoringswijziging opnieuw te berekenen zijn. Alleen stellingen mogen herzien worden; een herziening is een nieuwe poging naast de eerdere, die bewaard blijven. De laatste poging telt.
 11. Identiteit (naam, e-mail) staat in een aparte, versleutelde opslag en is alleen gekoppeld via een pseudoniem-ID. Analyse- en benchmarkcode krijgt nooit toegang tot die opslag.
 12. Achtergrondkenmerken komen uit vaste lijsten (ISCO-08, NACE Rev. 2.1, ISCED, ISO 3166-2) met de versie van de lijst. Geen vrije tekst. Ze horen bij de afname, niet bij de persoon.
 13. Geen bijzondere persoonsgegevens (artikel 9 AVG): geen etniciteit, religie, gezondheid. Gender is optioneel en heeft de optie "zeg ik liever niet".
