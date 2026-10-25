@@ -29,4 +29,4 @@
 | 2026-10-25 | Merkoranje alleen decoratief; voor tekst en bediening donkerder tinten van hetzelfde oranje (#9F5823 tekst, #C96B2A balken en focus) | #D8894E haalt op lichtgrijs 2,5:1, onder de WCAG-eis van 4,5:1 voor tekst en 3:1 voor bediening |
 | 2026-10-25 | Cardo voor koppen, vraagteksten en hoofdknoppen; systeemlettertype voor kleine bedieningstekst | Cardo is de letter van ekana.nl; op een telefoon leest kleine tekst beter in een schreefloze letter |
 | 2026-10-25 | Cardo wordt meegeleverd met de app (npm-pakket @fontsource/cardo, OFL-licentie), niet geladen vanaf Google | Geen verzoek naar Google bij elke deelnemer; past bij de AVG-lijn van de app |
-
+| 2026-10-25 | Ekana is ook de licentiegever: coaches krijgen hun licentie van Ekana | Bevestigd door eigenaar |
