@@ -117,7 +117,7 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
     const item = items.find((i) => i.id === antw.item_id)!;
     expect(item, `onbekend item ${antw.item_id}`).toBeTruthy();
     expect(antw.itemversie).toBe(item.versie);
-    expect(antw.scoringsversie).toBe("ongescoord");
+    expect(antw.scoringsversie).toBe("1.0.0");
     expect(antw.getoonde_positie.length).toBeGreaterThanOrEqual(2);
     if (antw.time_out) {
       expect(antw.waarde).toBeNull();
