@@ -15,11 +15,14 @@ export interface Keuze {
 interface VraagProps {
   volgorde: string[];
   onKeuze: (k: Keuze) => void;
+  /** Tijdslimiet in ms, of null bij een afname zonder tijdslimieten. */
+  limietMs: number | null;
 }
 
 const hoofdletter = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-function Tijdbalk({ limietMs, loopt }: { limietMs: number; loopt: boolean }) {
+function Tijdbalk({ limietMs, loopt }: { limietMs: number | null; loopt: boolean }) {
+  if (limietMs === null) return null;
   return (
     <div className="tijdbalk" role="progressbar" aria-label={vertaal("afname.tijd")}>
       <i style={loopt ? { transition: `transform ${limietMs}ms linear`, transform: "scaleX(0)" } : undefined} />
@@ -52,7 +55,7 @@ export function Beeldkeuze({
   label,
   volgorde,
   onKeuze,
-}: VraagProps & { woord: string; beelden: Record<string, string>; limietMs: number; label: string }) {
+}: VraagProps & { woord: string; beelden: Record<string, string>; label: string }) {
   const { loopt, kies } = useVraag(limietMs, onKeuze);
 
   useEffect(() => {
@@ -86,7 +89,21 @@ export function Beeldkeuze({
   );
 }
 
-export function Stelling({ item, volgorde, onKeuze }: VraagProps & { item: Item }) {
+export function Stelling({
+  item,
+  volgorde,
+  onKeuze,
+  huidig,
+  onVorige,
+  onVolgende,
+}: Omit<VraagProps, "limietMs"> & {
+  item: Item;
+  /** Eerder gegeven antwoord, zichtbaar als de deelnemer terugkomt. */
+  huidig: string | null;
+  /** Ontbreekt bij de eerste stelling. */
+  onVorige?: () => void;
+  onVolgende: () => void;
+}) {
   const { kies } = useVraag(null, onKeuze);
 
   useEffect(() => {
@@ -102,7 +119,14 @@ export function Stelling({ item, volgorde, onKeuze }: VraagProps & { item: Item 
       <p className="vraagtekst">{item.tekst}</p>
       <div className="schaal" role="group" aria-label={vertaal("afname.stelling.schaal")}>
         {volgorde.map((v) => (
-          <button key={v} type="button" data-waarde={v} onClick={() => kies(v)}>
+          <button
+            key={v}
+            type="button"
+            data-waarde={v}
+            className={huidig === v ? "gekozen" : undefined}
+            aria-pressed={huidig === v}
+            onClick={() => kies(v)}
+          >
             {v}
           </button>
         ))}
@@ -111,12 +135,17 @@ export function Stelling({ item, volgorde, onKeuze }: VraagProps & { item: Item 
         <span>{vertaal("afname.stelling.laag")}</span>
         <span>{vertaal("afname.stelling.hoog")}</span>
       </div>
+      {(onVorige || huidig !== null) && (
+        <div className="navigatie">
+          {onVorige ? <button type="button" onClick={onVorige}>{vertaal("afname.stelling.vorige")}</button> : <span />}
+          {huidig !== null && <button type="button" onClick={onVolgende}>{vertaal("afname.stelling.volgende")}</button>}
+        </div>
+      )}
     </section>
   );
 }
 
-export function Dilemma({ item, volgorde, onKeuze }: VraagProps & { item: Item }) {
-  const limietMs = (item.tijdslimiet_s ?? 8) * 1000;
+export function Dilemma({ item, volgorde, onKeuze, limietMs }: VraagProps & { item: Item }) {
   const { loopt, kies } = useVraag(limietMs, onKeuze);
   const tekst = (k: string) => hoofdletter((k === "a" ? item.optie_a : item.optie_b)?.tekst ?? "");
   return (
@@ -134,13 +163,14 @@ export function Dilemma({ item, volgorde, onKeuze }: VraagProps & { item: Item }
   );
 }
 
-export function Vignet({ item, volgorde, onKeuze }: VraagProps & { item: Item }) {
-  const limietMs = (item.tijdslimiet_s ?? 10) * 1000;
+export function Vignet({ item, volgorde, onKeuze, limietMs }: VraagProps & { item: Item }) {
   const { loopt, kies } = useVraag(limietMs, onKeuze);
   return (
     <section className="paneel">
       <span className="eyebrow">
-        {vertaal("afname.vignet.meta", { seconden: item.tijdslimiet_s ?? 10, opties: volgorde.length })}
+        {limietMs === null
+          ? vertaal("afname.vignet.metaZonderTijd", { opties: volgorde.length })
+          : vertaal("afname.vignet.meta", { seconden: limietMs / 1000, opties: volgorde.length })}
       </span>
       <p className="vraagtekst">{item.tekst}</p>
       <Tijdbalk limietMs={limietMs} loopt={loopt} />

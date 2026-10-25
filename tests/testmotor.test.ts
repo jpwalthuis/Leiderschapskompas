@@ -5,6 +5,8 @@ import {
   SCORINGSVERSIE,
   bouwStappen,
   controleerAntwoord,
+  geldigeAntwoorden,
+  huidigAntwoord,
   itemsetVersie,
   maakAntwoord,
   nieuweAfname,
@@ -131,7 +133,7 @@ describe("afname", () => {
     expect(a.itemset_versie).toBe(itemsetVersie(reg));
   });
 
-  it("telt alleen het eerste antwoord per item (dubbel tikken of tikken na de time-out)", () => {
+  it("telt bij getimede vragen alleen het eerste antwoord (dubbel tikken of tikken na de time-out)", () => {
     let a = afname();
     const opts = { reactietijd_ms: 500, volgorde: ["agentisch", "communaal"], nu: NU };
     a = registreer(a, maakAntwoord(a, item("R1"), { ...opts, waarde: "agentisch" }));
@@ -151,5 +153,59 @@ describe("afname", () => {
     const a = afname();
     registreer(a, maakAntwoord(a, item("Z1"), { waarde: "2", reactietijd_ms: 400, volgorde: ["1", "2", "3", "4", "5"], nu: NU }));
     expect(a.antwoorden).toHaveLength(0);
+  });
+});
+
+describe("stellingen herzien", () => {
+  const schaal = ["1", "2", "3", "4", "5"];
+  const opts = { reactietijd_ms: 700, volgorde: schaal, nu: NU };
+
+  it("bewaart een herzien antwoord als nieuwe poging naast het eerste", () => {
+    let a = afname();
+    a = registreer(a, maakAntwoord(a, item("Z1"), { ...opts, waarde: "2" }));
+    a = registreer(a, maakAntwoord(a, item("Z1"), { ...opts, waarde: "5" }));
+    expect(a.antwoorden.map((x) => [x.waarde, x.poging])).toEqual([["2", 1], ["5", 2]]);
+  });
+
+  it("het laatste antwoord telt", () => {
+    let a = afname();
+    a = registreer(a, maakAntwoord(a, item("Z1"), { ...opts, waarde: "2" }));
+    a = registreer(a, maakAntwoord(a, item("Z2"), { ...opts, waarde: "3" }));
+    a = registreer(a, maakAntwoord(a, item("Z1"), { ...opts, waarde: "5" }));
+    expect(geldigeAntwoorden(a).map((x) => [x.item_id, x.waarde])).toEqual([["Z1", "5"], ["Z2", "3"]]);
+    expect(huidigAntwoord(a, item("Z1"))?.waarde).toBe("5");
+    expect(huidigAntwoord(a, item("Z3"))).toBeNull();
+  });
+
+  it.each(["R1", "W1", "D1"])("staat geen herziening toe bij getimed item %s", (id) => {
+    const i = item(id);
+    let a = afname();
+    const volgorde = optieVolgorde(i, a.seed);
+    a = registreer(a, maakAntwoord(a, i, { waarde: volgorde[0], reactietijd_ms: 300, volgorde, nu: NU }));
+    a = registreer(a, maakAntwoord(a, i, { waarde: volgorde[1], reactietijd_ms: 300, volgorde, nu: NU }));
+    expect(a.antwoorden).toHaveLength(1);
+  });
+});
+
+describe("regel 5: afname zonder tijdslimieten", () => {
+  const zonder = () => nieuweAfname(reg, { id: "A-2", seed: 1, nu: NU, tijdslimieten: false });
+
+  it("staat standaard aan", () => {
+    expect(afname().tijdslimieten).toBe(true);
+  });
+
+  it("legt vast dat de afname zonder tijdslimieten is gedaan", () => {
+    expect(zonder().tijdslimieten).toBe(false);
+  });
+
+  it("legt geen tijdslimiet vast bij getimede items", () => {
+    const a = zonder();
+    const ant = maakAntwoord(a, item("D1"), { waarde: "prob", reactietijd_ms: 30000, volgorde: optieVolgorde(item("D1"), 1), nu: NU });
+    expect(ant.tijdslimiet_ms).toBeNull();
+    expect(controleerAntwoord(ant)).toEqual([]);
+  });
+
+  it("kan geen time-out hebben", () => {
+    expect(() => maakAntwoord(zonder(), item("R1"), { waarde: null, reactietijd_ms: null, volgorde: ["agentisch", "communaal"], nu: NU })).toThrow();
   });
 });

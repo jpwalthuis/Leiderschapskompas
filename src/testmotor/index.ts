@@ -2,7 +2,7 @@
  * Testmotor: volgorde van de afname, presentatievolgorde van opties en vastleggen van antwoorden.
  * Puur: geen UI, geen opslag, geen klok. Tijd en willekeur komen als invoer binnen.
  *
- * Bewaakt harde regels 9 (itemversies) en 10 (volledig antwoord).
+ * Bewaakt harde regels 5 (afname zonder tijdslimieten), 9 (itemversies) en 10 (volledig antwoord).
  */
 import type { Item, Itemregister } from "@/content/itemregister";
 
@@ -34,6 +34,8 @@ export interface Antwoord {
   gekozen_positie: number | null;
   /** Het scherm verloor de focus terwijl de vraag openstond (app gewisseld, scherm uit). */
   onderbroken: boolean;
+  /** 1 voor het eerste antwoord; hoger als de deelnemer een stelling herziet. Eerdere pogingen blijven bewaard. */
+  poging: number;
   scoringsversie: string;
   vastgelegd_op: string;
 }
@@ -46,7 +48,15 @@ export interface Afname {
   status: "bezig" | "afgerond";
   itemset_versie: string;
   scoringsversie: string;
+  /** Uit = afname zonder tijdslimieten. Dan vervallen de reflex- en drukscores (harde regel 5). */
+  tijdslimieten: boolean;
+  /** Alle antwoorden in volgorde van vastleggen, inclusief herziene pogingen. Nooit overschreven. */
   antwoorden: Antwoord[];
+}
+
+/** Alleen stellingen mogen herzien worden; bij getimede vragen telt de eerste reactie. */
+export function isHerzienbaar(format: Item["format"]): boolean {
+  return format === "likert";
 }
 
 const LIKERT = ["1", "2", "3", "4", "5"];
@@ -126,7 +136,10 @@ export function itemsetVersie(register: Itemregister): string {
   return `s${register.schema_versie}-${fnv1a(sleutel).toString(16).padStart(8, "0")}`;
 }
 
-export function nieuweAfname(register: Itemregister, opts: { id: string; seed: number; nu: string }): Afname {
+export function nieuweAfname(
+  register: Itemregister,
+  opts: { id: string; seed: number; nu: string; tijdslimieten?: boolean },
+): Afname {
   return {
     id: opts.id,
     seed: opts.seed,
@@ -135,6 +148,7 @@ export function nieuweAfname(register: Itemregister, opts: { id: string; seed: n
     status: "bezig",
     itemset_versie: itemsetVersie(register),
     scoringsversie: SCORINGSVERSIE,
+    tijdslimieten: opts.tijdslimieten ?? true,
     antwoorden: [],
   };
 }
@@ -148,8 +162,16 @@ export interface AntwoordInvoer {
   onderbroken?: boolean;
 }
 
+/** Tijdslimiet in ms voor dit item in deze afname, of null als er geen limiet geldt. */
+export function tijdslimietMs(afname: Afname, item: Item): number | null {
+  return afname.tijdslimieten && typeof item.tijdslimiet_s === "number" ? item.tijdslimiet_s * 1000 : null;
+}
+
 export function maakAntwoord(afname: Afname, item: Item, invoer: AntwoordInvoer): Antwoord {
   const timeOut = invoer.waarde === null;
+  if (timeOut && tijdslimietMs(afname, item) === null) {
+    throw new Error(`Time-out bij ${item.id} terwijl er geen tijdslimiet geldt.`);
+  }
   if (!timeOut) {
     if (!invoer.volgorde.includes(invoer.waarde!)) {
       throw new Error(`Waarde "${invoer.waarde}" is niet getoond bij ${item.id}.`);
@@ -167,10 +189,11 @@ export function maakAntwoord(afname: Afname, item: Item, invoer: AntwoordInvoer)
     waarde: timeOut ? null : invoer.waarde,
     time_out: timeOut,
     reactietijd_ms: timeOut ? null : Math.round(invoer.reactietijd_ms!),
-    tijdslimiet_ms: typeof item.tijdslimiet_s === "number" ? item.tijdslimiet_s * 1000 : null,
+    tijdslimiet_ms: tijdslimietMs(afname, item),
     getoonde_positie: [...invoer.volgorde],
     gekozen_positie: timeOut ? null : invoer.volgorde.indexOf(invoer.waarde!),
     onderbroken: invoer.onderbroken ?? false,
+    poging: 1,
     scoringsversie: afname.scoringsversie,
     vastgelegd_op: invoer.nu,
   };
@@ -183,6 +206,7 @@ export function controleerAntwoord(a: Antwoord): string[] {
   if (!Number.isInteger(a.itemversie) || a.itemversie < 1) m.push("itemversie ontbreekt");
   if (!Array.isArray(a.getoonde_positie) || a.getoonde_positie.length === 0) m.push("getoonde positie ontbreekt");
   if (!a.scoringsversie) m.push("scoringsversie ontbreekt");
+  if (!Number.isInteger(a.poging) || a.poging < 1) m.push("poging ontbreekt");
   if (a.time_out) {
     if (a.waarde !== null || a.reactietijd_ms !== null) m.push("time-out mag geen waarde of reactietijd hebben");
   } else {
@@ -192,11 +216,32 @@ export function controleerAntwoord(a: Antwoord): string[] {
   return m;
 }
 
-/** Voegt een antwoord toe. Alleen het eerste antwoord per item telt; een afgeronde afname blijft ongewijzigd. */
+const zelfdeItem = (a: Antwoord, b: Pick<Antwoord, "item_id" | "itemversie">) =>
+  a.item_id === b.item_id && a.itemversie === b.itemversie;
+
+/**
+ * Voegt een antwoord toe. Een afgeronde afname blijft ongewijzigd.
+ * Bij getimede vragen telt alleen het eerste antwoord. Een stelling mag herzien worden:
+ * dat wordt een nieuwe poging naast de eerdere, die bewaard blijven.
+ */
 export function registreer(afname: Afname, antwoord: Antwoord): Afname {
   if (afname.status !== "bezig") return afname;
-  if (afname.antwoorden.some((a) => a.item_id === antwoord.item_id && a.itemversie === antwoord.itemversie)) return afname;
-  return { ...afname, antwoorden: [...afname.antwoorden, antwoord] };
+  const eerder = afname.antwoorden.filter((a) => zelfdeItem(a, antwoord)).length;
+  if (eerder > 0 && !isHerzienbaar(antwoord.format)) return afname;
+  return { ...afname, antwoorden: [...afname.antwoorden, { ...antwoord, poging: eerder + 1 }] };
+}
+
+/** Het antwoord dat telt per item: de laatste poging, in de volgorde waarin de items voor het eerst beantwoord zijn. */
+export function geldigeAntwoorden(afname: Afname): Antwoord[] {
+  const laatste = new Map<string, Antwoord>();
+  for (const a of afname.antwoorden) laatste.set(`${a.item_id}@${a.itemversie}`, a);
+  return [...laatste.values()];
+}
+
+/** Het huidige antwoord op een item, of null. */
+export function huidigAntwoord(afname: Afname, item: Pick<Item, "id" | "versie">): Antwoord | null {
+  const sleutel = { item_id: item.id, itemversie: item.versie };
+  return afname.antwoorden.filter((a) => zelfdeItem(a, sleutel)).at(-1) ?? null;
 }
 
 export function rondAf(afname: Afname, nu: string): Afname {

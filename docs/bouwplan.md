@@ -13,7 +13,7 @@ Akkoord eigenaar op 2026-10-24.
 | Identiteitsopslag | Aparte database of schema met eigen sleutel | Harde regel 11 |
 | Scoring | Pure TypeScript-module met unit tests | Harde regel 20 |
 | Psychometrische analyse | R-scripts in `analyse/` (lavaan voor CFA en invariantie, thurstonianIRT voor gedwongen keuze) | Gangbare, controleerbare pakketten |
-| Hosting | Te kiezen, EU-regio, met previewversie per pull request | Testen vanaf de telefoon via de previewlink |
+| Hosting | Voorstel: Scalingo, regio osc-fr1 (Parijs). Wacht op akkoord eigenaar | Franse aanbieder, EU-opslag, ISO 27001, verwerkersovereenkomst, automatisch een previewversie per pull request |
 
 Alleen deelnemers in de EU, met Nederland als hoofdmarkt. Alle opslag en verwerking in de EU; de registratie accepteert alleen EU-lidstaten.
 
@@ -34,7 +34,9 @@ Alleen deelnemers in de EU, met Nederland als hoofdmarkt. Alle opslag en verwerk
 
 ### Fase 2: Scoring
 - Pure module: agency, communion, extraversie (met omgekeerde items), basisbehoeften (bevrediging en frustratie apart), conflictstrategieën in rust en onder druk, waardenrangorde, reflexindicatie.
-- Kwaliteitsindicatoren: time-outs, reacties onder 300 ms, rechtlijnig antwoordpatroon, te weinig geldige reflexkeuzes.
+- Scoring rekent met de geldige antwoorden: per item de laatste poging.
+- Afname zonder tijdslimieten: reflexindicatie en conflict onder druk krijgen de status "niet beschikbaar" (harde regel 5).
+- Kwaliteitsindicatoren: time-outs, reacties onder 300 ms, rechtlijnig antwoordpatroon, te weinig geldige reflexkeuzes, onderbroken vragen, aantal herzieningen.
 - Scoringsversie in elke uitkomst.
 - Klaar als: unit tests dekken elke schaal, inclusief ontbrekende antwoorden en time-outs, en uitkomsten komen overeen met het prototype op de voorbeeldantwoorden.
 
@@ -45,7 +47,7 @@ Alleen deelnemers in de EU, met Nederland als hoofdmarkt. Alle opslag en verwerk
 
 ### Fase 4: Accounts, rollen en toestemming
 - Rollen: beheerder (wij), licentienemer, coach, deelnemer.
-- Coach nodigt deelnemer uit via een link; deelnemer ziet altijd het eigen rapport.
+- Coach nodigt deelnemer uit via een link en kan per uitnodiging de tijdslimieten uitzetten; deelnemer ziet altijd het eigen rapport.
 - Twee toestemmingen (harde regel 14), met intrekken.
 - Identiteitsopslag gescheiden (harde regel 11).
 - Klaar als: tests bewijzen dat een coach alleen eigen cliënten ziet en dat zonder toestemming niets gedeeld wordt.

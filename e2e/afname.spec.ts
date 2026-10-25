@@ -44,10 +44,27 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
 
   // Fase 2: stellingen en dilemma's
   await page.getByRole("button", { name: "Verder" }).click();
+  const schaal = () => page.getByRole("group", { name: "Antwoordschaal" });
   for (let i = 0; i < aantal("likert"); i++) {
     label = await kopLabel(page);
-    if (i === 0) await geenHorizontaleScroll(page);
-    await page.getByRole("group", { name: "Antwoordschaal" }).getByRole("button", { name: String((i % 5) + 1), exact: true }).click();
+    if (i === 0) {
+      await geenHorizontaleScroll(page);
+      await expect(page.getByRole("button", { name: "Vorige" })).toHaveCount(0); // niet terug naar de intro
+    }
+    if (i === 2) {
+      // Terug naar stelling 2, het eerdere antwoord (2) staat gemarkeerd; wijzig naar 5.
+      await page.getByRole("button", { name: "Vorige" }).click();
+      await expect(page.locator(".qhead span").first()).toContainText("Stelling 2 van");
+      await expect(schaal().getByRole("button", { name: "2", exact: true })).toHaveAttribute("aria-pressed", "true");
+      await schaal().getByRole("button", { name: "5", exact: true }).click();
+      await expect(page.locator(".qhead span").first()).toContainText("Stelling 3 van");
+      // Nog een keer terug, en nu zonder wijziging verder.
+      await page.getByRole("button", { name: "Vorige" }).click();
+      await expect(schaal().getByRole("button", { name: "5", exact: true })).toHaveAttribute("aria-pressed", "true");
+      await page.getByRole("button", { name: "Volgende" }).click();
+      await expect(page.locator(".qhead span").first()).toContainText("Stelling 3 van");
+    }
+    await schaal().getByRole("button", { name: String((i % 5) + 1), exact: true }).click();
     await naVolgendeVraag(page, label);
   }
   for (let i = 0; i < aantal("dilemma"); i++) {
@@ -68,6 +85,7 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
   // Eindscherm
   await expect(page.getByRole("heading", { name: "Klaar" })).toBeVisible();
   await expect(page.getByTestId("aantal")).toHaveText(String(items.length));
+  await expect(page.getByTestId("herzien")).toHaveText("1");
   await geenHorizontaleScroll(page);
 
   // Controle op de opgeslagen data (harde regel 10), ook na herladen
@@ -82,7 +100,18 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
   expect(a.status).toBe("afgerond");
   expect(a.afgerond_op).toBeTruthy();
   expect(a.itemset_versie).toMatch(/^s1-[0-9a-f]{8}$/);
-  expect(a.antwoorden).toHaveLength(items.length);
+  expect(a.tijdslimieten).toBe(true);
+  // Alle pogingen blijven bewaard: één stelling is herzien, dus één ruw antwoord extra.
+  expect(a.antwoorden).toHaveLength(items.length + 1);
+  const likertIds = items.filter((i) => i.format === "likert").map((i) => i.id);
+  const tweede = a.antwoorden.filter((x: { item_id: string }) => x.item_id === likertIds[1]);
+  expect(tweede.map((x: { waarde: string; poging: number }) => [x.waarde, x.poging])).toEqual([["2", 1], ["5", 2]]);
+
+  // Het geldige antwoord per item is de laatste poging.
+  const laatste = new Map<string, { item_id: string }>();
+  for (const x of a.antwoorden) laatste.set(x.item_id, x);
+  const geldig = [...laatste.values()];
+  expect(geldig).toHaveLength(items.length);
 
   for (const antw of a.antwoorden) {
     const item = items.find((i) => i.id === antw.item_id)!;
@@ -106,8 +135,34 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
   expect(r1.time_out).toBe(true);
   expect(a.antwoorden.filter((x: { time_out: boolean }) => x.time_out)).toHaveLength(1);
 
-  // De volgorde van antwoorden volgt de volgorde van het register.
-  expect(a.antwoorden.map((x: { item_id: string }) => x.item_id)).toEqual(items.map((i) => i.id));
+  // De volgorde van de geldige antwoorden volgt de volgorde van het register.
+  expect(geldig.map((x) => x.item_id)).toEqual(items.map((i) => i.id));
+});
+
+test("afname zonder tijdslimieten: geen time-out en geen tijdslimiet in de data", async ({ page }) => {
+  await page.goto("/test");
+  await page.getByLabel("Zonder tijdslimieten").check();
+  await expect(page.getByText("Kies binnen 2 seconden")).toHaveCount(0);
+  await page.getByRole("button", { name: "Start" }).click();
+  await page.getByRole("button", { name: "Oefenronde" }).click();
+  await expect(page.getByRole("progressbar")).toHaveCount(0);
+  await page.getByRole("button", { name: "Linker beeld" }).click();
+
+  // Langer wachten dan de normale limiet van 2 seconden: de vraag blijft staan.
+  const label = await kopLabel(page);
+  await page.waitForTimeout(3000);
+  await expect(page.locator(".qhead span").first()).toHaveText(label);
+  await page.getByRole("button", { name: "Rechter beeld" }).click();
+  await naVolgendeVraag(page, label);
+
+  const a = await page.evaluate(() => {
+    const k = Object.keys(localStorage).find((x) => x.startsWith("lk.afname."))!;
+    return JSON.parse(localStorage.getItem(k)!);
+  });
+  expect(a.tijdslimieten).toBe(false);
+  expect(a.antwoorden[0].time_out).toBe(false);
+  expect(a.antwoorden[0].tijdslimiet_ms).toBeNull();
+  expect(a.antwoorden[0].reactietijd_ms).toBeGreaterThan(3000);
 });
 
 test("tikken na het verstrijken van de tijd overschrijft de time-out niet", async ({ page }) => {

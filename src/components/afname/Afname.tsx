@@ -6,11 +6,14 @@ import { vertaal } from "@/i18n";
 import { BrowserOpslag, GeheugenOpslag, type AfnameOpslag } from "@/opslag";
 import {
   bouwStappen,
+  geldigeAntwoorden,
+  huidigAntwoord,
   maakAntwoord,
   nieuweAfname,
   optieVolgorde,
   registreer,
   rondAf,
+  tijdslimietMs,
   type Afname as AfnameData,
   type Stap,
 } from "@/testmotor";
@@ -36,6 +39,8 @@ function nieuweSeed(): number {
   return buf[0];
 }
 
+const isStelling = (s: Stap | undefined) => s?.soort === "item" && s.item.format === "likert";
+
 export function Afname({ register }: { register: Itemregister }) {
   const stappen = useMemo(() => bouwStappen(register), [register]);
   const totaalItems = useMemo(() => stappen.filter((s) => s.soort === "item").length, [stappen]);
@@ -43,6 +48,7 @@ export function Afname({ register }: { register: Itemregister }) {
   const [afname, setAfname] = useState<AfnameData | null>(null);
   const [index, setIndex] = useState(-1); // -1 = welkomstscherm
   const [toonData, setToonData] = useState(false);
+  const [zonderTijd, setZonderTijd] = useState(false);
 
   useEffect(() => {
     opslag.current = maakOpslag();
@@ -51,9 +57,16 @@ export function Afname({ register }: { register: Itemregister }) {
   const stap: Stap | null = index >= 0 ? stappen[index] : null;
 
   const volgende = useCallback(() => setIndex((i) => Math.min(i + 1, stappen.length - 1)), [stappen.length]);
+  // Terug kan alleen binnen het blok stellingen; nooit naar een getimede vraag of een intro.
+  const vorige = useCallback(() => setIndex((i) => (isStelling(stappen[i - 1]) ? i - 1 : i)), [stappen]);
 
   const start = () => {
-    const a = nieuweAfname(register, { id: nieuweId(), seed: nieuweSeed(), nu: new Date().toISOString() });
+    const a = nieuweAfname(register, {
+      id: nieuweId(),
+      seed: nieuweSeed(),
+      nu: new Date().toISOString(),
+      tijdslimieten: !zonderTijd,
+    });
     setAfname(a);
     setToonData(false);
     void opslag.current?.bewaar(a);
@@ -82,8 +95,9 @@ export function Afname({ register }: { register: Itemregister }) {
     [afname, stap, volgende, stappen, index],
   );
 
-  const beantwoordAantal = afname?.antwoorden.length ?? 0;
-  const procent = Math.round((beantwoordAantal / totaalItems) * 100);
+  const geldig = afname ? geldigeAntwoorden(afname) : [];
+  const procent = Math.round((geldig.length / totaalItems) * 100);
+  const zonder = afname ? !afname.tijdslimieten : zonderTijd;
 
   const kop = (label: string) => (
     <>
@@ -99,11 +113,19 @@ export function Afname({ register }: { register: Itemregister }) {
         <p className="muted">{vertaal("afname.welkom.tekst")}</p>
         <section className="paneel">
           <ol className="fasen">
-            <li>{vertaal("afname.welkom.fase1")}</li>
+            <li>{vertaal(zonder ? "afname.welkom.fase1ZonderTijd" : "afname.welkom.fase1")}</li>
             <li>{vertaal("afname.welkom.fase2")}</li>
-            <li>{vertaal("afname.welkom.fase3")}</li>
+            <li>{vertaal(zonder ? "afname.welkom.fase3ZonderTijd" : "afname.welkom.fase3")}</li>
           </ol>
         </section>
+        <label className="schakelaar" htmlFor="zonderTijd">
+          <input id="zonderTijd" type="checkbox" checked={zonderTijd} onChange={(e) => setZonderTijd(e.target.checked)} />
+          <span>
+            <b>{vertaal("afname.welkom.zonderTijd")}</b>
+            <br />
+            <span className="muted">{vertaal("afname.welkom.zonderTijdUitleg")}</span>
+          </span>
+        </label>
         <p className="muted">{vertaal("afname.welkom.privacy")}</p>
         <div><button type="button" className="primair" onClick={start}>{vertaal("afname.welkom.start")}</button></div>
       </div>
@@ -120,7 +142,7 @@ export function Afname({ register }: { register: Itemregister }) {
           <section className="paneel">
             <span className="eyebrow">{vertaal(`${p}.label`)}</span>
             <h2>{vertaal(`${p}.titel`)}</h2>
-            <p>{vertaal(`${p}.tekst`)}</p>
+            <p>{vertaal(zonder ? `${p}.tekstZonderTijd` : `${p}.tekst`)}</p>
             {extra && <p className="muted">{extra}</p>}
             <div><button type="button" className="primair" onClick={volgende}>{vertaal(`${p}.knop`)}</button></div>
           </section>
@@ -136,19 +158,20 @@ export function Afname({ register }: { register: Itemregister }) {
             label={vertaal("afname.oefen.label")}
             woord={vertaal("afname.oefen.woord")}
             beelden={{ agentisch: "cirkel", communaal: "vierkant" }}
-            limietMs={2000}
+            limietMs={zonder ? null : 2000}
             volgorde={["agentisch", "communaal"]}
             onKeuze={() => volgende()}
           />
         </div>
       );
     case "item": {
+      const a = afname!;
       const item = stap.item;
-      const volgorde = optieVolgorde(item, afname!.seed);
+      const volgorde = optieVolgorde(item, a.seed);
       const fase = stappen.filter((s) => s.soort === "item" && s.item.format === item.format);
       const nummer = fase.findIndex((s) => s.soort === "item" && s.item.id === item.id) + 1;
       const sleutel = `${item.id}@${item.versie}`;
-      const props = { volgorde, onKeuze: beantwoord };
+      const props = { volgorde, onKeuze: beantwoord, limietMs: tijdslimietMs(a, item) };
       if (item.format === "beeldkeuze") {
         const label = vertaal("afname.beeldkeuze.label", { nummer, totaal: fase.length });
         return (
@@ -160,13 +183,25 @@ export function Afname({ register }: { register: Itemregister }) {
               label={label}
               woord={item.woord!}
               beelden={{ agentisch: item.beeld_agentisch!, communaal: item.beeld_communaal! }}
-              limietMs={(item.tijdslimiet_s ?? 2) * 1000}
             />
           </div>
         );
       }
       if (item.format === "likert")
-        return <div className="stack">{kop(vertaal("afname.stelling.label", { nummer, totaal: fase.length }))}<Stelling {...props} key={sleutel} item={item} /></div>;
+        return (
+          <div className="stack">
+            {kop(vertaal("afname.stelling.label", { nummer, totaal: fase.length }))}
+            <Stelling
+              key={sleutel}
+              item={item}
+              volgorde={volgorde}
+              onKeuze={beantwoord}
+              huidig={huidigAntwoord(a, item)?.waarde ?? null}
+              onVorige={isStelling(stappen[index - 1]) ? vorige : undefined}
+              onVolgende={volgende}
+            />
+          </div>
+        );
       if (item.format === "dilemma")
         return <div className="stack">{kop(vertaal("afname.dilemma.label", { nummer, totaal: fase.length }))}<Dilemma {...props} key={sleutel} item={item} /></div>;
       return <div className="stack">{kop(vertaal("afname.vignet.label", { drukniveau: item.drukniveau ?? "" }))}<Vignet {...props} key={sleutel} item={item} /></div>;
@@ -179,10 +214,12 @@ export function Afname({ register }: { register: Itemregister }) {
           <section className="paneel">
             <h2>{vertaal("afname.einde.titel")}</h2>
             <p>{vertaal("afname.einde.tekst")}</p>
+            {!a.tijdslimieten && <p className="melding">{vertaal("afname.einde.zonderTijd")}</p>}
             <dl className="kerncijfers" data-testid="kerncijfers">
-              <div><dt>{vertaal("afname.einde.antwoorden")}</dt><dd data-testid="aantal">{a.antwoorden.length}</dd></div>
-              <div><dt>{vertaal("afname.einde.timeouts")}</dt><dd>{a.antwoorden.filter((x) => x.time_out).length}</dd></div>
-              <div><dt>{vertaal("afname.einde.onderbroken")}</dt><dd>{a.antwoorden.filter((x) => x.onderbroken).length}</dd></div>
+              <div><dt>{vertaal("afname.einde.antwoorden")}</dt><dd data-testid="aantal">{geldig.length}</dd></div>
+              <div><dt>{vertaal("afname.einde.herzien")}</dt><dd data-testid="herzien">{geldig.filter((x) => x.poging > 1).length}</dd></div>
+              <div><dt>{vertaal("afname.einde.timeouts")}</dt><dd>{geldig.filter((x) => x.time_out).length}</dd></div>
+              <div><dt>{vertaal("afname.einde.onderbroken")}</dt><dd>{geldig.filter((x) => x.onderbroken).length}</dd></div>
               <div><dt>{vertaal("afname.einde.itemset")}</dt><dd className="mono">{a.itemset_versie}</dd></div>
             </dl>
             <div className="rij">

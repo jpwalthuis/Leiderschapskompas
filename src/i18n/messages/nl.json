@@ -19,7 +19,11 @@
       "fase2": "Zelfbeeld: stellingen en dilemma's over hoe je werkt en wat je drijft.",
       "fase3": "Onder druk: vier conflicten. De tijd wordt korter, de opties minder.",
       "privacy": "Dit is een demo. Je antwoorden blijven in deze browser en worden nergens naartoe gestuurd.",
-      "start": "Start"
+      "start": "Start",
+      "fase1ZonderTijd": "Reflex: zes woorden, steeds twee beelden. Kies wat je het eerst raakt.",
+      "fase3ZonderTijd": "Onder druk: vier conflicten, met steeds minder opties.",
+      "zonderTijd": "Zonder tijdslimieten",
+      "zonderTijdUitleg": "Voor wie meer tijd nodig heeft. In de echte test zet de coach dit aan. De reflex- en drukmeting tellen dan niet mee in het rapport."
     },
     "intro": {
       "1": {
@@ -27,21 +31,24 @@
         "titel": "Kies wat je het eerst raakt",
         "tekst": "Je ziet een woord en twee abstracte beelden. Tik binnen 2 seconden op het beeld dat het best bij het woord past. Er is geen goed of fout. Te laat is ook een antwoord.",
         "extra": "Op een toetsenbord kun je de pijltjes links en rechts gebruiken. Eerst een oefenronde.",
-        "knop": "Oefenronde"
+        "knop": "Oefenronde",
+        "tekstZonderTijd": "Je ziet een woord en twee abstracte beelden. Tik op het beeld dat het best bij het woord past. Er is geen goed of fout. Kies wat je het eerst raakt."
       },
       "2": {
         "label": "Fase 2 · Zelfbeeld",
         "titel": "Hoe zie je jezelf?",
-        "tekst": "Eerst stellingen over hoe je werkt: geef aan in hoeverre ze bij je passen. Daarna dilemma's: kies binnen 8 seconden wat zwaarder weegt.",
+        "tekst": "Eerst stellingen over hoe je werkt: geef aan in hoeverre ze bij je passen. Je kunt bij de stellingen terug naar de vorige. Daarna dilemma's: kies binnen 8 seconden wat zwaarder weegt.",
         "extra": "",
-        "knop": "Verder"
+        "knop": "Verder",
+        "tekstZonderTijd": "Eerst stellingen over hoe je werkt: geef aan in hoeverre ze bij je passen. Je kunt bij de stellingen terug naar de vorige. Daarna dilemma's: kies wat zwaarder weegt."
       },
       "3": {
         "label": "Fase 3 · Onder druk",
         "titel": "Wat doe je als het spannend wordt?",
         "tekst": "Vier situaties. Kies wat je in het eerste moment werkelijk zou doen, niet wat het beste klinkt. Bij elke situatie wordt de tijd korter en vallen er opties weg.",
         "extra": "",
-        "knop": "Start fase 3"
+        "knop": "Start fase 3",
+        "tekstZonderTijd": "Vier situaties. Kies wat je in het eerste moment werkelijk zou doen, niet wat het beste klinkt. Bij elke situatie vallen er opties weg."
       }
     },
     "oefen": {
@@ -57,14 +64,17 @@
       "label": "Fase 2 · Stelling {nummer} van {totaal}",
       "schaal": "Antwoordschaal",
       "laag": "Past niet bij mij",
-      "hoog": "Past helemaal"
+      "hoog": "Past helemaal",
+      "vorige": "Vorige",
+      "volgende": "Volgende"
     },
     "dilemma": {
       "label": "Fase 2 · Dilemma {nummer} van {totaal}"
     },
     "vignet": {
       "label": "Fase 3 · {drukniveau}",
-      "meta": "{seconden} seconden · {opties} opties"
+      "meta": "{seconden} seconden · {opties} opties",
+      "metaZonderTijd": "{opties} opties"
     },
     "einde": {
       "titel": "Klaar",
@@ -75,7 +85,9 @@
       "itemset": "Itemset",
       "toonData": "Bekijk de opgeslagen gegevens",
       "opnieuw": "Nieuwe afname",
-      "wissen": "Wis deze afname"
+      "wissen": "Wis deze afname",
+      "herzien": "Stellingen herzien",
+      "zonderTijd": "Deze afname is gedaan zonder tijdslimieten. De reflex- en drukmeting tellen niet mee in het rapport."
     },
     "tijd": "Tijd die nog over is"
   }
