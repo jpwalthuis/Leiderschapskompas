@@ -26,7 +26,8 @@
       "fase3ZonderTijd": "Onder druk: vier conflicten, met steeds minder opties.",
       "zonderTijd": "Zonder tijdslimieten",
       "zonderTijdUitleg": "Voor wie meer tijd nodig heeft. In de echte test zet de coach dit aan. De reflex- en drukmeting tellen dan niet mee in het rapport.",
-      "fase4": "Reflectie: acht kaarten. Kies welke je aanspreken en welke niet, zonder tijdslimiet."
+      "fase4": "Reflectie: acht kaarten. Kies welke je aanspreken en welke niet, zonder tijdslimiet.",
+      "voorbeeld": "Bekijk een voorbeeldrapport"
     },
     "intro": {
       "1": {
@@ -92,7 +93,7 @@
     },
     "einde": {
       "titel": "Klaar",
-      "tekst": "Je antwoorden zijn opgeslagen in deze browser. Het rapport volgt in een volgende versie.",
+      "tekst": "Je antwoorden zijn opgeslagen in deze browser. Je kunt nu je rapport bekijken.",
       "antwoorden": "Antwoorden opgeslagen",
       "timeouts": "Niet op tijd",
       "onderbroken": "Onderbroken",
@@ -101,7 +102,8 @@
       "opnieuw": "Nieuwe afname",
       "wissen": "Wis deze afname",
       "herzien": "Stellingen herzien",
-      "zonderTijd": "Deze afname is gedaan zonder tijdslimieten. De reflex- en drukmeting tellen niet mee in het rapport."
+      "zonderTijd": "Deze afname is gedaan zonder tijdslimieten. De reflex- en drukmeting tellen niet mee in het rapport.",
+      "rapport": "Bekijk je rapport"
     },
     "tijd": "Tijd die nog over is",
     "kaarten": {
@@ -125,6 +127,353 @@
       "herstel": "Laatste keuze ongedaan maken",
       "bevestig": "Bevestig",
       "geenMeting": "Duiding, geen meting"
+    }
+  },
+  "rapport": {
+    "en": "en",
+    "ja": "ja",
+    "nee": "nee",
+    "duiding": "Duiding, geen meting",
+    "schaaluitleg": "Scores van 0 tot 100: je positie op de antwoordschaal, geen vergelijking met anderen.",
+    "ui": {
+      "titel": "Jouw leiderschapsprofiel",
+      "label": "Rapport",
+      "tabs": {
+        "deelnemer": "Deelnemer",
+        "coach": "Coach"
+      },
+      "tabsUitleg": "In deze demo zie je beide rapporten. In de echte app ziet de coach het coachrapport alleen als je daar toestemming voor geeft.",
+      "voorbeeld": "Voorbeeldrapport met verzonnen antwoorden",
+      "terug": "Terug",
+      "reeks": {
+        "zelfbeeld": "zelfbeeld",
+        "reflex": "reflexindicatie (experimenteel)",
+        "vervuld": "vervuld",
+        "gefrustreerd": "gefrustreerd"
+      },
+      "geenWaarde": "geen gegevens",
+      "plaats": "{plaats}e",
+      "kaarten": {
+        "voorkeur": "Spreekt je aan",
+        "afwijzing": "Spreekt je niet aan",
+        "binnen": "naar binnen",
+        "buiten": "naar buiten"
+      },
+      "bewijs": {
+        "onderdeel": "Onderdeel",
+        "construct": "Construct",
+        "methode": "Methode",
+        "item": "Items",
+        "aantal": "Aantal",
+        "gebruik": "Gebruik"
+      },
+      "niveau": {
+        "sterk": "sterk",
+        "matig": "matig",
+        "experimenteel": "experimenteel",
+        "nieuw": "nieuw"
+      },
+      "gebruik": {
+        "meting": "meting",
+        "indicatie": "indicatie",
+        "duiding": "duiding"
+      },
+      "afdrukken": "Afdrukken of opslaan als pdf"
+    },
+    "label": {
+      "agency": "Daadkracht",
+      "communion": "Verbinding",
+      "reflex": "Reflex: daadkracht",
+      "extraversie": "Extraversie",
+      "rationeel": "Ratio",
+      "ervaringsgericht": "Gevoel en intuïtie",
+      "openheid": "Intuïtief waarnemen",
+      "autonomie": {
+        "vervuld": "Autonomie: vervuld",
+        "gefrustreerd": "Autonomie: gefrustreerd"
+      },
+      "competentie": {
+        "vervuld": "Competentie: vervuld",
+        "gefrustreerd": "Competentie: gefrustreerd"
+      },
+      "verbondenheid": {
+        "vervuld": "Verbondenheid: vervuld",
+        "gefrustreerd": "Verbondenheid: gefrustreerd"
+      },
+      "stijl": {
+        "forc": "Forceren",
+        "prob": "Probleemoplossen",
+        "comp": "Compromis",
+        "yield": "Toegeven",
+        "avoid": "Vermijden"
+      }
+    },
+    "stijl": {
+      "forc": "forceren",
+      "prob": "probleemoplossen",
+      "comp": "compromis",
+      "yield": "toegeven",
+      "avoid": "vermijden"
+    },
+    "behoefte": {
+      "autonomie": {
+        "naam": "Autonomie",
+        "inZin": "autonomie"
+      },
+      "competentie": {
+        "naam": "Competentie",
+        "inZin": "competentie"
+      },
+      "verbondenheid": {
+        "naam": "Verbondenheid",
+        "inZin": "verbondenheid"
+      }
+    },
+    "denkstijl": {
+      "rationeel": "ratio",
+      "ervaringsgericht": "gevoel en intuïtie"
+    },
+    "groep": {
+      "agentisch": "daadkracht",
+      "communaal": "verbinding",
+      "geintegreerd": "in balans"
+    },
+    "samenvatting": {
+      "titel": "In het kort",
+      "balans": {
+        "agentisch": "Je leidt vooral vanuit daadkracht: doelen stellen, doorzetten, resultaat neerzetten.",
+        "communaal": "Je leidt vooral vanuit verbinding: zien wat mensen nodig hebben en zorgen dat het team samen blijft.",
+        "geintegreerd": "Daadkracht en verbinding zijn bij jou ongeveer in balans: je kunt van het een naar het ander schakelen."
+      },
+      "energie": {
+        "hoog": "Je haalt energie vooral uit contact en interactie.",
+        "midden": "Je haalt energie zowel uit contact als uit rust.",
+        "laag": "Je laadt vooral op in rust en tijd voor jezelf."
+      },
+      "waarde": "In je keuzes weegt dit het zwaarst: {waarde}.",
+      "denken": {
+        "beide": "Je gebruikt ratio en gevoel allebei volop.",
+        "rationeel": "Je leunt vooral op ratio: analyseren en beredeneren.",
+        "ervaring": "Je leunt vooral op gevoel en intuïtie.",
+        "geen": "Ratio en gevoel spelen allebei een gematigde rol in hoe je beslist."
+      }
+    },
+    "gerichtheid": {
+      "label": "Gerichtheid",
+      "titel": "Daadkracht en verbinding",
+      "uitleg": "Psychologen noemen dit agency en communion. Vroeger heette dit masculiene en feminiene kracht, maar het staat los van je geslacht. Iedereen heeft beide."
+    },
+    "reflex": {
+      "inLijn": "Je snelle beeldkeuzes liggen in lijn met hoe je jezelf beschrijft.",
+      "meerDaadkracht": "In je snelle beeldkeuzes koos je vaker voor daadkracht dan je zelfbeeld laat zien. Dat kan een gespreksonderwerp zijn met je coach.",
+      "meerVerbinding": "In je snelle beeldkeuzes koos je vaker voor verbinding dan je zelfbeeld laat zien. Dat kan een gespreksonderwerp zijn met je coach.",
+      "onvoldoende": "Je hebt te weinig beelden binnen de tijd gekozen voor een reflexindicatie.",
+      "nietBeschikbaar": "Je hebt de test zonder tijdslimieten gemaakt. Daarom is er geen reflexindicatie."
+    },
+    "energie": {
+      "label": "Energie",
+      "titel": "Waar je energie van krijgt en waar je die verliest",
+      "extraversie": {
+        "hoog": "Contact en interactie geven je energie.",
+        "midden": "Je zit in het midden: je kunt goed met contact en met rust, als het in balans is.",
+        "laag": "Rust en tijd voor jezelf laden je op; veel overleg kost je energie."
+      },
+      "behoeftenTitel": "Je drie basisbehoeften in je werk",
+      "bronnen": "Je energie komt nu vooral uit {behoeften}.",
+      "geenBron": "Geen van de drie behoeften is nu duidelijk een energiebron.",
+      "lekken": "Energie lekt weg bij {behoeften}: daar voel je je in je werk geremd.",
+      "geenLek": "Er is geen duidelijk energielek zichtbaar.",
+      "onderzoek": "Onderzoek laat zien dat vervulde behoeften samengaan met vitaliteit, en gefrustreerde behoeften met uitputting."
+    },
+    "denken": {
+      "label": "Denken en waarnemen",
+      "titel": "Ratio, gevoel en intuïtie",
+      "uitleg": "Ratio en gevoel zijn geen tegenpolen: je kunt op allebei hoog of laag scoren. Ze worden daarom apart getoond.",
+      "combinatie": {
+        "beide": "Je gebruikt allebei volop: je beredeneert en je vertrouwt op je gevoel.",
+        "rationeel": "Je beslist vooral door te analyseren en te beredeneren.",
+        "ervaring": "Je beslist vooral op gevoel en intuïtie.",
+        "geen": "Geen van beide springt eruit."
+      },
+      "waarnemen": {
+        "hoog": "Je neemt vooral intuïtief waar: je ziet verbanden, mogelijkheden en nieuwe ideeën.",
+        "midden": "Je neemt zowel feitelijk als intuïtief waar.",
+        "laag": "Je neemt vooral feitelijk waar: je let op wat concreet en bewezen is."
+      }
+    },
+    "drijfveren": {
+      "label": "Drijfveren",
+      "titel": "Wat voor jou zwaarder weegt",
+      "geen": "Je hebt geen van de keuzes over waarden binnen de tijd gemaakt.",
+      "ipsatief": "Dit is je eigen rangorde: het zegt wat je vaker koos, niet hoe sterk deze waarden bij jou zijn vergeleken met iemand anders.",
+      "zorg": {
+        "agentisch": "Als iets misgaat, weegt voor jou het zwaarst dat het doel niet gehaald wordt.",
+        "communaal": "Als iets misgaat, weegt voor jou het zwaarst wat het met de mensen doet.",
+        "beide": "Als iets misgaat, weegt het doel voor jou ongeveer even zwaar als wat het met de mensen doet."
+      }
+    },
+    "waarde": {
+      "ST": {
+        "naam": "Bijdragen aan anderen",
+        "uitleg": "dat je werk anderen en de samenleving echt verder helpt",
+        "vol": "Zelfoverstijging"
+      },
+      "SE": {
+        "naam": "Invloed en resultaat",
+        "uitleg": "dat je invloed hebt en zichtbaar resultaat neerzet",
+        "vol": "Zelfverheffing"
+      },
+      "OC": {
+        "naam": "Vrijheid en vernieuwing",
+        "uitleg": "dat je vrij bent om nieuwe wegen te verkennen",
+        "vol": "Openheid voor verandering"
+      },
+      "CO": {
+        "naam": "Zekerheid en structuur",
+        "uitleg": "dat er zekerheid, structuur en betrouwbaarheid is",
+        "vol": "Behoud"
+      }
+    },
+    "conflict": {
+      "label": "Conflict",
+      "titel": "In rust en onder druk",
+      "rust": "In rust past {stijl} het best bij je.",
+      "geenBeste": "Geen stijl is beter. Elke stijl past bij bepaalde situaties."
+    },
+    "druk": {
+      "keuze": "Toen de druk opliep en er opties wegvielen, koos je voor {stijl}.",
+      "verschil": "Dat verschil is waardevol: het laat zien waar je op terugvalt als het spannend wordt.",
+      "geenKeuze": "Onder de hoogste druk maakte je geen keuze binnen de tijd.",
+      "nietBeschikbaar": "Je hebt de test zonder tijdslimieten gemaakt. Daarom is er geen uitkomst voor conflict onder druk."
+    },
+    "archetypen": {
+      "titel": "Archetypische beelden",
+      "uitleg": "Archetypen zijn beelden waarin mensen zich herkennen. Ze worden hier niet gemeten en niet gescoord.",
+      "kaarten": "Dit koos je zelf bij de kaarten:",
+      "balans": {
+        "agentisch": "Bij je gemeten balans, met meer daadkracht dan verbinding, passen de kaarten {kaarten}.",
+        "communaal": "Bij je gemeten balans, met meer verbinding dan daadkracht, passen de kaarten {kaarten}.",
+        "geintegreerd": "Bij je gemeten balans, met daadkracht en verbinding in evenwicht, passen de kaarten {kaarten}."
+      },
+      "vraag": "Welke herken je, en welke juist niet? Daar gaat het gesprek met je coach over."
+    },
+    "nietZegt": {
+      "titel": "Wat dit rapport niet zegt",
+      "oordeel": "Het is geen oordeel over hoe goed je bent als leider.",
+      "geenNorm": "Het vergelijkt je niet met anderen. Een score van 0 tot 100 laat zien waar je staat op de antwoordschaal: 0 is het laagste antwoord, 100 het hoogste. Vergelijken met anderen kan pas na de pilot, als er normgroepen zijn.",
+      "prototype": "De vragen zijn nog niet getoetst in een pilot. Neem de uitkomsten als gespreksstof, niet als feit.",
+      "reflex": "De reflexindicatie is experimenteel. Eén meting zegt weinig.",
+      "archetypen": "De archetypische beelden zijn duiding en geen meting.",
+      "zonderTijd": "Je hebt de test zonder tijdslimieten gemaakt. De reflexindicatie en conflict onder druk tellen daarom niet mee."
+    },
+    "coach": {
+      "kerngetallen": {
+        "titel": "Kerngetallen",
+        "agency": "Agency (zelfbeeld)",
+        "communion": "Communion (zelfbeeld)",
+        "reflex": "Reflex agentisch, % van {aantal} geldige keuzes",
+        "reactietijd": "Mediane reactietijd reflex (ms)",
+        "extraversie": "Extraversie",
+        "rationeel": "Rationeel",
+        "ervaringsgericht": "Ervaringsgericht",
+        "openheid": "Openheid (intuïtief waarnemen)",
+        "balans": "Balans voor duiding (marge {marge})"
+      },
+      "kwaliteit": {
+        "titel": "Kwaliteit van de afname"
+      },
+      "gespreksvragen": {
+        "titel": "Gespreksvragen voor de debrief"
+      },
+      "behoeften": {
+        "titel": "Basisbehoeften",
+        "behoefte": "Behoefte",
+        "vervuld": "Vervuld",
+        "gefrustreerd": "Gefrustreerd"
+      },
+      "druk": {
+        "titel": "Conflict onder druk, per situatie",
+        "situatie": "Situatie",
+        "opties": "Opties",
+        "meest": "Meest waarschijnlijk",
+        "minst": "Minst waarschijnlijk",
+        "tijd": "Tijd (ms)",
+        "geenKeuze": "geen keuze",
+        "uitleg": "De tijd geldt voor de meest waarschijnlijke reactie. De minst waarschijnlijke werd zonder tijdslimiet gekozen."
+      },
+      "waarden": {
+        "titel": "Waarden",
+        "waarde": "Waarde",
+        "keuzes": "Keer gekozen",
+        "plaats": "Plaats",
+        "uitleg": "{beantwoord} van {totaal} keuzes beantwoord. Ipsatief: alleen de rangorde binnen de persoon is te interpreteren."
+      },
+      "kaarten": {
+        "titel": "Kaartenoefening",
+        "uitleg": "Eigen keuze van de deelnemer, niet gescoord en niet te vergelijken met anderen. Gebruik het als ingang voor het gesprek."
+      },
+      "bewijs": {
+        "titel": "Bewijsniveaus",
+        "uitleg": "Per onderdeel het zwakste niveau uit het itemregister. Construct: hoe goed het begrip onderbouwd is. Methode: hoe goed deze manier van meten onderbouwd is. Items: de vragen zelf; nieuw tot de pilot."
+      },
+      "regels": {
+        "titel": "Interpretatieregels"
+      },
+      "verantwoording": {
+        "titel": "Verantwoording",
+        "wat": "Gegeven",
+        "waarde": "Waarde",
+        "afname": "Afname",
+        "scoringsversie": "Scoringsversie",
+        "itemset": "Itemset",
+        "tijdslimieten": "Met tijdslimieten"
+      }
+    },
+    "kwaliteit": {
+      "zonderTijd": "Afname zonder tijdslimieten: reflexindicatie en conflict onder druk zijn niet beschikbaar.",
+      "timeOuts": "Aantal vragen niet binnen de tijd beantwoord: {aantal}.",
+      "teSnel": "Reflexkeuzes sneller dan 300 ms, mogelijk niet bekeken: {aantal}.",
+      "rechtlijnig": "Alle stellingen kregen hetzelfde antwoord (rechtlijnig antwoordpatroon).",
+      "onderbroken": "Vragen waarbij de deelnemer de app verliet: {aantal}.",
+      "reflexOnvoldoende": "Maar {aantal} geldige reflexkeuzes: de reflexindicatie niet interpreteren.",
+      "geen": "Geen afwijkingen in tijd of antwoordpatroon.",
+      "herzien": "Stellingen herzien: {aantal}."
+    },
+    "vraag": {
+      "reflex": "Reflex ({reflex}) en zelfbeeld daadkracht ({agency}) wijken {verschil} punten af. Vraag: in welke situaties merk je dat je anders reageert dan je van jezelf verwacht?",
+      "drukVerschuiving": "Van {rust} in rust naar {druk} bij de hoogste druk. Vraag: wat gebeurt er bij jou op het moment dat de tijd op is?",
+      "frustratie": "Frustratie {behoefte} ({waarde}). Vraag: waar in je werk merk je dit het sterkst, en wat kost het je?",
+      "zorgTegengesteld": "Bij de twee keuzes over falen woog eenmaal het doel en eenmaal de mensen het zwaarst. Vraag: welke situatie maakt het verschil?",
+      "denkstijl": "Eén denkstijl springt eruit. Vraag: wanneer zou {stijl} je helpen, en wat houdt je tegen?",
+      "kaarten": "De deelnemer koos {voorkeur} als meest aansprekend en {afwijzing} als minst aansprekend. Vraag: wat trekt je in de een, en wat stoort je aan de ander?",
+      "kaartenBalans": "Geen van de gekozen kaarten past bij de gemeten balans ({groep}). Vraag: herken je je meer in het beeld dat je koos, of in wat je antwoorden laten zien?",
+      "consistent": "Het profiel is intern consistent. Vraag: welke van de archetypische beelden herken je, en welke juist niet?"
+    },
+    "kaarten": {
+      "nietGedaan": "De kaartenoefening is niet gedaan."
+    },
+    "onderdeel": {
+      "agency": "Agency",
+      "communion": "Communion",
+      "extraversie": "Extraversie",
+      "behoeften": "Basisbehoeften",
+      "conflictInRust": "Conflict in rust",
+      "denkstijl": "Denkstijl",
+      "waarnemen": "Waarnemen",
+      "waarden": "Waarden",
+      "zorgBijFalen": "Zorg bij falen",
+      "reflex": "Reflexindicatie",
+      "onderDruk": "Conflict onder druk",
+      "kaarten": "Kaartenoefening"
+    },
+    "regel": {
+      "schaal": "Alle scores zijn posities op de antwoordschaal (0 tot 100), geen normscores. Woorden: onder {laag} laag, {laag} tot en met {hoog} midden, boven {hoog} hoog.",
+      "reflex": "Rapporteer de reflexindicatie alleen naast het zelfbeeld daadkracht. Een verschil van meer dan {marge} punten wordt benoemd. Methode: experimenteel.",
+      "behoeften": "Bevrediging boven {bron} geldt als energiebron, frustratie boven {lek} als energielek.",
+      "waarden": "Waarden zijn ipsatief tot Thurstonian IRT na de pilot: alleen de rangorde binnen de persoon is te interpreteren.",
+      "balans": "De balans voor de duiding volgt uit agency min communion; binnen {marge} punten is in balans. Dit is duiding, geen meting.",
+      "kaarten": "De kaartenoefening wordt nooit gescoord en nooit tussen personen of groepen vergeleken.",
+      "denkstijl": "Bij een verschil van {verschil} punten of meer tussen ratio en gevoel stelt het rapport een gespreksvraag."
     }
   }
 }

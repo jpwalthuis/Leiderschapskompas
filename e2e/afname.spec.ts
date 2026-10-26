@@ -115,6 +115,13 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
   await expect(page.getByTestId("herzien")).toHaveText("1");
   await geenHorizontaleScroll(page);
 
+  // Het eigen rapport is direct te openen.
+  await page.getByRole("button", { name: "Bekijk je rapport" }).click();
+  await expect(page.getByRole("heading", { name: "Jouw leiderschapsprofiel" })).toBeVisible();
+  await expect(page.getByText("Voorbeeldrapport met verzonnen antwoorden")).toHaveCount(0);
+  await expect(page.locator('[data-sectie="archetypen"] [data-kaart="wijze"]')).toBeVisible();
+  await geenHorizontaleScroll(page);
+
   // Controle op de opgeslagen data (harde regel 10), ook na herladen
   await page.reload();
   const afnames = await page.evaluate(() =>
