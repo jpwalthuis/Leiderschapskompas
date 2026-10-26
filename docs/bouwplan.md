@@ -44,6 +44,7 @@ Status: gebouwd (PR fase-2/scoring), scoringsversie 1.0.0.
 ### Fase 3: Rapporten
 - Cliëntrapport en coachrapport zoals in het prototype, inclusief de sectie "wat dit rapport niet zegt".
 - Bewijsniveaus zichtbaar in het coachrapport.
+- Kaartenoefening (testfase 4) in het coachrapport als gespreksstof, gelabeld als duiding: de gekozen kaarten met hun kwaliteiten, naast de gemeten balans agency/communion. Geen score, geen vergelijking.
 - Klaar als: beide rapporten renderen op telefoonbreedte en in licht en donker thema.
 
 ### Fase 4: Accounts, rollen en toestemming

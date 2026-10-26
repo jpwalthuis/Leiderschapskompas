@@ -15,7 +15,7 @@ Deze regels gelden voor elke wijziging. Een wijziging die er een breekt, wordt n
 ### Inhoud en meting
 1. Elke vraag staat in het itemregister met construct, theoretisch kader, minimaal één bron en een bewijsoordeel op drie niveaus: construct, methode, item (`sterk`, `matig`, `experimenteel`, `nieuw`). Een test in CI faalt als een item een van deze velden mist.
 2. Een onderdeel waarvan het construct niet `sterk` of `matig` is, wordt nooit als meting gescoord. Het mag hooguit als gemarkeerde duiding in een rapport.
-3. Archetypen worden niet gemeten. Ze verschijnen alleen als duidingslaag, afgeleid van de gemeten balans agency/communion, en zijn in de UI zo gelabeld.
+3. Archetypen worden niet gemeten. Ze verschijnen alleen als duidingslaag, en zijn in de UI zo gelabeld. Twee vormen zijn toegestaan: afgeleid van de gemeten balans agency/communion, en de kaartenoefening (eigen keuze van de deelnemer: eerste en tweede voorkeur, eerste en tweede afwijzing) als gespreksstof voor de coach. Kaartkeuzes worden nooit gescoord, nooit omgerekend naar een schaal en nooit tussen personen of groepen vergeleken.
 4. Masculien/feminien wordt gemeten als agency/communion en altijd zo uitgelegd: los van geslacht.
 5. De reflexmeting (fase 1, snelle beeldkeuze) is `experimenteel`. Toon haar alleen naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Is een afname zonder tijdslimieten gedaan (instelling van de coach, voor wie meer tijd nodig heeft), dan vervallen de reflex- en drukscores en toont het rapport ze als niet beschikbaar.
 6. Geen normscores of percentielen tot er normdata uit de pilot zijn. Tot dan is 0-100 de positie op de antwoordschaal, en dat staat bij elke score.

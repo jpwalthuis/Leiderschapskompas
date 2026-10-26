@@ -297,3 +297,39 @@ describe("itembank v2: conflict onder druk met meest en minst", () => {
     ]);
   });
 });
+
+describe("kaartenoefening (regel 2 en 3): alleen doorgeven als duiding", () => {
+  const sortering = { voorkeur: ["wijze", "schepper"], afwijzing: ["heerser", "nar"] };
+  const metKaarten = () => {
+    let a = nieuweAfname(reg, { id: "A-kaart", seed: 7, nu: NU });
+    a = registreer(a, maakAntwoord(a, item("K1"), { waarde: "wijze", sortering, reactietijd_ms: 25000, volgorde: optieVolgorde(item("K1"), 7), nu: NU }));
+    return a;
+  };
+
+  it("geeft de keuzes met naam en kwaliteiten door, in de volgorde van de deelnemer", () => {
+    const k = scoor(metKaarten(), reg).duiding.kaarten!;
+    expect(k.voorkeur.map((c) => c.id)).toEqual(["wijze", "schepper"]);
+    expect(k.afwijzing.map((c) => c.id)).toEqual(["heerser", "nar"]);
+    expect(k.voorkeur[0]).toMatchObject({ naam: "Wijze", binnen: "Reflectie", buiten: "Kennis delen" });
+    expect(k.soort).toBe("duiding");
+  });
+
+  it("zet de kaarten nooit om in een getal of schaal", () => {
+    const k = scoor(metKaarten(), reg).duiding.kaarten!;
+    const getallen = JSON.stringify(k).match(/:\s*-?\d/g);
+    expect(getallen).toBeNull();
+    expect(scoor(metKaarten(), reg).metingen).not.toHaveProperty("kaarten");
+  });
+
+  it("laat de gemeten scores ongemoeid", () => {
+    const zonder = scoor(afnameMet(VOORBEELD), reg);
+    let a = nieuweAfname(reg, { id: "A-test", seed: 7, nu: NU });
+    for (const x of afnameMet(VOORBEELD).antwoorden) a = registreer(a, x);
+    a = registreer(a, maakAntwoord(a, item("K1"), { waarde: "wijze", sortering, reactietijd_ms: 25000, volgorde: optieVolgorde(item("K1"), 7), nu: NU }));
+    expect(scoor(rondAf(a, NU), reg).metingen).toEqual(zonder.metingen);
+  });
+
+  it("is null als de oefening niet is gedaan", () => {
+    expect(scoor(afnameMet(VOORBEELD), reg).duiding.kaarten).toBeNull();
+  });
+});

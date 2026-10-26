@@ -17,7 +17,7 @@ import {
   type Afname as AfnameData,
   type Stap,
 } from "@/testmotor";
-import { Beeldkeuze, Dilemma, Stelling, Vignet, type Keuze } from "./Vragen";
+import { Beeldkeuze, Dilemma, Kaartsortering, Stelling, Vignet, type Keuze } from "./Vragen";
 
 function maakOpslag(): AfnameOpslag {
   try {
@@ -48,6 +48,8 @@ export function Afname({ register }: { register: Itemregister }) {
   const seed = afname?.seed ?? 0;
   const stappen = useMemo(() => bouwStappen(register, seed), [register, seed]);
   const totaalItems = useMemo(() => stappen.filter((s) => s.soort === "item").length, [stappen]);
+  // De teksten noemen de tijdslimiet van de beeldkeuze uit het register, zodat ze niet uit de pas lopen.
+  const seconden = register.items.find((i) => i.format === "beeldkeuze")?.tijdslimiet_s ?? 0;
   const [index, setIndex] = useState(-1); // -1 = welkomstscherm
   const [toonData, setToonData] = useState(false);
   const [zonderTijd, setZonderTijd] = useState(false);
@@ -87,6 +89,7 @@ export function Afname({ register }: { register: Itemregister }) {
         onderbroken: keuze.onderbroken,
         minst: keuze.minst,
         reactietijd_minst_ms: keuze.reactietijd_minst_ms,
+        sortering: keuze.sortering,
       });
       let bijgewerkt = registreer(afname, antwoord);
       // Na het laatste item volgt het eindscherm: dan wordt de afname direct afgerond.
@@ -118,9 +121,10 @@ export function Afname({ register }: { register: Itemregister }) {
         <p className="muted">{vertaal("afname.welkom.tekst")}</p>
         <section className="paneel">
           <ol className="fasen">
-            <li>{vertaal(zonder ? "afname.welkom.fase1ZonderTijd" : "afname.welkom.fase1")}</li>
+            <li>{vertaal(zonder ? "afname.welkom.fase1ZonderTijd" : "afname.welkom.fase1", { seconden })}</li>
             <li>{vertaal("afname.welkom.fase2")}</li>
             <li>{vertaal(zonder ? "afname.welkom.fase3ZonderTijd" : "afname.welkom.fase3")}</li>
+            <li>{vertaal("afname.welkom.fase4")}</li>
           </ol>
         </section>
         <label className="schakelaar" htmlFor="zonderTijd">
@@ -147,7 +151,7 @@ export function Afname({ register }: { register: Itemregister }) {
           <section className="paneel">
             <span className="eyebrow">{vertaal(`${p}.label`)}</span>
             <h2>{vertaal(`${p}.titel`)}</h2>
-            <p>{vertaal(zonder ? `${p}.tekstZonderTijd` : `${p}.tekst`)}</p>
+            <p>{vertaal(zonder ? `${p}.tekstZonderTijd` : `${p}.tekst`, { seconden })}</p>
             {extra && <p className="muted">{extra}</p>}
             <div><button type="button" className="primair" onClick={volgende}>{vertaal(`${p}.knop`)}</button></div>
           </section>
@@ -209,6 +213,8 @@ export function Afname({ register }: { register: Itemregister }) {
         );
       if (item.format === "dilemma")
         return <div className="stack">{kop(vertaal("afname.dilemma.label", { nummer, totaal: fase.length }))}<Dilemma {...props} key={sleutel} item={item} /></div>;
+      if (item.format === "kaartsortering")
+        return <div className="stack">{kop(vertaal("afname.kaarten.label"))}<Kaartsortering key={sleutel} item={item} volgorde={volgorde} onKeuze={beantwoord} /></div>;
       return <div className="stack">{kop(vertaal("afname.vignet.label", { drukniveau: item.drukniveau ?? "" }))}<Vignet {...props} key={sleutel} item={item} /></div>;
     }
     case "einde": {

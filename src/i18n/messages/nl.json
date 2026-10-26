@@ -16,8 +16,8 @@
     "verder": "Verder",
     "welkom": {
       "titel": "Leiderschapskompas",
-      "tekst": "Je maakt drie fasen, samen ongeveer 12 tot 15 minuten. Er zijn geen goede of foute antwoorden.",
-      "fase1": "Reflex: zes woorden, steeds twee beelden. Kies binnen 3 seconden.",
+      "tekst": "Je maakt vier fasen, samen ongeveer 12 tot 15 minuten. Er zijn geen goede of foute antwoorden.",
+      "fase1": "Reflex: zes woorden, steeds twee beelden. Kies binnen {seconden} seconden.",
       "fase2": "Zelfbeeld: stellingen en dilemma's over hoe je werkt, denkt en wat je drijft.",
       "fase3": "Onder druk: vier conflicten. De tijd wordt korter, de opties minder, maar je hebt altijd genoeg tijd om te lezen.",
       "privacy": "Dit is een demo. Je antwoorden blijven in deze browser en worden nergens naartoe gestuurd.",
@@ -25,13 +25,14 @@
       "fase1ZonderTijd": "Reflex: zes woorden, steeds twee beelden. Kies wat je het eerst raakt.",
       "fase3ZonderTijd": "Onder druk: vier conflicten, met steeds minder opties.",
       "zonderTijd": "Zonder tijdslimieten",
-      "zonderTijdUitleg": "Voor wie meer tijd nodig heeft. In de echte test zet de coach dit aan. De reflex- en drukmeting tellen dan niet mee in het rapport."
+      "zonderTijdUitleg": "Voor wie meer tijd nodig heeft. In de echte test zet de coach dit aan. De reflex- en drukmeting tellen dan niet mee in het rapport.",
+      "fase4": "Reflectie: acht kaarten. Kies welke je aanspreken en welke niet, zonder tijdslimiet."
     },
     "intro": {
       "1": {
         "label": "Fase 1 · Reflex",
         "titel": "Kies wat je het eerst raakt",
-        "tekst": "Je ziet een woord en twee abstracte beelden. Tik binnen 3 seconden op het beeld dat het best bij het woord past. Er is geen goed of fout. Te laat is ook een antwoord.",
+        "tekst": "Je ziet een woord en twee abstracte beelden. Tik binnen {seconden} seconden op het beeld dat het best bij het woord past. Er is geen goed of fout. Te laat is ook een antwoord.",
         "extra": "Op een toetsenbord kun je de pijltjes links en rechts gebruiken. Eerst een oefenronde.",
         "knop": "Oefenronde",
         "tekstZonderTijd": "Je ziet een woord en twee abstracte beelden. Tik op het beeld dat het best bij het woord past. Er is geen goed of fout. Kies wat je het eerst raakt."
@@ -51,6 +52,14 @@
         "extra": "",
         "knop": "Start fase 3",
         "tekstZonderTijd": "Vier situaties. Kies eerst wat je in het eerste moment werkelijk zou doen, niet wat het beste klinkt. Bij elke situatie vallen er opties weg. Daarna kies je wat je het minst waarschijnlijk zou doen."
+      },
+      "4": {
+        "label": "Fase 4 · Reflectie",
+        "titel": "Welke beelden spreken je aan?",
+        "tekst": "Je ziet acht kaarten, elk met een beeld en twee kwaliteiten: een naar binnen en een naar buiten. Kies de kaart die je het meest aanspreekt, daarna de tweede. Kies dan de kaart die je het minst aanspreekt, en de tweede. Neem de tijd: er is geen tijdslimiet.",
+        "extra": "Dit is geen meting. Je keuzes worden niet gescoord, maar zijn gespreksstof voor het gesprek met je coach.",
+        "knop": "Naar de kaarten",
+        "tekstZonderTijd": "Je ziet acht kaarten, elk met een beeld en twee kwaliteiten: een naar binnen en een naar buiten. Kies de kaart die je het meest aanspreekt, daarna de tweede. Kies dan de kaart die je het minst aanspreekt, en de tweede."
       }
     },
     "oefen": {
@@ -94,6 +103,28 @@
       "herzien": "Stellingen herzien",
       "zonderTijd": "Deze afname is gedaan zonder tijdslimieten. De reflex- en drukmeting tellen niet mee in het rapport."
     },
-    "tijd": "Tijd die nog over is"
+    "tijd": "Tijd die nog over is",
+    "kaarten": {
+      "label": "Kaarten",
+      "stap": {
+        "0": "Welke kaart spreekt je het meest aan?",
+        "1": "En welke spreekt je daarna het meest aan?",
+        "2": "Welke kaart spreekt je het minst aan?",
+        "3": "En welke spreekt je daarna het minst aan?",
+        "klaar": "Kijk nog even naar je keuze. Klopt dit?"
+      },
+      "voortgang": "Keuze {nummer} van 4",
+      "binnen": "Naar binnen",
+      "buiten": "Naar buiten",
+      "badge": {
+        "voorkeur1": "Meest",
+        "voorkeur2": "Daarna meest",
+        "afwijzing1": "Minst",
+        "afwijzing2": "Daarna minst"
+      },
+      "herstel": "Laatste keuze ongedaan maken",
+      "bevestig": "Bevestig",
+      "geenMeting": "Duiding, geen meting"
+    }
   }
 }

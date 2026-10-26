@@ -10,9 +10,12 @@ async function geenHorizontaleScroll(page: Page) {
   expect(breed, "pagina scrollt horizontaal").toBe(false);
 }
 
-/** Wacht tot de kopregel van de vraag verandert: dan staat de volgende vraag op het scherm. */
+/**
+ * Wacht tot de kopregel van de vraag verandert: dan staat de volgende vraag op het scherm.
+ * Ruimer dan de standaardwachttijd van 5 s, omdat een time-out bij de beeldkeuze zelf 5 s duurt.
+ */
 async function naVolgendeVraag(page: Page, vorigeLabel: string) {
-  await expect(page.locator(".qhead span").first()).not.toHaveText(vorigeLabel);
+  await expect(page.locator(".qhead span").first()).not.toHaveText(vorigeLabel, { timeout: 10_000 });
 }
 
 async function kopLabel(page: Page) {
@@ -34,7 +37,7 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
   // Eerste item bewust laten verlopen: de time-out moet worden vastgelegd.
   let label = await kopLabel(page);
   expect(label).toContain("Fase 1 · 1 van");
-  await naVolgendeVraag(page, label); // na 3 seconden zonder antwoord
+  await naVolgendeVraag(page, label); // na 5 seconden zonder antwoord
 
   for (let i = 1; i < aantal("beeldkeuze"); i++) {
     label = await kopLabel(page);
@@ -84,6 +87,28 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
     await naVolgendeVraag(page, label);
   }
 
+  // Fase 4: kaartenoefening, zonder tijdslimiet
+  await expect(page.getByText("Dit is geen meting.")).toBeVisible();
+  await page.getByRole("button", { name: "Naar de kaarten" }).click();
+  await geenHorizontaleScroll(page);
+  await expect(page.getByRole("progressbar")).toHaveCount(0);
+  const kaart = (id: string) => page.locator(`.kaart[data-kaart="${id}"]`);
+  await expect(page.locator(".kaart")).toHaveCount(8);
+  await kaart("wijze").click();
+  await kaart("wijze").click({ force: true }); // nogmaals tikken op een gekozen kaart doet niets
+  await expect(kaart("wijze")).toHaveAttribute("data-keuze", "voorkeur1");
+  await kaart("nar").click();
+  await page.getByRole("button", { name: "Laatste keuze ongedaan maken" }).click();
+  await expect(kaart("nar")).toHaveAttribute("aria-pressed", "false");
+  await kaart("schepper").click();
+  await kaart("heerser").click();
+  await kaart("strijder").click();
+  await expect(kaart("strijder")).toHaveAttribute("data-keuze", "afwijzing2");
+  await kaart("zorggever").click({ force: true }); // na vier keuzes niet meer te kiezen
+  await expect(kaart("zorggever")).toHaveAttribute("aria-pressed", "false");
+  await geenHorizontaleScroll(page);
+  await page.getByRole("button", { name: "Bevestig" }).click();
+
   // Eindscherm
   await expect(page.getByRole("heading", { name: "Klaar" })).toBeVisible();
   await expect(page.getByTestId("aantal")).toHaveText(String(items.length));
@@ -117,6 +142,14 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
     expect(v.minst).not.toBe(v.waarde);
   }
 
+  // Kaartenoefening: twee voorkeuren en twee afwijzingen, zonder tijdslimiet.
+  const k = a.antwoorden.find((x: { format: string }) => x.format === "kaartsortering");
+  expect(k.antwoordformaat).toBe("sortering");
+  expect(k.sortering).toEqual({ voorkeur: ["wijze", "schepper"], afwijzing: ["heerser", "strijder"] });
+  expect(k.waarde).toBe("wijze");
+  expect(k.tijdslimiet_ms).toBeNull();
+  expect([...k.getoonde_positie].sort()).toEqual(["heerser", "nar", "ontdekker", "schepper", "strijder", "verbinder", "wijze", "zorggever"]);
+
   // Het geldige antwoord per item is de laatste poging.
   const laatste = new Map<string, { item_id: string }>();
   for (const x of a.antwoorden) laatste.set(x.item_id, x);
@@ -127,7 +160,7 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
     const item = items.find((i) => i.id === antw.item_id)!;
     expect(item, `onbekend item ${antw.item_id}`).toBeTruthy();
     expect(antw.itemversie).toBe(item.versie);
-    expect(antw.scoringsversie).toBe("1.1.0");
+    expect(antw.scoringsversie).toBe("1.2.0");
     expect(antw.getoonde_positie.length).toBeGreaterThanOrEqual(2);
     if (antw.time_out) {
       expect(antw.waarde).toBeNull();
@@ -163,9 +196,9 @@ test("afname zonder tijdslimieten: geen time-out en geen tijdslimiet in de data"
   await expect(page.getByRole("progressbar")).toHaveCount(0);
   await page.getByRole("button", { name: "Linker beeld" }).click();
 
-  // Langer wachten dan de normale limiet van 3 seconden: de vraag blijft staan.
+  // Langer wachten dan de normale limiet van 5 seconden: de vraag blijft staan.
   const label = await kopLabel(page);
-  await page.waitForTimeout(3500);
+  await page.waitForTimeout(5500);
   await expect(page.locator(".qhead span").first()).toHaveText(label);
   await page.getByRole("button", { name: "Rechter beeld" }).click();
   await naVolgendeVraag(page, label);
@@ -177,7 +210,7 @@ test("afname zonder tijdslimieten: geen time-out en geen tijdslimiet in de data"
   expect(a.tijdslimieten).toBe(false);
   expect(a.antwoorden[0].time_out).toBe(false);
   expect(a.antwoorden[0].tijdslimiet_ms).toBeNull();
-  expect(a.antwoorden[0].reactietijd_ms).toBeGreaterThan(3000);
+  expect(a.antwoorden[0].reactietijd_ms).toBeGreaterThan(5000);
 });
 
 test("tikken na het verstrijken van de tijd overschrijft de time-out niet", async ({ page }) => {

@@ -40,4 +40,8 @@
 | 2026-10-26 | Getimede items krijgen een nieuwe itemversie (beeldkeuze, dilemma, vignet: versie 2); scoringsversie 1.1.0 | Regel 9 en 10: oude en nieuwe afnames blijven onderscheidbaar |
 | 2026-10-26 | Prototype: "toon verantwoording" staat standaard uit | Met de verantwoording aan staat het construct onder elke vraag, waardoor de uitkomst voorspelbaar wordt |
 | 2026-10-26 | Losse demo van de echte app (`npm run demo`) | De eigenaar kan de echte afname proberen zolang er nog geen hosting is |
-
+| 2026-10-26 | Beeldkeuze (reflex): 5 seconden in plaats van 3 (beeldkeuze versie 3) | Keuze van de eigenaar: meer tijd om het beeld echt te zien. Nieuwe itemversie volgens regel 9 |
+| 2026-10-26 | Kaartenoefening als testfase 4 (Reflectie): acht archetypekaarten van eigen ontwerp, eerste en tweede voorkeur, eerste en tweede afwijzing, zonder tijdslimiet | Wens van de eigenaar (voorkeur en afwijzing op beelden). Construct `experimenteel`, dus nooit gescoord (regel 2); regel 3 aangepast zodat de oefening als gespreksstof mag. Scoringsversie 1.2.0 geeft de keuzes ongewijzigd door als duiding |
+| 2026-10-26 | Geen vragen of materiaal van ACT in Actie | De genoemde vragenlijsten meten psychologische flexibiliteit (ACT), bevatten geen archetypen en zijn niet vrij voor commercieel gebruik |
+| 2026-10-26 | Testlengte ongeveer 12 tot 15 minuten | Akkoord eigenaar |
+| 2026-10-26 | Gekozen kaarten krijgen een dikkere rand en een label, geen gekleurde achtergrond | Op een getinte achtergrond haalt tekst in het lichte thema geen 4,5:1 (regel 18) |

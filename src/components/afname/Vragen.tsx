@@ -13,6 +13,8 @@ export interface Keuze {
   /** Alleen bij vignetten: de minst waarschijnlijke reactie, gekozen zonder tijdslimiet. */
   minst?: string | null;
   reactietijd_minst_ms?: number | null;
+  /** Alleen bij de kaartenoefening. */
+  sortering?: { voorkeur: string[]; afwijzing: string[] };
 }
 
 interface VraagProps {
@@ -227,6 +229,73 @@ export function Vignet({ item, volgorde, onKeuze, limietMs }: VraagProps & { ite
           </button>
         ))}
       </div>
+    </section>
+  );
+}
+
+const BADGES = ["voorkeur1", "voorkeur2", "afwijzing1", "afwijzing2"] as const;
+
+/**
+ * Kaartenoefening (fase 4, reflectie): eerste en tweede voorkeur, dan eerste en tweede afwijzing.
+ * Zonder tijdslimiet; de deelnemer kan de laatste keuze ongedaan maken en bevestigt aan het eind.
+ * Duiding, geen meting (harde regel 3).
+ */
+export function Kaartsortering({ item, volgorde, onKeuze }: Omit<VraagProps, "limietMs"> & { item: Item }) {
+  const [keuzes, setKeuzes] = useState<string[]>([]);
+  const geen = useCallback(() => {}, []);
+  const { stop } = useKlok(null, geen);
+  const kaart = (id: string) => item.kaarten!.find((k) => k.id === id)!;
+  const klaar = keuzes.length === 4;
+  const vraag = vertaal(klaar ? "afname.kaarten.stap.klaar" : `afname.kaarten.stap.${keuzes.length}`);
+
+  const bevestig = () => {
+    const r = stop();
+    if (!r) return;
+    onKeuze({
+      waarde: keuzes[0],
+      reactietijd_ms: r.ms,
+      onderbroken: r.onderbroken,
+      sortering: { voorkeur: keuzes.slice(0, 2), afwijzing: keuzes.slice(2, 4) },
+    });
+  };
+
+  return (
+    <section className="paneel">
+      <span className="eyebrow">{vertaal("afname.kaarten.geenMeting")}</span>
+      <p className="vraagtekst" aria-live="polite">{vraag}</p>
+      {!klaar && <p className="muted">{vertaal("afname.kaarten.voortgang", { nummer: keuzes.length + 1 })}</p>}
+      <div className="kaarten">
+        {volgorde.map((id) => {
+          const k = kaart(id);
+          const plek = keuzes.indexOf(id);
+          const badge = plek >= 0 ? BADGES[plek] : null;
+          return (
+            <button
+              key={id}
+              type="button"
+              className="kaart"
+              data-kaart={id}
+              data-keuze={badge ?? undefined}
+              aria-pressed={plek >= 0}
+              aria-disabled={plek >= 0 || klaar}
+              aria-label={`${k.naam}: ${vertaal("afname.kaarten.binnen")} ${k.binnen}, ${vertaal("afname.kaarten.buiten")} ${k.buiten}${badge ? ` (${vertaal(`afname.kaarten.badge.${badge}`)})` : ""}`}
+              onClick={() => { if (plek < 0 && !klaar) setKeuzes((v) => [...v, id]); }}
+            >
+              {badge && <span className="kaart-badge" aria-hidden="true">{vertaal(`afname.kaarten.badge.${badge}`)}</span>}
+              <span className="kaart-beeld"><Beeld naam={k.beeld} /></span>
+              <span className="kaart-naam">{k.naam}</span>
+              <span className="kaart-kwaliteit"><span>{vertaal("afname.kaarten.binnen")}</span> {k.binnen}</span>
+              <span className="kaart-kwaliteit"><span>{vertaal("afname.kaarten.buiten")}</span> {k.buiten}</span>
+            </button>
+          );
+        })}
+      </div>
+      {keuzes.length > 0 && (
+        <div className="navigatie">
+          <button type="button" onClick={() => setKeuzes((v) => v.slice(0, -1))}>{vertaal("afname.kaarten.herstel")}</button>
+          {klaar && <button type="button" className="primair" onClick={bevestig}>{vertaal("afname.kaarten.bevestig")}</button>}
+        </div>
+      )}
     </section>
   );
 }

@@ -22,8 +22,12 @@ describe("itemregister in content/", () => {
     expect(valideerItemregister(echt)).toEqual([]);
   });
 
-  it("bevat items in alle drie de fasen", () => {
-    expect(new Set(echt.items.map((i) => i.fase))).toEqual(new Set([1, 2, 3]));
+  it("bevat items in alle vier de fasen", () => {
+    expect(new Set(echt.items.map((i) => i.fase))).toEqual(new Set([1, 2, 3, 4]));
+  });
+
+  it("geeft de beeldkeuze 5 seconden (keuze eigenaar)", () => {
+    echt.items.filter((i) => i.format === "beeldkeuze").forEach((i) => expect(i.tijdslimiet_s).toBe(5));
   });
 
   it("markeert de reflexmeting als experimentele methode (regel 5)", () => {
@@ -32,8 +36,13 @@ describe("itemregister in content/", () => {
     reflex.forEach((i) => expect(i.bewijs.methode).toBe("experimenteel"));
   });
 
-  it("bevat geen items die archetypen claimen te meten (regel 3)", () => {
-    echt.items.forEach((i) => expect(i.construct.toLowerCase()).not.toMatch(/archetype/));
+  it("archetypen komen alleen voor in niet-meetbare items (regel 3)", () => {
+    const archetype = echt.items.filter((i) => /archetyp/i.test(`${i.construct} ${i.kader}`));
+    expect(archetype.length).toBeGreaterThan(0);
+    archetype.forEach((i) => {
+      expect(isMeetbaar(i)).toBe(false);
+      expect(i.format).toBe("kaartsortering");
+    });
   });
 });
 
@@ -98,7 +107,48 @@ describe("regel 2: alleen onderbouwde constructen zijn meetbaar", () => {
     expect(isMeetbaar(item)).toBe(false);
   });
 
-  it("alle huidige items hebben een meetbaar construct", () => {
-    echt.items.forEach((i) => expect(isMeetbaar(i)).toBe(true));
+  it("alle huidige items buiten de kaartenoefening hebben een meetbaar construct", () => {
+    echt.items.filter((i) => i.format !== "kaartsortering").forEach((i) => expect(isMeetbaar(i)).toBe(true));
+  });
+
+  it("de kaartenoefening is nooit meetbaar", () => {
+    echt.items.filter((i) => i.format === "kaartsortering").forEach((i) => expect(isMeetbaar(i)).toBe(false));
+  });
+});
+
+describe("kaartsortering", () => {
+  const k = () => echt.items.findIndex((i) => i.format === "kaartsortering");
+
+  it("heeft acht kaarten met unieke id, naam, beeld en twee kwaliteiten", () => {
+    const kaarten = echt.items[k()].kaarten!;
+    expect(kaarten).toHaveLength(8);
+    expect(new Set(kaarten.map((c) => c.id)).size).toBe(8);
+    expect(new Set(kaarten.map((c) => c.beeld)).size).toBe(8);
+    kaarten.forEach((c) => {
+      expect(c.naam && c.binnen && c.buiten).toBeTruthy();
+      expect(["agentisch", "communaal", "geintegreerd"]).toContain(c.pool);
+    });
+  });
+
+  it("faalt als het construct als sterk of matig wordt opgegeven (regel 2 en 3)", () => {
+    expect(regels(metItem((i) => { i.bewijs.construct = "matig"; }, k()))).toContain("3");
+  });
+
+  it("faalt met te weinig kaarten", () => {
+    expect(regels(metItem((i) => { i.kaarten = i.kaarten!.slice(0, 3); }, k()))).toContain("formaat");
+  });
+
+  it("faalt met dubbele kaart-id's", () => {
+    expect(regels(metItem((i) => { i.kaarten![1].id = i.kaarten![0].id; }, k()))).toContain("formaat");
+  });
+
+  it("faalt als een kaart een merknaam noemt (regel 8)", () => {
+    expect(regels(metItem((i) => { i.kaarten![0].buiten = "MBTI-type"; }, k()))).toContain("8");
+  });
+
+  it("heeft geen tijdslimiet", () => {
+    const i = echt.items[k()];
+    expect(i.tijdslimiet_s).toBeUndefined();
+    expect(i.tijd).toBeUndefined();
   });
 });

@@ -14,3 +14,12 @@ describe("vertaallaag", () => {
     expect(() => vertaal("bestaat.niet")).toThrow(/Ontbrekende vertaling/);
   });
 });
+
+describe("teksten volgen het itemregister", () => {
+  it("noemt bij de reflex de tijdslimiet uit het register", async () => {
+    const { default: register } = await import("../content/itemregister.json");
+    const s = register.items.find((i) => i.format === "beeldkeuze")!.tijdslimiet_s;
+    expect(vertaal("afname.welkom.fase1", { seconden: s! })).toContain(`${s} seconden`);
+    expect(vertaal("afname.intro.1.tekst", { seconden: s! })).toContain(`${s} seconden`);
+  });
+});
