@@ -56,7 +56,12 @@ export interface Item {
   // vignet
   drukniveau?: string;
   opties?: Record<string, string>;
+  /** Vaste tijdslimiet (beeldkeuze). */
   tijdslimiet_s?: number;
+  /** Tijdslimiet afgeleid van de leestijd: woorden / leessnelheid × leesfactor + beslistijd. */
+  tijd?: { leesfactor: number; beslis_s: number };
+  /** Vignetten: eerst de meest waarschijnlijke reactie (getimed), daarna de minst waarschijnlijke. */
+  antwoord?: "meest-minst";
 }
 
 export interface Itemregister {
@@ -153,7 +158,9 @@ export function valideerItemregister(register: Itemregister): Fout[] {
 function formaatFouten(item: Item): string[] {
   const m: string[] = [];
   const tijd = () => {
-    if (typeof item.tijdslimiet_s !== "number" || item.tijdslimiet_s <= 0) m.push("Tijdslimiet ontbreekt.");
+    const vast = typeof item.tijdslimiet_s === "number" && item.tijdslimiet_s > 0;
+    const lees = !!item.tijd && item.tijd.leesfactor >= 1 && item.tijd.beslis_s >= 0;
+    if (!vast && !lees) m.push("Tijdslimiet ontbreekt (vast, of leesfactor ≥ 1 met beslistijd).");
   };
   switch (item.format) {
     case "beeldkeuze":

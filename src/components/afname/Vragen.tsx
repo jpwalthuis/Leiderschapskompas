@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { Item } from "@/content/itemregister";
 import { Beeld } from "@/content/beelden";
 import { vertaal } from "@/i18n";
@@ -10,6 +10,9 @@ export interface Keuze {
   waarde: string | null;
   reactietijd_ms: number | null;
   onderbroken: boolean;
+  /** Alleen bij vignetten: de minst waarschijnlijke reactie, gekozen zonder tijdslimiet. */
+  minst?: string | null;
+  reactietijd_minst_ms?: number | null;
 }
 
 interface VraagProps {
@@ -164,7 +167,49 @@ export function Dilemma({ item, volgorde, onKeuze, limietMs }: VraagProps & { it
 }
 
 export function Vignet({ item, volgorde, onKeuze, limietMs }: VraagProps & { item: Item }) {
-  const { loopt, kies } = useVraag(limietMs, onKeuze);
+  // Stap 1: meest waarschijnlijke reactie, getimed. Stap 2: minst waarschijnlijke, zonder tijdslimiet.
+  const [meest, setMeest] = useState<{ waarde: string; ms: number; onderbroken: boolean } | null>(null);
+  const tussen = useCallback((k: Keuze) => {
+    if (k.waarde === null) onKeuze(k);
+    else setMeest({ waarde: k.waarde, ms: k.reactietijd_ms!, onderbroken: k.onderbroken });
+  }, [onKeuze]);
+  const { loopt, kies } = useVraag(limietMs, tussen);
+  const tweedeStart = useRef(0);
+  useEffect(() => {
+    if (meest) tweedeStart.current = performance.now();
+  }, [meest]);
+
+  if (meest) {
+    return (
+      <section className="paneel">
+        <span className="eyebrow">{vertaal("afname.vignet.minstLabel")}</span>
+        <p className="vraagtekst">{item.tekst}</p>
+        <p className="muted">{vertaal("afname.vignet.minstVraag")}</p>
+        <div className="opties">
+          {volgorde.filter((k) => k !== meest.waarde).map((k) => (
+            <button
+              key={k}
+              type="button"
+              className="optie"
+              data-optie={k}
+              onClick={() =>
+                onKeuze({
+                  waarde: meest.waarde,
+                  reactietijd_ms: meest.ms,
+                  onderbroken: meest.onderbroken,
+                  minst: k,
+                  reactietijd_minst_ms: performance.now() - tweedeStart.current,
+                })
+              }
+            >
+              {item.opties?.[k]}
+            </button>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="paneel">
       <span className="eyebrow">
@@ -173,6 +218,7 @@ export function Vignet({ item, volgorde, onKeuze, limietMs }: VraagProps & { ite
           : vertaal("afname.vignet.meta", { seconden: limietMs / 1000, opties: volgorde.length })}
       </span>
       <p className="vraagtekst">{item.tekst}</p>
+      <p className="muted">{vertaal("afname.vignet.meestVraag")}</p>
       <Tijdbalk limietMs={limietMs} loopt={loopt} />
       <div className="opties">
         {volgorde.map((k) => (

@@ -229,13 +229,13 @@ DIL.push(
 
 const STY = {forc:"Forceren",prob:"Probleemoplossen",comp:"Compromis",yield:"Toegeven",avoid:"Vermijden"};
 const P3 = [
-  {id:"D1",sec:15,lvl:"Druk 1 van 4",t:"Een collega presenteert in het managementoverleg jouw idee als het zijne.",
+  {id:"D1",sec:32,lvl:"Druk 1 van 4",t:"Een collega presenteert in het managementoverleg jouw idee als het zijne.",
    o:{forc:"Ik corrigeer het direct in de vergadering: het idee komt van mij.",prob:"Ik spreek hem na afloop aan om samen uit te zoeken hoe dit ging en hoe we het rechtzetten.",comp:"Ik stel voor dat we het idee voortaan samen presenteren.",yield:"Ik laat het zo; het gaat om het resultaat.",avoid:"Ik zeg er niets over en houd voortaan meer afstand."}},
-  {id:"D2",sec:12,lvl:"Druk 2 van 4",t:"Twee teamleden zijn het fundamenteel oneens over de prioriteit. De klant wacht op jullie antwoord.",
+  {id:"D2",sec:29,lvl:"Druk 2 van 4",t:"Twee teamleden zijn het fundamenteel oneens over de prioriteit. De klant wacht op jullie antwoord.",
    o:{forc:"Ik hak de knoop zelf door en communiceer het besluit.",prob:"Ik zet ze kort bij elkaar om de belangen achter beide standpunten boven tafel te krijgen.",comp:"We doen van beide voorstellen een deel.",yield:"Ik volg degene die het hardst aandringt, dan is het klaar.",avoid:"Ik vraag de klant om uitstel en laat het even rusten."}},
-  {id:"D3",sec:9,lvl:"Druk 3 van 4",t:"Je leidinggevende wil een besluit doordrukken waarvan jij denkt dat het je team schaadt. Het overleg eindigt over vijf minuten.",
+  {id:"D3",sec:25,lvl:"Druk 3 van 4",t:"Je leidinggevende wil een besluit doordrukken waarvan jij denkt dat het je team schaadt. Het overleg eindigt over vijf minuten.",
    o:{forc:"Ik zeg nu duidelijk dat ik dit besluit niet steun en waarom.",prob:"Ik vraag om tien minuten extra om het samen anders op te lossen.",yield:"Ik ga akkoord; het is uiteindelijk haar besluit.",avoid:"Ik houd me stil en zie later wel wat ik ermee doe."}},
-  {id:"D4",sec:7,lvl:"Druk 4 van 4",t:"Midden in een crisisoverleg verwijt een stakeholder jou publiekelijk een fout die niet van jou is. Er moet nu gereageerd worden.",
+  {id:"D4",sec:19,lvl:"Druk 4 van 4",t:"Midden in een crisisoverleg verwijt een stakeholder jou publiekelijk een fout die niet van jou is. Er moet nu gereageerd worden.",
    o:{forc:"Ik weerleg het direct en zet de feiten op tafel.",yield:"Ik neem het op me om de rust te bewaren.",avoid:"Ik ga er niet op in en stuur het gesprek terug naar de crisis."}}
 ].map(x=>({...x,construct:"Conflictstrategie onder oplopende druk",kader:K.conflict,src:["dutch","tk","vignet"],ev:{c:"sterk",m:"matig",i:"nieuw"},
   note:"Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk?"}));
@@ -266,7 +266,7 @@ const IMG = {
 const svg = k => `<svg viewBox="0 0 120 92" aria-hidden="true">${IMG[k]}</svg>`;
 
 /* ===================== STAAT ===================== */
-const S = {screen:"intro",showWhy:true,i:0,ans:{},rt:{},side:{},tab:"client",sample:false};
+const S = {screen:"intro",showWhy:false,i:0,ans:{},rt:{},side:{},tab:"client",sample:false};
 let timerHandle=null, t0=0;
 const app = document.getElementById("app");
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -313,7 +313,7 @@ function intro(){
   return `<div class="stack"><span class="eyebrow">Prototype · niet gevalideerd</span><h1>Leiderschapskompas</h1><p class="muted">Een test van <b style="font-family:var(--font-display);color:var(--navy);font-size:1.05rem">Ekana</b></p>
   <p class="muted">Een test die laat zien hoe je leidt, waar je energie van krijgt en wat er gebeurt als de druk oploopt. Je maakt drie korte fasen, ongeveer zeven minuten. Daarna zie je je eigen rapport; je coach ziet een uitgebreidere versie.</p></div>
   <div class="panel"><div class="phases">
-    <div class="phase"><b>1 · Reflex</b><span class="muted">Zes woorden, steeds twee beelden. Kies binnen 2 seconden.</span></div>
+    <div class="phase"><b>1 · Reflex</b><span class="muted">Zes woorden, steeds twee beelden. Kies binnen 3 seconden.</span></div>
     <div class="phase"><b>2 · Zelfbeeld</b><span class="muted">Stellingen en dilemma's over hoe je werkt en wat je drijft.</span></div>
     <div class="phase"><b>3 · Onder druk</b><span class="muted">Vier conflicten. De tijd wordt korter, de opties minder.</span></div>
   </div></div>
@@ -329,7 +329,7 @@ function intro(){
 }
 function p1intro(){
   return `${head("Fase 1 · Reflex")}<div class="panel"><span class="eyebrow">Fase 1</span><h2>Kies wat je het eerst raakt</h2>
-  <p>Je ziet een woord en twee abstracte beelden. Tik binnen 2 seconden op het beeld dat het best bij het woord past. Er is geen goed of fout. Te laat is ook een antwoord.</p>
+  <p>Je ziet een woord en twee abstracte beelden. Tik binnen 3 seconden op het beeld dat het best bij het woord past. Er is geen goed of fout. Te laat is ook een antwoord.</p>
   <p class="muted">Op een toetsenbord kun je de pijltjes links en rechts gebruiken. Eerst een oefenronde.</p>
   <button class="btn-primary" id="go">Oefenronde</button></div>`;
 }
@@ -346,7 +346,7 @@ function p1(){
 }
 function p2intro(){
   return `${head("Fase 2 · Zelfbeeld")}<div class="panel"><span class="eyebrow">Fase 2</span><h2>Hoe zie je jezelf?</h2>
-  <p>Eerst ${LK.length} stellingen over hoe je werkt. Geef aan in hoeverre ze bij je passen. Daarna ${DIL.length} dilemma's: kies binnen 8 seconden wat zwaarder weegt.</p>
+  <p>Eerst ${LK.length} stellingen over hoe je werkt. Geef aan in hoeverre ze bij je passen. Daarna ${DIL.length} dilemma's: kies wat zwaarder weegt. Je hebt genoeg tijd om elk dilemma rustig te lezen.</p>
   <button class="btn-primary" id="go">Verder</button></div>`;
 }
 function lk(){
@@ -542,13 +542,13 @@ function bind(){
   if(S.screen==="practice"){
     const done=()=>next();
     document.querySelectorAll(".pick").forEach(b=>b.addEventListener("click",done));
-    startClock(2,done,"bar");
+    startClock(3,done,"bar");
   }
   if(S.screen==="p1"){
     const it=P1[S.i], flip=S.side[it.id];
     const choose=k=>{ if(S.ans[it.id]) return; const pole = k==="L"?(flip?"C":"A"):(flip?"A":"C"); record(it.id,pole); next(); };
     document.querySelectorAll(".pick").forEach(b=>b.addEventListener("click",()=>choose(b.dataset.k)));
-    startClock(2,()=>{ S.ans[it.id]="timeout"; S.rt[it.id]=null; next(); },"bar");
+    startClock(3,()=>{ S.ans[it.id]="timeout"; S.rt[it.id]=null; next(); },"bar");
   }
   if(S.screen==="lk"){
     t0=performance.now();
@@ -557,7 +557,7 @@ function bind(){
   if(S.screen==="dil"){
     const it=DIL[S.i];
     document.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{ if(S.ans[it.id])return; record(it.id,b.dataset.k); next(); }));
-    startClock(8,()=>{ S.ans[it.id]="timeout"; next(); },"bar");
+    startClock(({W1:13,W2:13,W3:14,W4:12,W5:13,W6:13,W7:13,W8:13})[it.id]||13,()=>{ S.ans[it.id]="timeout"; next(); },"bar");
   }
   if(S.screen==="p3"){
     const it=P3[S.i];

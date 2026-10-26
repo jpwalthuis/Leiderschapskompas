@@ -30,3 +30,14 @@
 | 2026-10-25 | Cardo voor koppen, vraagteksten en hoofdknoppen; systeemlettertype voor kleine bedieningstekst | Cardo is de letter van ekana.nl; op een telefoon leest kleine tekst beter in een schreefloze letter |
 | 2026-10-25 | Cardo wordt meegeleverd met de app (npm-pakket @fontsource/cardo, OFL-licentie), niet geladen vanaf Google | Geen verzoek naar Google bij elke deelnemer; past bij de AVG-lijn van de app |
 | 2026-10-25 | Ekana is ook de licentiegever: coaches krijgen hun licentie van Ekana | Bevestigd door eigenaar |
+| 2026-10-26 | Itembank v2 na feedback van de eigenaar ("te oppervlakkig", "uitkomst af te leiden uit de vragen", "te weinig tijd om te lezen") | Zie de regels hieronder; feedback ingesproken op 2026-10-26 |
+| 2026-10-26 | Minimaal drie stellingen per schaal (agency, communion en extraversie zes); 63 stellingen in totaal | Eén stelling per schaal geeft geen betrouwbare score; lost de open vraag uit fase 2 op |
+| 2026-10-26 | Nieuwe schalen denkstijl (rationeel, ervaringsgericht) en waarnemen (openheid: intuïtief versus feitelijk) | Wens eigenaar: ratio, gevoel, feitelijkheid en intuïtie. Gemeten via onderbouwde dimensies (Pacini & Epstein 1999; Witteman e.a. 2009; McCrae & Costa 1989), niet als Jung-typen |
+| 2026-10-26 | Stellingen gemengd per afname, nooit twee van dezelfde schaal achter elkaar, zonder vast patroon | De uitkomst mag niet uit volgorde of groepering af te leiden zijn |
+| 2026-10-26 | Tijdslimiet van dilemma's en vignetten afgeleid van de leestijd: woorden / 238 per minuut × leesfactor + 3 s | Eerdere limieten lagen deels onder de pure leestijd (vignet 3: 9 s voor 16 s tekst). 238 wpm: Brysbaert 2019. Leesfactor dilemma 1,5; vignetten 1,6 → 1,15 zodat de druk blijft oplopen |
+| 2026-10-26 | Beeldkeuze van 2 naar 3 seconden | Feedback eigenaar: te snel. Ontwerpkeuze, te toetsen in de pilot |
+| 2026-10-26 | Vignetten: eerst meest waarschijnlijke reactie (getimed), daarna minst waarschijnlijke (zonder tijdslimiet) | Meer informatie per situatie (best-worst, Louviere e.a. 2015); sluit aan bij de voorkeur-en-afwijzing-werkwijze die de eigenaar kent |
+| 2026-10-26 | Getimede items krijgen een nieuwe itemversie (beeldkeuze, dilemma, vignet: versie 2); scoringsversie 1.1.0 | Regel 9 en 10: oude en nieuwe afnames blijven onderscheidbaar |
+| 2026-10-26 | Prototype: "toon verantwoording" staat standaard uit | Met de verantwoording aan staat het construct onder elke vraag, waardoor de uitkomst voorspelbaar wordt |
+| 2026-10-26 | Losse demo van de echte app (`npm run demo`) | De eigenaar kan de echte afname proberen zolang er nog geen hosting is |
+

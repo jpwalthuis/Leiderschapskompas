@@ -38,6 +38,11 @@ export interface Antwoord {
   onderbroken: boolean;
   /** 1 voor het eerste antwoord; hoger als de deelnemer een stelling herziet. Eerdere pogingen blijven bewaard. */
   poging: number;
+  /** "meest-minst" bij vignetten: `waarde` is de meest waarschijnlijke reactie, `minst` de minst waarschijnlijke. */
+  antwoordformaat: "enkel" | "meest-minst";
+  minst: string | null;
+  /** Tijd tussen de keuze voor meest en de keuze voor minst (zonder tijdslimiet). */
+  reactietijd_minst_ms: number | null;
   scoringsversie: string;
   vastgelegd_op: string;
 }
@@ -63,18 +68,54 @@ export function isHerzienbaar(format: Item["format"]): boolean {
 
 const LIKERT = ["1", "2", "3", "4", "5"];
 
-/** Volgorde van de afname: per fase een intro, na de eerste intro een oefenronde, dan de items in registervolgorde. */
-export function bouwStappen(register: Itemregister): Stap[] {
+/**
+ * Volgorde van de afname: per fase een intro, na de eerste intro een oefenronde, dan de items.
+ * Stellingen worden per afname gemengd (reproduceerbaar uit de seed), zodat stellingen van dezelfde schaal
+ * nooit naast elkaar staan en de uitkomst niet uit de volgorde af te leiden is. Getimede items houden
+ * de registervolgorde, omdat de druk daar bewust oploopt.
+ */
+export function bouwStappen(register: Itemregister, seed = 0): Stap[] {
   const stappen: Stap[] = [];
   for (const fase of [1, 2, 3] as const) {
     const items = register.items.filter((i) => i.fase === fase);
     if (items.length === 0) continue;
     stappen.push({ soort: "intro", fase });
     if (fase === 1) stappen.push({ soort: "oefen" });
-    items.forEach((item) => stappen.push({ soort: "item", item }));
+    const stellingen = mengStellingen(items.filter((i) => i.format === "likert"), seed);
+    [...stellingen, ...items.filter((i) => i.format !== "likert")].forEach((item) => stappen.push({ soort: "item", item }));
   }
   stappen.push({ soort: "einde" });
   return stappen;
+}
+
+/**
+ * Mengt de stellingen willekeurig, met als enige eis dat twee opeenvolgende stellingen nooit van dezelfde schaal zijn.
+ * Elke stap trekt een willekeurige stelling uit de toegestane; een trekking die het vervolg onmogelijk zou maken,
+ * wordt overgeslagen. Zo ontstaat geen vast patroon (zoals steeds dezelfde drie schalen na elkaar).
+ */
+function mengStellingen(items: Item[], seed: number): Item[] {
+  const rnd = generator(fnv1a(`${seed}:stellingen`));
+  const rest = [...items];
+  const uit: Item[] = [];
+  const schaal = (i: Item) => i.subschaal ?? "";
+  // Is de rest nog zo te ordenen dat buren verschillen, gegeven dat de vorige stelling van schaal `laatste` was?
+  const haalbaar = (over: Item[], laatste: string) => {
+    const n = over.length;
+    const telling = new Map<string, number>();
+    over.forEach((i) => telling.set(schaal(i), (telling.get(schaal(i)) ?? 0) + 1));
+    return [...telling].every(([g, c]) => c <= (g === laatste ? Math.floor(n / 2) : Math.ceil(n / 2)));
+  };
+  while (rest.length) {
+    const vorige = uit.length ? schaal(uit[uit.length - 1]) : null;
+    const toegestaan = rest
+      .map((i, k) => k)
+      .filter((k) => schaal(rest[k]) !== vorige && haalbaar(rest.filter((_, j) => j !== k), schaal(rest[k])));
+    // Geen nette ordening mogelijk (bijvoorbeeld één schaal met te veel stellingen): neem dan willekeurig de rest.
+    const keuzes = toegestaan.length ? toegestaan : rest.map((_, k) => k);
+    const k = keuzes[Math.floor(rnd() * keuzes.length)];
+    uit.push(rest.splice(k, 1)[0]);
+  }
+  return uit;
 }
 
 /** FNV-1a, 32 bit. Genoeg voor een korte, stabiele vingerafdruk; geen cryptografisch doel. */
@@ -156,17 +197,40 @@ export function nieuweAfname(
 }
 
 export interface AntwoordInvoer {
-  /** Sleutel van de gekozen optie, of null bij een time-out. */
+  /** Sleutel van de gekozen optie (bij vignetten: de meest waarschijnlijke), of null bij een time-out. */
   waarde: string | null;
   reactietijd_ms: number | null;
   volgorde: string[];
   nu: string;
   onderbroken?: boolean;
+  /** Alleen bij vignetten: de minst waarschijnlijke reactie. */
+  minst?: string | null;
+  reactietijd_minst_ms?: number | null;
+}
+
+/** Gemiddelde stille leessnelheid over alle studies (Brysbaert, 2019). */
+export const LEESSNELHEID_WPM = 238;
+
+/** Alle tekst die bij een item op het scherm staat. */
+function schermtekst(item: Item): string {
+  return [item.woord, item.tekst, item.vraag, item.optie_a?.tekst, item.optie_b?.tekst, ...Object.values(item.opties ?? {})]
+    .filter((t): t is string => !!t)
+    .join(" ");
+}
+
+/** Tijdslimiet in seconden afgeleid van de leestijd, of null als het item geen leestijdmodel heeft. */
+export function leestijdLimietS(item: Item): number | null {
+  if (!item.tijd) return null;
+  const woorden = schermtekst(item).trim().split(/\s+/).filter(Boolean).length;
+  return Math.ceil((woorden / LEESSNELHEID_WPM) * 60 * item.tijd.leesfactor + item.tijd.beslis_s);
 }
 
 /** Tijdslimiet in ms voor dit item in deze afname, of null als er geen limiet geldt. */
 export function tijdslimietMs(afname: Afname, item: Item): number | null {
-  return afname.tijdslimieten && typeof item.tijdslimiet_s === "number" ? item.tijdslimiet_s * 1000 : null;
+  if (!afname.tijdslimieten) return null;
+  const lees = leestijdLimietS(item);
+  if (lees !== null) return lees * 1000;
+  return typeof item.tijdslimiet_s === "number" ? item.tijdslimiet_s * 1000 : null;
 }
 
 export function maakAntwoord(afname: Afname, item: Item, invoer: AntwoordInvoer): Antwoord {
@@ -174,9 +238,13 @@ export function maakAntwoord(afname: Afname, item: Item, invoer: AntwoordInvoer)
   if (timeOut && tijdslimietMs(afname, item) === null) {
     throw new Error(`Time-out bij ${item.id} terwijl er geen tijdslimiet geldt.`);
   }
+  const meestMinst = item.antwoord === "meest-minst";
   if (!timeOut) {
     if (!invoer.volgorde.includes(invoer.waarde!)) {
       throw new Error(`Waarde "${invoer.waarde}" is niet getoond bij ${item.id}.`);
+    }
+    if (meestMinst && (!invoer.minst || !invoer.volgorde.includes(invoer.minst) || invoer.minst === invoer.waarde)) {
+      throw new Error(`Bij ${item.id} ontbreekt een geldige minst waarschijnlijke reactie.`);
     }
     if (typeof invoer.reactietijd_ms !== "number" || !Number.isFinite(invoer.reactietijd_ms) || invoer.reactietijd_ms < 0) {
       throw new Error(`Ongeldige reactietijd bij ${item.id}.`);
@@ -196,6 +264,10 @@ export function maakAntwoord(afname: Afname, item: Item, invoer: AntwoordInvoer)
     gekozen_positie: timeOut ? null : invoer.volgorde.indexOf(invoer.waarde!),
     onderbroken: invoer.onderbroken ?? false,
     poging: 1,
+    antwoordformaat: meestMinst ? "meest-minst" : "enkel",
+    minst: meestMinst && !timeOut ? invoer.minst! : null,
+    reactietijd_minst_ms:
+      meestMinst && !timeOut && typeof invoer.reactietijd_minst_ms === "number" ? Math.round(invoer.reactietijd_minst_ms) : null,
     scoringsversie: afname.scoringsversie,
     vastgelegd_op: invoer.nu,
   };
@@ -209,6 +281,9 @@ export function controleerAntwoord(a: Antwoord): string[] {
   if (!Array.isArray(a.getoonde_positie) || a.getoonde_positie.length === 0) m.push("getoonde positie ontbreekt");
   if (!a.scoringsversie) m.push("scoringsversie ontbreekt");
   if (!Number.isInteger(a.poging) || a.poging < 1) m.push("poging ontbreekt");
+  if (a.antwoordformaat === "meest-minst" && !a.time_out && (!a.minst || a.minst === a.waarde || !a.getoonde_positie?.includes(a.minst))) {
+    m.push("minst waarschijnlijke reactie ontbreekt");
+  }
   if (a.time_out) {
     if (a.waarde !== null || a.reactietijd_ms !== null) m.push("time-out mag geen waarde of reactietijd hebben");
   } else {

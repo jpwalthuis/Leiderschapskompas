@@ -18,6 +18,7 @@ npm ci
 npm run dev      # ontwikkelserver op http://localhost:3000
 npm run check    # lint, typen en tests
 npm run e2e      # volledige afname in een browser (na npm run build)
+npm run demo     # dist/demo.html: de afname als één los bestand, om te laten proberen
 npm run build    # productiebuild
 ```
 

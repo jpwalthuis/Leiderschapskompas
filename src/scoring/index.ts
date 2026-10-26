@@ -50,6 +50,10 @@ export interface Scoreprofiel {
     extraversie: Schaalscore;
     behoeften: Record<"autonomie" | "competentie" | "verbondenheid", { bevrediging: Schaalscore; frustratie: Schaalscore }>;
     conflictInRust: { scores: Record<Stijl, Schaalscore>; voorkeur: Stijl[] };
+    /** Ratio versus gevoel en intuïtie: twee onafhankelijke schalen, geen tegenpolen. */
+    denkstijl: { rationeel: Schaalscore; ervaringsgericht: Schaalscore };
+    /** Hoog = intuïtief waarnemen, laag = feitelijk waarnemen. */
+    waarnemen: { openheid: Schaalscore };
     waarden: {
       ipsatief: true;
       aantalDilemmas: number;
@@ -70,7 +74,14 @@ export interface Scoreprofiel {
   };
   onderDruk: {
     status: Status;
-    keuzes: { itemId: string; drukniveau: string; aantalOpties: number; keuze: Stijl | null; reactietijdMs: number | null }[];
+    keuzes: {
+      itemId: string;
+      drukniveau: string;
+      aantalOpties: number;
+      keuze: Stijl | null;
+      minst: Stijl | null;
+      reactietijdMs: number | null;
+    }[];
     keuzeBijHoogsteDruk: Stijl | null;
   };
   kwaliteit: {
@@ -199,6 +210,7 @@ export function scoor(afname: Afname, register: Itemregister): Scoreprofiel {
       drukniveau: i.drukniveau ?? "",
       aantalOpties: Object.keys(i.opties ?? {}).length,
       keuze: (a?.waarde ?? null) as Stijl | null,
+      minst: (a?.minst ?? null) as Stijl | null,
       reactietijdMs: a?.reactietijd_ms ?? null,
     };
   });
@@ -246,6 +258,8 @@ export function scoor(afname: Afname, register: Itemregister): Scoreprofiel {
       extraversie,
       behoeften,
       conflictInRust: { scores: conflictScores, voorkeur },
+      denkstijl: { rationeel: schaal("rationeel", items, perItem), ervaringsgericht: schaal("ervaringsgericht", items, perItem) },
+      waarnemen: { openheid: schaal("openheid", items, perItem) },
       waarden: { ipsatief: true, aantalDilemmas: waardeDilemmas.length, beantwoord: waardeBeantwoord, rangorde },
       zorgBijFalen: zorg,
     },

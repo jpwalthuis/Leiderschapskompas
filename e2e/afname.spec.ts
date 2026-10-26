@@ -34,7 +34,7 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
   // Eerste item bewust laten verlopen: de time-out moet worden vastgelegd.
   let label = await kopLabel(page);
   expect(label).toContain("Fase 1 · 1 van");
-  await naVolgendeVraag(page, label); // na 2 seconden zonder antwoord
+  await naVolgendeVraag(page, label); // na 3 seconden zonder antwoord
 
   for (let i = 1; i < aantal("beeldkeuze"); i++) {
     label = await kopLabel(page);
@@ -78,7 +78,9 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
   for (let i = 0; i < aantal("vignet"); i++) {
     label = await kopLabel(page);
     if (i === 0) await geenHorizontaleScroll(page);
-    await page.locator(".optie").last().click();
+    await page.locator(".optie").last().click(); // meest waarschijnlijk, getimed
+    await expect(page.getByText("En wat zou je het minst waarschijnlijk doen?")).toBeVisible();
+    await page.locator(".optie").first().click(); // minst waarschijnlijk, zonder tijdslimiet
     await naVolgendeVraag(page, label);
   }
 
@@ -99,13 +101,21 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
   const a = afnames[0];
   expect(a.status).toBe("afgerond");
   expect(a.afgerond_op).toBeTruthy();
-  expect(a.itemset_versie).toMatch(/^s1-[0-9a-f]{8}$/);
+  expect(a.itemset_versie).toMatch(/^s2-[0-9a-f]{8}$/);
   expect(a.tijdslimieten).toBe(true);
   // Alle pogingen blijven bewaard: één stelling is herzien, dus één ruw antwoord extra.
   expect(a.antwoorden).toHaveLength(items.length + 1);
-  const likertIds = items.filter((i) => i.format === "likert").map((i) => i.id);
-  const tweede = a.antwoorden.filter((x: { item_id: string }) => x.item_id === likertIds[1]);
+  // De stellingen staan gemengd; zoek de herziene stelling op via de tweede poging.
+  const herzien = a.antwoorden.find((x: { poging: number }) => x.poging === 2);
+  const tweede = a.antwoorden.filter((x: { item_id: string }) => x.item_id === herzien.item_id);
   expect(tweede.map((x: { waarde: string; poging: number }) => [x.waarde, x.poging])).toEqual([["2", 1], ["5", 2]]);
+
+  // Vignetten: meest en minst vastgelegd, verschillend van elkaar.
+  for (const v of a.antwoorden.filter((x: { format: string }) => x.format === "vignet")) {
+    expect(v.antwoordformaat).toBe("meest-minst");
+    expect(v.minst).toBeTruthy();
+    expect(v.minst).not.toBe(v.waarde);
+  }
 
   // Het geldige antwoord per item is de laatste poging.
   const laatste = new Map<string, { item_id: string }>();
@@ -117,7 +127,7 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
     const item = items.find((i) => i.id === antw.item_id)!;
     expect(item, `onbekend item ${antw.item_id}`).toBeTruthy();
     expect(antw.itemversie).toBe(item.versie);
-    expect(antw.scoringsversie).toBe("1.0.0");
+    expect(antw.scoringsversie).toBe("1.1.0");
     expect(antw.getoonde_positie.length).toBeGreaterThanOrEqual(2);
     if (antw.time_out) {
       expect(antw.waarde).toBeNull();
@@ -136,7 +146,12 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
   expect(a.antwoorden.filter((x: { time_out: boolean }) => x.time_out)).toHaveLength(1);
 
   // De volgorde van de geldige antwoorden volgt de volgorde van het register.
-  expect(geldig.map((x) => x.item_id)).toEqual(items.map((i) => i.id));
+  // Alle items beantwoord; getimede items in registervolgorde, stellingen gemengd.
+  expect(geldig.map((x) => x.item_id).sort()).toEqual(items.map((i) => i.id).sort());
+  const getimed = (ids: string[]) => ids.filter((id) => items.find((i) => i.id === id)!.format !== "likert");
+  expect(getimed(geldig.map((x) => x.item_id))).toEqual(getimed(items.map((i) => i.id)));
+  const stellingen = geldig.map((x) => x.item_id).filter((id) => items.find((i) => i.id === id)!.format === "likert");
+  expect(stellingen).not.toEqual(items.filter((i) => i.format === "likert").map((i) => i.id));
 });
 
 test("afname zonder tijdslimieten: geen time-out en geen tijdslimiet in de data", async ({ page }) => {
@@ -148,9 +163,9 @@ test("afname zonder tijdslimieten: geen time-out en geen tijdslimiet in de data"
   await expect(page.getByRole("progressbar")).toHaveCount(0);
   await page.getByRole("button", { name: "Linker beeld" }).click();
 
-  // Langer wachten dan de normale limiet van 2 seconden: de vraag blijft staan.
+  // Langer wachten dan de normale limiet van 3 seconden: de vraag blijft staan.
   const label = await kopLabel(page);
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(3500);
   await expect(page.locator(".qhead span").first()).toHaveText(label);
   await page.getByRole("button", { name: "Rechter beeld" }).click();
   await naVolgendeVraag(page, label);
