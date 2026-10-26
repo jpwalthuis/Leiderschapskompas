@@ -17,6 +17,8 @@ import {
   type Afname as AfnameData,
   type Stap,
 } from "@/testmotor";
+import { voorbeeldAfname } from "@/voorbeeld";
+import { Rapport } from "@/components/rapport/Rapport";
 import { Beeldkeuze, Dilemma, Kaartsortering, Stelling, Vignet, type Keuze } from "./Vragen";
 
 function maakOpslag(): AfnameOpslag {
@@ -53,6 +55,8 @@ export function Afname({ register }: { register: Itemregister }) {
   const [index, setIndex] = useState(-1); // -1 = welkomstscherm
   const [toonData, setToonData] = useState(false);
   const [zonderTijd, setZonderTijd] = useState(false);
+  /** Getoond rapport: van de eigen afname, of het voorbeeld met verzonnen antwoorden. */
+  const [rapport, setRapport] = useState<{ afname: AfnameData; voorbeeld: boolean } | null>(null);
 
   useEffect(() => {
     opslag.current = maakOpslag();
@@ -113,6 +117,20 @@ export function Afname({ register }: { register: Itemregister }) {
     </>
   );
 
+  if (rapport) {
+    return (
+      <Rapport
+        afname={rapport.afname}
+        register={register}
+        voorbeeld={rapport.voorbeeld}
+        onTerug={() => {
+          setRapport(null);
+          if (typeof window !== "undefined") window.scrollTo(0, 0);
+        }}
+      />
+    );
+  }
+
   if (!stap) {
     return (
       <div className="stack">
@@ -136,7 +154,12 @@ export function Afname({ register }: { register: Itemregister }) {
           </span>
         </label>
         <p className="muted">{vertaal("afname.welkom.privacy")}</p>
-        <div><button type="button" className="primair" onClick={start}>{vertaal("afname.welkom.start")}</button></div>
+        <div className="rij">
+          <button type="button" className="primair" onClick={start}>{vertaal("afname.welkom.start")}</button>
+          <button type="button" onClick={() => { setRapport({ afname: voorbeeldAfname(register), voorbeeld: true }); window.scrollTo(0, 0); }}>
+            {vertaal("afname.welkom.voorbeeld")}
+          </button>
+        </div>
       </div>
     );
   }
@@ -234,8 +257,11 @@ export function Afname({ register }: { register: Itemregister }) {
               <div><dt>{vertaal("afname.einde.itemset")}</dt><dd className="mono">{a.itemset_versie}</dd></div>
             </dl>
             <div className="rij">
+              <button type="button" className="primair" onClick={() => { setRapport({ afname: a, voorbeeld: false }); window.scrollTo(0, 0); }}>
+                {vertaal("afname.einde.rapport")}
+              </button>
               <button type="button" onClick={() => setToonData((v) => !v)} aria-expanded={toonData}>{vertaal("afname.einde.toonData")}</button>
-              <button type="button" className="primair" onClick={start}>{vertaal("afname.einde.opnieuw")}</button>
+              <button type="button" onClick={start}>{vertaal("afname.einde.opnieuw")}</button>
               <button type="button" onClick={() => { void opslag.current?.wis(a.id); setAfname(null); setIndex(-1); }}>{vertaal("afname.einde.wissen")}</button>
             </div>
             {toonData && <pre className="data" data-testid="data">{JSON.stringify(a, null, 2)}</pre>}

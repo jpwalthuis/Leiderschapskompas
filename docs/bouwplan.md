@@ -42,6 +42,7 @@ Status: gebouwd (PR fase-2/scoring), scoringsversie 1.0.0.
 - Klaar als: unit tests dekken elke schaal, inclusief ontbrekende antwoorden en time-outs, en uitkomsten komen overeen met het prototype op de voorbeeldantwoorden.
 
 ### Fase 3: Rapporten
+Status: gebouwd (PR rapporten).
 - Cliëntrapport en coachrapport zoals in het prototype, inclusief de sectie "wat dit rapport niet zegt".
 - Bewijsniveaus zichtbaar in het coachrapport.
 - Kaartenoefening (testfase 4) in het coachrapport als gespreksstof, gelabeld als duiding: de gekozen kaarten met hun kwaliteiten, naast de gemeten balans agency/communion. Geen score, geen vergelijking.

@@ -45,3 +45,10 @@
 | 2026-10-26 | Geen vragen of materiaal van ACT in Actie | De genoemde vragenlijsten meten psychologische flexibiliteit (ACT), bevatten geen archetypen en zijn niet vrij voor commercieel gebruik |
 | 2026-10-26 | Testlengte ongeveer 12 tot 15 minuten | Akkoord eigenaar |
 | 2026-10-26 | Gekozen kaarten krijgen een dikkere rand en een label, geen gekleurde achtergrond | Op een getinte achtergrond haalt tekst in het lichte thema geen 4,5:1 (regel 18) |
+| 2026-10-26 | Rapportinhoud in een pure module (`src/rapport`): secties met blokken, alle tekst als vertaalsleutel | Regels 19 en 20; de regels 3 tot en met 7 zijn zo op de inhoud te testen, los van de weergave |
+| 2026-10-26 | Duiding in woorden: onder 35 laag, 35 tot en met 65 midden, boven 65 hoog; reflex benoemd bij meer dan 20 punten verschil; energiebron bij bevrediging boven 65, energielek bij frustratie boven 50 | Overgenomen uit het prototype; drempels staan als constanten in de code en in het coachrapport onder "Interpretatieregels" |
+| 2026-10-26 | Gespreksvraag bij 30 punten of meer verschil tussen ratio en gevoel, en bij kaartkeuzes die niet bij de gemeten balans passen | Nieuwe onderdelen sinds itembank v2 en de kaartenoefening; alleen gespreksstof voor de coach, geen score |
+| 2026-10-26 | Bij de duiding op basis van de gemeten balans noemt het rapport de eigen kaarten van die pool, niet de twaalf archetypen uit het prototype | Eén set beelden in test en rapport, eigen ontwerp (regel 8) |
+| 2026-10-26 | Grafiekkleuren: oranje en blauw als aparte tokens per thema, gevalideerd met de dataviz-validator; elke waarde staat ook als getal in beeld | Het merkoranje als UI-accent haalt in het donkere thema de grafiekchecks niet; kleur draagt nooit alleen de betekenis |
+| 2026-10-26 | Op een telefoon worden tabellen gestapelde rijen met gelabelde waarden | Brede tabellen vielen weg of scrolden zijwaarts (regel 18) |
+| 2026-10-26 | In de demo zijn deelnemer- en coachrapport beide zichtbaar, met een uitleg | Rollen en toestemming volgen in bouwfase 4 |
