@@ -85,7 +85,7 @@ describe("stappen", () => {
 
   it("zet een intro vóór elke fase", () => {
     const intros = stappen.filter((s) => s.soort === "intro").map((s) => (s.soort === "intro" ? s.fase : 0));
-    expect(intros).toEqual([1, 2, 3]);
+    expect(intros).toEqual([1, 2, 3, 4]);
   });
 });
 
@@ -135,12 +135,12 @@ describe("regel 10: elk antwoord is volledig", () => {
     expect(a).toMatchObject({
       afname_id: "A-1",
       item_id: "R1",
-      itemversie: 2,
+      itemversie: item("R1").versie,
       waarde: "communaal",
       reactietijd_ms: 640,
       getoonde_positie: ["agentisch", "communaal"],
       gekozen_positie: 1,
-      tijdslimiet_ms: 3000,
+      tijdslimiet_ms: 5000,
       time_out: false,
       scoringsversie: SCORINGSVERSIE,
     });
@@ -279,7 +279,7 @@ describe("tijdslimiet op basis van leestijd", () => {
   });
 
   it("gebruikt een vaste limiet waar het item die opgeeft (beeldkeuze)", () => {
-    expect(tijdslimietMs(afname(), item("R1"))).toBe(3000);
+    expect(tijdslimietMs(afname(), item("R1"))).toBe(5000);
     expect(leestijdLimietS(item("R1"))).toBeNull();
   });
 
@@ -317,5 +317,58 @@ describe("vignetten: meest en minst", () => {
   it("andere vraagvormen hebben geen minst", () => {
     const a = maakAntwoord(afname(), item("W1"), { waarde: "a", reactietijd_ms: 4000, volgorde: ["a", "b"], nu: NU });
     expect(a).toMatchObject({ antwoordformaat: "enkel", minst: null });
+  });
+});
+
+describe("kaartenoefening (fase 4, reflectie)", () => {
+  const k = () => item("K1");
+  const volgorde = () => optieVolgorde(k(), 42);
+  const sortering = { voorkeur: ["wijze", "schepper"], afwijzing: ["heerser", "nar"] };
+
+  it("staat als laatste fase vóór het einde, met een eigen intro", () => {
+    const st = bouwStappen(reg, 42);
+    expect(st.at(-3)).toEqual({ soort: "intro", fase: 4 });
+    expect(st.at(-2)).toMatchObject({ soort: "item", item: { id: "K1" } });
+  });
+
+  it("toont alle acht kaarten in een willekeurige, reproduceerbare volgorde", () => {
+    expect([...volgorde()].sort()).toEqual(k().kaarten!.map((c) => c.id).sort());
+    expect(optieVolgorde(k(), 42)).toEqual(volgorde());
+    const anders = [1, 2, 3, 4, 5].some((s) => optieVolgorde(k(), s).join() !== volgorde().join());
+    expect(anders).toBe(true);
+  });
+
+  it("heeft geen tijdslimiet, ook niet in een getimede afname", () => {
+    expect(tijdslimietMs(afname(), k())).toBeNull();
+  });
+
+  it("legt twee voorkeuren en twee afwijzingen vast; waarde is de eerste voorkeur", () => {
+    const a = maakAntwoord(afname(), k(), { waarde: "wijze", sortering, reactietijd_ms: 20000, volgorde: volgorde(), nu: NU });
+    expect(a).toMatchObject({ antwoordformaat: "sortering", waarde: "wijze", sortering, time_out: false, tijdslimiet_ms: null });
+    expect(controleerAntwoord(a)).toEqual([]);
+  });
+
+  it.each([
+    ["zonder sortering", undefined],
+    ["met één voorkeur", { voorkeur: ["wijze"], afwijzing: ["heerser", "nar"] }],
+    ["met een kaart dubbel", { voorkeur: ["wijze", "schepper"], afwijzing: ["wijze", "nar"] }],
+    ["met een onbekende kaart", { voorkeur: ["wijze", "schepper"], afwijzing: ["heerser", "magiër"] }],
+    ["als waarde niet de eerste voorkeur is", { voorkeur: ["schepper", "wijze"], afwijzing: ["heerser", "nar"] }],
+  ])("weigert een antwoord %s", (_n, sort) => {
+    expect(() => maakAntwoord(afname(), k(), { waarde: "wijze", sortering: sort, reactietijd_ms: 20000, volgorde: volgorde(), nu: NU })).toThrow();
+  });
+
+  it("kan geen time-out hebben", () => {
+    expect(() => maakAntwoord(afname(), k(), { waarde: null, reactietijd_ms: null, volgorde: volgorde(), nu: NU })).toThrow();
+  });
+
+  it("controleerAntwoord meldt een onvolledige sortering", () => {
+    const a = maakAntwoord(afname(), k(), { waarde: "wijze", sortering, reactietijd_ms: 20000, volgorde: volgorde(), nu: NU });
+    expect(controleerAntwoord({ ...a, sortering: { voorkeur: ["wijze"], afwijzing: [] } })).toContain("sortering onvolledig");
+  });
+
+  it("andere vraagvormen hebben geen sortering", () => {
+    const a = maakAntwoord(afname(), item("W1"), { waarde: "a", reactietijd_ms: 4000, volgorde: ["a", "b"], nu: NU });
+    expect(a.sortering).toBeNull();
   });
 });

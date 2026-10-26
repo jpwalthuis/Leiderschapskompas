@@ -17,4 +17,14 @@ describe("beelden voor de reflexmeting", () => {
     expect(BEELD_NAMEN).toContain("cirkel");
     expect(BEELD_NAMEN).toContain("vierkant");
   });
+
+  it("elke kaart van de kaartenoefening heeft een eigen beeld, los van de reflexbeelden", () => {
+    const kaarten = reg.items.flatMap((i) => i.kaarten ?? []).map((k) => k.beeld);
+    const reflex = reg.items.filter((i) => i.format === "beeldkeuze").flatMap((i) => [i.beeld_agentisch!, i.beeld_communaal!]);
+    expect(kaarten.length).toBeGreaterThan(0);
+    kaarten.forEach((n) => {
+      expect(BEELD_NAMEN).toContain(n);
+      expect(reflex).not.toContain(n);
+    });
+  });
 });

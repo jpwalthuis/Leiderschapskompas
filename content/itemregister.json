@@ -93,6 +93,10 @@
     "cao": {
       "t": "Cao, M. & Drasgow, F. (2019). Does forcing reduce faking? A meta-analytic review of forced-choice personality measures in high-stakes situations. Journal of Applied Psychology 104(11), 1347-1368.",
       "n": "Gedwongen keuze tussen even wenselijke opties maakt sociaal wenselijk antwoorden moeilijker."
+    },
+    "jung": {
+      "t": "Jung, C. G. (1959). The Archetypes and the Collective Unconscious. Collected Works, deel 9.1.",
+      "n": "Archetypen als universele beelden en patronen. De empirische basis is omstreden; daarom alleen als duiding en gespreksstof gebruikt."
     }
   },
   "waarden": {
@@ -156,7 +160,7 @@
   "items": [
     {
       "id": "R1",
-      "versie": 2,
+      "versie": 3,
       "fase": 1,
       "format": "beeldkeuze",
       "construct": "Agentische versus communale associatie",
@@ -172,15 +176,15 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel).",
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel). Versie 3: 5 seconden, keuze van de eigenaar (2026-10-26).",
       "woord": "Weerstand",
       "beeld_agentisch": "wall",
       "beeld_communaal": "knot",
-      "tijdslimiet_s": 3
+      "tijdslimiet_s": 5
     },
     {
       "id": "R2",
-      "versie": 2,
+      "versie": 3,
       "fase": 1,
       "format": "beeldkeuze",
       "construct": "Agentische versus communale associatie",
@@ -196,15 +200,15 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel).",
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel). Versie 3: 5 seconden, keuze van de eigenaar (2026-10-26).",
       "woord": "Succes",
       "beeld_agentisch": "flag",
       "beeld_communaal": "gears",
-      "tijdslimiet_s": 3
+      "tijdslimiet_s": 5
     },
     {
       "id": "R3",
-      "versie": 2,
+      "versie": 3,
       "fase": 1,
       "format": "beeldkeuze",
       "construct": "Agentische versus communale associatie",
@@ -220,15 +224,15 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel).",
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel). Versie 3: 5 seconden, keuze van de eigenaar (2026-10-26).",
       "woord": "Leiderschap",
       "beeld_agentisch": "arrow",
       "beeld_communaal": "ring",
-      "tijdslimiet_s": 3
+      "tijdslimiet_s": 5
     },
     {
       "id": "R4",
-      "versie": 2,
+      "versie": 3,
       "fase": 1,
       "format": "beeldkeuze",
       "construct": "Agentische versus communale associatie",
@@ -244,15 +248,15 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel).",
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel). Versie 3: 5 seconden, keuze van de eigenaar (2026-10-26).",
       "woord": "Groei",
       "beeld_agentisch": "stairs",
       "beeld_communaal": "roots",
-      "tijdslimiet_s": 3
+      "tijdslimiet_s": 5
     },
     {
       "id": "R5",
-      "versie": 2,
+      "versie": 3,
       "fase": 1,
       "format": "beeldkeuze",
       "construct": "Agentische versus communale associatie",
@@ -268,15 +272,15 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel).",
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel). Versie 3: 5 seconden, keuze van de eigenaar (2026-10-26).",
       "woord": "Falen",
       "beeld_agentisch": "miss",
       "beeld_communaal": "broken",
-      "tijdslimiet_s": 3
+      "tijdslimiet_s": 5
     },
     {
       "id": "R6",
-      "versie": 2,
+      "versie": 3,
       "fase": 1,
       "format": "beeldkeuze",
       "construct": "Agentische versus communale associatie",
@@ -292,11 +296,11 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel).",
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel). Versie 3: 5 seconden, keuze van de eigenaar (2026-10-26).",
       "woord": "Energie",
       "beeld_agentisch": "spike",
       "beeld_communaal": "overlap",
-      "tijdslimiet_s": 3
+      "tijdslimiet_s": 5
     },
     {
       "id": "Z1",
@@ -2094,6 +2098,99 @@
         "beslis_s": 3
       },
       "antwoord": "meest-minst"
+    },
+    {
+      "id": "K1",
+      "versie": 1,
+      "fase": 4,
+      "format": "kaartsortering",
+      "construct": "Archetypische voorkeur en afwijzing (duiding, geen meting)",
+      "kader": "Jungiaanse archetypen als gespreksstof; voorkeur en afwijzing als best-worst-keuze",
+      "bronnen": [
+        "jung",
+        "pearson",
+        "louviere",
+        "projectief"
+      ],
+      "bewijs": {
+        "construct": "experimenteel",
+        "methode": "experimenteel",
+        "item": "nieuw"
+      },
+      "toelichting": "Reflectie-oefening op verzoek van de eigenaar: de deelnemer kiest uit acht kaarten een eerste en tweede voorkeur en een eerste en tweede afwijzing. De kaarten zijn eigen ontwerp. Het construct is niet onderbouwd genoeg om te meten (regel 2 en 3): de keuzes worden nooit gescoord of vergeleken, alleen als gespreksstof aan de coach getoond, naast de gemeten balans agency/communion.",
+      "vraag": "Welke kaart spreekt je het meest aan?",
+      "stappen": [
+        "voorkeur",
+        "voorkeur",
+        "afwijzing",
+        "afwijzing"
+      ],
+      "kaarten": [
+        {
+          "id": "strijder",
+          "naam": "Strijder",
+          "beeld": "k-schild",
+          "binnen": "Discipline",
+          "buiten": "Daadkracht",
+          "pool": "agentisch"
+        },
+        {
+          "id": "heerser",
+          "naam": "Heerser",
+          "beeld": "k-kroon",
+          "binnen": "Overzicht",
+          "buiten": "Regie",
+          "pool": "agentisch"
+        },
+        {
+          "id": "ontdekker",
+          "naam": "Ontdekker",
+          "beeld": "k-kompas",
+          "binnen": "Onafhankelijkheid",
+          "buiten": "Avontuur",
+          "pool": "agentisch"
+        },
+        {
+          "id": "schepper",
+          "naam": "Schepper",
+          "beeld": "k-vonk",
+          "binnen": "Verbeelding",
+          "buiten": "Vernieuwing",
+          "pool": "agentisch"
+        },
+        {
+          "id": "zorggever",
+          "naam": "Zorggever",
+          "beeld": "k-handen",
+          "binnen": "Aandacht",
+          "buiten": "Steun",
+          "pool": "communaal"
+        },
+        {
+          "id": "verbinder",
+          "naam": "Verbinder",
+          "beeld": "k-ringen",
+          "binnen": "Betrokkenheid",
+          "buiten": "Gastvrijheid",
+          "pool": "communaal"
+        },
+        {
+          "id": "wijze",
+          "naam": "Wijze",
+          "beeld": "k-lamp",
+          "binnen": "Reflectie",
+          "buiten": "Kennis delen",
+          "pool": "geintegreerd"
+        },
+        {
+          "id": "nar",
+          "naam": "Nar",
+          "beeld": "k-spiraal",
+          "binnen": "Relativeren",
+          "buiten": "Humor",
+          "pool": "geintegreerd"
+        }
+      ]
     }
   ]
 }

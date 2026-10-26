@@ -313,7 +313,7 @@ function intro(){
   return `<div class="stack"><span class="eyebrow">Prototype · niet gevalideerd</span><h1>Leiderschapskompas</h1><p class="muted">Een test van <b style="font-family:var(--font-display);color:var(--navy);font-size:1.05rem">Ekana</b></p>
   <p class="muted">Een test die laat zien hoe je leidt, waar je energie van krijgt en wat er gebeurt als de druk oploopt. Je maakt drie korte fasen, ongeveer zeven minuten. Daarna zie je je eigen rapport; je coach ziet een uitgebreidere versie.</p></div>
   <div class="panel"><div class="phases">
-    <div class="phase"><b>1 · Reflex</b><span class="muted">Zes woorden, steeds twee beelden. Kies binnen 3 seconden.</span></div>
+    <div class="phase"><b>1 · Reflex</b><span class="muted">Zes woorden, steeds twee beelden. Kies binnen 5 seconden.</span></div>
     <div class="phase"><b>2 · Zelfbeeld</b><span class="muted">Stellingen en dilemma's over hoe je werkt en wat je drijft.</span></div>
     <div class="phase"><b>3 · Onder druk</b><span class="muted">Vier conflicten. De tijd wordt korter, de opties minder.</span></div>
   </div></div>
@@ -329,7 +329,7 @@ function intro(){
 }
 function p1intro(){
   return `${head("Fase 1 · Reflex")}<div class="panel"><span class="eyebrow">Fase 1</span><h2>Kies wat je het eerst raakt</h2>
-  <p>Je ziet een woord en twee abstracte beelden. Tik binnen 3 seconden op het beeld dat het best bij het woord past. Er is geen goed of fout. Te laat is ook een antwoord.</p>
+  <p>Je ziet een woord en twee abstracte beelden. Tik binnen 5 seconden op het beeld dat het best bij het woord past. Er is geen goed of fout. Te laat is ook een antwoord.</p>
   <p class="muted">Op een toetsenbord kun je de pijltjes links en rechts gebruiken. Eerst een oefenronde.</p>
   <button class="btn-primary" id="go">Oefenronde</button></div>`;
 }
@@ -548,7 +548,7 @@ function bind(){
     const it=P1[S.i], flip=S.side[it.id];
     const choose=k=>{ if(S.ans[it.id]) return; const pole = k==="L"?(flip?"C":"A"):(flip?"A":"C"); record(it.id,pole); next(); };
     document.querySelectorAll(".pick").forEach(b=>b.addEventListener("click",()=>choose(b.dataset.k)));
-    startClock(3,()=>{ S.ans[it.id]="timeout"; S.rt[it.id]=null; next(); },"bar");
+    startClock(5,()=>{ S.ans[it.id]="timeout"; S.rt[it.id]=null; next(); },"bar");
   }
   if(S.screen==="lk"){
     t0=performance.now();

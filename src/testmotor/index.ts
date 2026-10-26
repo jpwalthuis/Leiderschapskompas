@@ -11,7 +11,7 @@ import { SCORINGSVERSIE } from "@/scoring/versie";
 /** Versie van de scoringsregels die bij vastleggen gold; wordt per antwoord bewaard (harde regel 10). */
 export { SCORINGSVERSIE };
 
-export type Fase = 1 | 2 | 3;
+export type Fase = 1 | 2 | 3 | 4;
 
 export type Stap =
   | { soort: "intro"; fase: Fase }
@@ -39,12 +39,27 @@ export interface Antwoord {
   /** 1 voor het eerste antwoord; hoger als de deelnemer een stelling herziet. Eerdere pogingen blijven bewaard. */
   poging: number;
   /** "meest-minst" bij vignetten: `waarde` is de meest waarschijnlijke reactie, `minst` de minst waarschijnlijke. */
-  antwoordformaat: "enkel" | "meest-minst";
+  antwoordformaat: "enkel" | "meest-minst" | "sortering";
   minst: string | null;
   /** Tijd tussen de keuze voor meest en de keuze voor minst (zonder tijdslimiet). */
   reactietijd_minst_ms: number | null;
+  /** Alleen bij de kaartenoefening: eerste en tweede voorkeur, eerste en tweede afwijzing (kaart-id's). Duiding, nooit gescoord. */
+  sortering: Sortering | null;
   scoringsversie: string;
   vastgelegd_op: string;
+}
+
+export interface Sortering {
+  voorkeur: string[];
+  afwijzing: string[];
+}
+
+/** Twee verschillende voorkeuren en twee afwijzingen, alle vier verschillend en getoond. */
+export function isGeldigeSortering(s: Sortering | null | undefined, getoond: string[]): s is Sortering {
+  if (!s || !Array.isArray(s.voorkeur) || !Array.isArray(s.afwijzing)) return false;
+  if (s.voorkeur.length !== 2 || s.afwijzing.length !== 2) return false;
+  const alle = [...s.voorkeur, ...s.afwijzing];
+  return new Set(alle).size === 4 && alle.every((k) => getoond.includes(k));
 }
 
 export interface Afname {
@@ -76,7 +91,7 @@ const LIKERT = ["1", "2", "3", "4", "5"];
  */
 export function bouwStappen(register: Itemregister, seed = 0): Stap[] {
   const stappen: Stap[] = [];
-  for (const fase of [1, 2, 3] as const) {
+  for (const fase of [1, 2, 3, 4] as const) {
     const items = register.items.filter((i) => i.fase === fase);
     if (items.length === 0) continue;
     stappen.push({ soort: "intro", fase });
@@ -160,6 +175,8 @@ export function optieSleutels(item: Item): string[] {
       return ["a", "b"];
     case "vignet":
       return Object.keys(item.opties ?? {});
+    case "kaartsortering":
+      return (item.kaarten ?? []).map((k) => k.id);
   }
 }
 
@@ -206,6 +223,8 @@ export interface AntwoordInvoer {
   /** Alleen bij vignetten: de minst waarschijnlijke reactie. */
   minst?: string | null;
   reactietijd_minst_ms?: number | null;
+  /** Alleen bij de kaartenoefening. `waarde` is dan de eerste voorkeur. */
+  sortering?: Sortering | null;
 }
 
 /** Gemiddelde stille leessnelheid over alle studies (Brysbaert, 2019). */
@@ -239,6 +258,10 @@ export function maakAntwoord(afname: Afname, item: Item, invoer: AntwoordInvoer)
     throw new Error(`Time-out bij ${item.id} terwijl er geen tijdslimiet geldt.`);
   }
   const meestMinst = item.antwoord === "meest-minst";
+  const sorteren = item.format === "kaartsortering";
+  if (sorteren && (!isGeldigeSortering(invoer.sortering, invoer.volgorde) || invoer.sortering.voorkeur[0] !== invoer.waarde)) {
+    throw new Error(`Bij ${item.id} ontbreekt een geldige sortering (twee voorkeuren en twee afwijzingen).`);
+  }
   if (!timeOut) {
     if (!invoer.volgorde.includes(invoer.waarde!)) {
       throw new Error(`Waarde "${invoer.waarde}" is niet getoond bij ${item.id}.`);
@@ -264,10 +287,11 @@ export function maakAntwoord(afname: Afname, item: Item, invoer: AntwoordInvoer)
     gekozen_positie: timeOut ? null : invoer.volgorde.indexOf(invoer.waarde!),
     onderbroken: invoer.onderbroken ?? false,
     poging: 1,
-    antwoordformaat: meestMinst ? "meest-minst" : "enkel",
+    antwoordformaat: meestMinst ? "meest-minst" : sorteren ? "sortering" : "enkel",
     minst: meestMinst && !timeOut ? invoer.minst! : null,
     reactietijd_minst_ms:
       meestMinst && !timeOut && typeof invoer.reactietijd_minst_ms === "number" ? Math.round(invoer.reactietijd_minst_ms) : null,
+    sortering: sorteren ? { voorkeur: [...invoer.sortering!.voorkeur], afwijzing: [...invoer.sortering!.afwijzing] } : null,
     scoringsversie: afname.scoringsversie,
     vastgelegd_op: invoer.nu,
   };
@@ -283,6 +307,9 @@ export function controleerAntwoord(a: Antwoord): string[] {
   if (!Number.isInteger(a.poging) || a.poging < 1) m.push("poging ontbreekt");
   if (a.antwoordformaat === "meest-minst" && !a.time_out && (!a.minst || a.minst === a.waarde || !a.getoonde_positie?.includes(a.minst))) {
     m.push("minst waarschijnlijke reactie ontbreekt");
+  }
+  if (a.antwoordformaat === "sortering" && (!isGeldigeSortering(a.sortering, a.getoonde_positie ?? []) || a.sortering.voorkeur[0] !== a.waarde)) {
+    m.push("sortering onvolledig");
   }
   if (a.time_out) {
     if (a.waarde !== null || a.reactietijd_ms !== null) m.push("time-out mag geen waarde of reactietijd hebben");

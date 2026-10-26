@@ -1,16 +1,17 @@
 /**
  * Itemregister: typen en validatie.
  *
- * Bewaakt harde regels 1, 8 en 9 uit CLAUDE.md:
+ * Bewaakt harde regels 1, 3, 8 en 9 uit CLAUDE.md:
  * - elk item heeft construct, kader, minimaal één bekende bron en bewijs op drie niveaus;
  * - deelnemerteksten bevatten geen namen of merken van bestaande instrumenten;
- * - (id, versie) is uniek.
+ * - (id, versie) is uniek;
+ * - de kaartenoefening (archetypen) heeft nooit een meetbaar construct.
  */
 
 export const BEWIJSNIVEAUS = ["sterk", "matig", "experimenteel", "nieuw"] as const;
 export type Bewijsniveau = (typeof BEWIJSNIVEAUS)[number];
 
-export const FORMATS = ["beeldkeuze", "likert", "dilemma", "vignet"] as const;
+export const FORMATS = ["beeldkeuze", "likert", "dilemma", "vignet", "kaartsortering"] as const;
 export type Format = (typeof FORMATS)[number];
 
 export interface Bewijs {
@@ -30,10 +31,24 @@ export interface Optie {
   pool?: string;
 }
 
+export interface Kaart {
+  id: string;
+  naam: string;
+  beeld: string;
+  /** Kwaliteit naar binnen (introvert). */
+  binnen: string;
+  /** Kwaliteit naar buiten (extravert). */
+  buiten: string;
+  /** Alleen voor de duiding naast de gemeten balans; nooit gescoord. */
+  pool: "agentisch" | "communaal" | "geintegreerd";
+}
+
+export const KAARTSTAPPEN = ["voorkeur", "voorkeur", "afwijzing", "afwijzing"] as const;
+
 export interface Item {
   id: string;
   versie: number;
-  fase: 1 | 2 | 3;
+  fase: 1 | 2 | 3 | 4;
   format: Format;
   construct: string;
   kader: string;
@@ -62,6 +77,9 @@ export interface Item {
   tijd?: { leesfactor: number; beslis_s: number };
   /** Vignetten: eerst de meest waarschijnlijke reactie (getimed), daarna de minst waarschijnlijke. */
   antwoord?: "meest-minst";
+  // kaartsortering
+  kaarten?: Kaart[];
+  stappen?: string[];
 }
 
 export interface Itemregister {
@@ -94,6 +112,7 @@ const isNiveau = (v: unknown): v is Bewijsniveau =>
 export function deelnemerteksten(item: Item): string[] {
   const t: (string | undefined)[] = [item.woord, item.tekst, item.vraag, item.optie_a?.tekst, item.optie_b?.tekst];
   if (item.opties) t.push(...Object.values(item.opties));
+  for (const k of item.kaarten ?? []) t.push(k.naam, k.binnen, k.buiten);
   return t.filter((x): x is string => typeof x === "string");
 }
 
@@ -139,7 +158,12 @@ export function valideerItemregister(register: Itemregister): Fout[] {
     gezien.add(sleutel);
 
     // Formaat en fase
-    if (![1, 2, 3].includes(item.fase)) fout(id, "formaat", "Fase moet 1, 2 of 3 zijn.");
+    if (![1, 2, 3, 4].includes(item.fase)) fout(id, "formaat", "Fase moet 1, 2, 3 of 4 zijn.");
+
+    // Regel 2 en 3: archetypen worden nooit gemeten
+    if (item.format === "kaartsortering" && isMeetbaar(item)) {
+      fout(id, "3", "De kaartenoefening mag geen meetbaar construct hebben (sterk of matig).");
+    }
     if (!(FORMATS as readonly string[]).includes(item.format)) {
       fout(id, "formaat", `Onbekend formaat "${item.format}".`);
     } else {
@@ -184,6 +208,20 @@ function formaatFouten(item: Item): string[] {
       if (!item.opties || Object.keys(item.opties).length < 2) m.push("Minimaal twee opties nodig.");
       tijd();
       break;
+    case "kaartsortering": {
+      const kaarten = item.kaarten ?? [];
+      if (leeg(item.vraag)) m.push("Vraag ontbreekt.");
+      if (kaarten.length < 6) m.push("Minimaal zes kaarten nodig.");
+      if (new Set(kaarten.map((k) => k.id)).size !== kaarten.length) m.push("Kaart-id's moeten uniek zijn.");
+      if (new Set(kaarten.map((k) => k.beeld)).size !== kaarten.length) m.push("Elke kaart heeft een eigen beeld.");
+      for (const k of kaarten) {
+        if ([k.id, k.naam, k.beeld, k.binnen, k.buiten].some(leeg)) m.push(`Kaart "${k.id}" is onvolledig.`);
+        if (!["agentisch", "communaal", "geintegreerd"].includes(k.pool)) m.push(`Kaart "${k.id}" heeft een onbekende pool.`);
+      }
+      if (JSON.stringify(item.stappen) !== JSON.stringify(KAARTSTAPPEN)) m.push("Stappen moeten twee voorkeuren en twee afwijzingen zijn.");
+      if (item.tijdslimiet_s !== undefined || item.tijd !== undefined) m.push("De kaartenoefening heeft geen tijdslimiet.");
+      break;
+    }
   }
   return m;
 }

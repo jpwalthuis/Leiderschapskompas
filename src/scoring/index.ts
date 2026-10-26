@@ -3,13 +3,13 @@
  *
  * Bewaakt:
  * - regel 2: alleen items met een onderbouwd construct tellen mee;
- * - regel 3: archetypen zijn duiding, afgeleid van agency/communion, nooit een meting;
+ * - regel 3: archetypen zijn duiding (afgeleid van agency/communion, of de eigen kaartkeuze), nooit een meting;
  * - regel 5: reflex en druk vervallen zonder tijdslimieten; reflex hoort bij het construct agency;
  * - regel 6: scores zijn posities op de antwoordschaal, geen normscores;
  * - regel 7: gedwongen keuzes geven alleen een rangorde (ipsatief);
  * - regel 10: dezelfde ruwe data en scoringsversie geven altijd hetzelfde profiel.
  */
-import { isMeetbaar, type Item, type Itemregister } from "@/content/itemregister";
+import { isMeetbaar, type Item, type Itemregister, type Kaart } from "@/content/itemregister";
 import { geldigeAntwoorden, type Afname, type Antwoord } from "@/testmotor";
 import { SCORINGSVERSIE } from "./versie";
 
@@ -95,7 +95,28 @@ export interface Scoreprofiel {
     soort: "duiding";
     archetypegroep: "agentisch" | "communaal" | "geintegreerd" | null;
     verschil: number | null;
+    /** Kaartenoefening: de eigen keuzes, ongewijzigd doorgegeven. Nooit gescoord of vergeleken. */
+    kaarten: Kaartkeuze | null;
   };
+}
+
+export type KaartInfo = Pick<Kaart, "id" | "naam" | "binnen" | "buiten" | "pool" | "beeld">;
+
+export interface Kaartkeuze {
+  soort: "duiding";
+  voorkeur: KaartInfo[];
+  afwijzing: KaartInfo[];
+}
+
+function kaartkeuze(items: Item[], perItem: Map<string, Antwoord>): Kaartkeuze | null {
+  const item = items.find((i) => i.format === "kaartsortering");
+  const s = item ? perItem.get(item.id)?.sortering : null;
+  if (!item || !s) return null;
+  const info = (id: string): KaartInfo => {
+    const k = item.kaarten!.find((c) => c.id === id)!;
+    return { id: k.id, naam: k.naam, binnen: k.binnen, buiten: k.buiten, pool: k.pool, beeld: k.beeld };
+  };
+  return { soort: "duiding", voorkeur: s.voorkeur.map(info), afwijzing: s.afwijzing.map(info) };
 }
 
 const positie = (gemiddelde: number) => Math.round(((gemiddelde - 1) / 4) * 100);
@@ -245,6 +266,7 @@ export function scoor(afname: Afname, register: Itemregister): Scoreprofiel {
             ? ("agentisch" as const)
             : ("communaal" as const),
     verschil,
+    kaarten: kaartkeuze(register.items, perItem),
   };
 
   return {
