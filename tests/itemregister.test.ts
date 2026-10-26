@@ -81,7 +81,7 @@ describe("regel 9: versies", () => {
   it("staat een nieuwe versie van hetzelfde item toe", () => {
     const kopie = structuredClone(echt);
     const nieuw = structuredClone(kopie.items[0]);
-    nieuw.versie = 2;
+    nieuw.versie = kopie.items[0].versie + 1;
     kopie.items.push(nieuw);
     expect(valideerItemregister(kopie)).toEqual([]);
   });

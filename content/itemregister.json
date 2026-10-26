@@ -1,5 +1,5 @@
 {
-  "schema_versie": 1,
+  "schema_versie": 2,
   "status": "prototype, niet gevalideerd",
   "bronnen": {
     "bakan": {
@@ -69,6 +69,30 @@
     "blueprint": {
       "t": "Assessment Architectuur (eigen document), p. 2: mapping archetypen op agentisch / communaal / geïntegreerd.",
       "n": "Eigen hypothese, niet empirisch getoetst."
+    },
+    "rei": {
+      "t": "Pacini, R. & Epstein, S. (1999). Rational-Experiential Inventory (REI). Journal of Personality and Social Psychology 76(6).",
+      "n": "Rationele en ervaringsgerichte (intuïtieve) denkstijl als twee onafhankelijke voorkeuren."
+    },
+    "witteman": {
+      "t": "Witteman, C., Van den Bercken, J., Claes, L. & Godoy, A. (2009). Assessing rational and intuitive thinking styles. European Journal of Psychological Assessment 25(1), 39-47.",
+      "n": "Nederlandse steekproef (N = 774): rationele en intuïtieve stijl zijn onafhankelijk en betrouwbaar meetbaar."
+    },
+    "mccrae89": {
+      "t": "McCrae, R. R. & Costa, P. T. (1989). Reinterpreting the Myers-Briggs Type Indicator from the perspective of the five-factor model. Journal of Personality 57(1), 17-40.",
+      "n": "Jungs typen zijn geen aparte typen maar dimensies; feitelijk versus intuïtief waarnemen valt samen met openheid (Big Five)."
+    },
+    "brysbaert": {
+      "t": "Brysbaert, M. (2019). How many words do we read per minute? A review and meta-analysis of reading rate. Journal of Memory and Language 109.",
+      "n": "Gemiddelde stille leessnelheid over alle studies: 238 woorden per minuut."
+    },
+    "louviere": {
+      "t": "Louviere, J. J., Flynn, T. N. & Marley, A. A. J. (2015). Best-Worst Scaling: Theory, Methods and Applications. Cambridge University Press.",
+      "n": "Kiezen van meest en minst passend geeft meer informatie per vraag dan één keuze."
+    },
+    "cao": {
+      "t": "Cao, M. & Drasgow, F. (2019). Does forcing reduce faking? A meta-analytic review of forced-choice personality measures in high-stakes situations. Journal of Applied Psychology 104(11), 1347-1368.",
+      "n": "Gedwongen keuze tussen even wenselijke opties maakt sociaal wenselijk antwoorden moeilijker."
     }
   },
   "waarden": {
@@ -132,7 +156,7 @@
   "items": [
     {
       "id": "R1",
-      "versie": 1,
+      "versie": 2,
       "fase": 1,
       "format": "beeldkeuze",
       "construct": "Agentische versus communale associatie",
@@ -148,15 +172,15 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.",
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel).",
       "woord": "Weerstand",
       "beeld_agentisch": "wall",
       "beeld_communaal": "knot",
-      "tijdslimiet_s": 2
+      "tijdslimiet_s": 3
     },
     {
       "id": "R2",
-      "versie": 1,
+      "versie": 2,
       "fase": 1,
       "format": "beeldkeuze",
       "construct": "Agentische versus communale associatie",
@@ -172,15 +196,15 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.",
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel).",
       "woord": "Succes",
       "beeld_agentisch": "flag",
       "beeld_communaal": "gears",
-      "tijdslimiet_s": 2
+      "tijdslimiet_s": 3
     },
     {
       "id": "R3",
-      "versie": 1,
+      "versie": 2,
       "fase": 1,
       "format": "beeldkeuze",
       "construct": "Agentische versus communale associatie",
@@ -196,15 +220,15 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.",
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel).",
       "woord": "Leiderschap",
       "beeld_agentisch": "arrow",
       "beeld_communaal": "ring",
-      "tijdslimiet_s": 2
+      "tijdslimiet_s": 3
     },
     {
       "id": "R4",
-      "versie": 1,
+      "versie": 2,
       "fase": 1,
       "format": "beeldkeuze",
       "construct": "Agentische versus communale associatie",
@@ -220,15 +244,15 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.",
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel).",
       "woord": "Groei",
       "beeld_agentisch": "stairs",
       "beeld_communaal": "roots",
-      "tijdslimiet_s": 2
+      "tijdslimiet_s": 3
     },
     {
       "id": "R5",
-      "versie": 1,
+      "versie": 2,
       "fase": 1,
       "format": "beeldkeuze",
       "construct": "Agentische versus communale associatie",
@@ -244,15 +268,15 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.",
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel).",
       "woord": "Falen",
       "beeld_agentisch": "miss",
       "beeld_communaal": "broken",
-      "tijdslimiet_s": 2
+      "tijdslimiet_s": 3
     },
     {
       "id": "R6",
-      "versie": 1,
+      "versie": 2,
       "fase": 1,
       "format": "beeldkeuze",
       "construct": "Agentische versus communale associatie",
@@ -268,11 +292,11 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag.",
+      "toelichting": "Het construct is sterk onderbouwd. De meetmethode (snelle beeldkeuze) is dat niet: projectieve en impliciete methoden hebben beperkte betrouwbaarheid. Daarom wordt dit alleen gerapporteerd als reflexindicatie naast het zelfbeeld op hetzelfde construct, nooit als losse uitslag. Versie 2: tijdslimiet van 2 naar 3 seconden na feedback van de eigenaar (te snel).",
       "woord": "Energie",
       "beeld_agentisch": "spike",
       "beeld_communaal": "overlap",
-      "tijdslimiet_s": 2
+      "tijdslimiet_s": 3
     },
     {
       "id": "Z1",
@@ -743,8 +767,938 @@
       "schaal": "1-5"
     },
     {
-      "id": "W1",
+      "id": "Z7",
       "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Agency",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "helgeson"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2 voor meer diepgang: minimaal drie stellingen per schaal. Eigen formulering; moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Ik stel mezelf ambitieuze doelen.",
+      "subschaal": "agency",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "Z8",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Agency",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "helgeson"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2 voor meer diepgang: minimaal drie stellingen per schaal. Eigen formulering; moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Als iets niet opschiet, neem ik zelf het initiatief.",
+      "subschaal": "agency",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "Z9",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Agency",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "helgeson"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2 voor meer diepgang: minimaal drie stellingen per schaal. Eigen formulering; moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Belangrijke beslissingen laat ik liever aan anderen over.",
+      "subschaal": "agency",
+      "omgekeerd": true,
+      "schaal": "1-5"
+    },
+    {
+      "id": "Z10",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Communion",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "helgeson"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2 voor meer diepgang: minimaal drie stellingen per schaal. Eigen formulering; moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Ik maak tijd voor een collega die ergens mee zit, ook als het druk is.",
+      "subschaal": "communion",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "Z11",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Communion",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "helgeson"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2 voor meer diepgang: minimaal drie stellingen per schaal. Eigen formulering; moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Ik voel aan wanneer de sfeer in een team verandert.",
+      "subschaal": "communion",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "Z12",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Communion",
+      "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
+      "bronnen": [
+        "bakan",
+        "abele",
+        "helgeson"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2 voor meer diepgang: minimaal drie stellingen per schaal. Eigen formulering; moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Hoe collega's zich voelen, speelt voor mij weinig rol in mijn werk.",
+      "subschaal": "communion",
+      "omgekeerd": true,
+      "schaal": "1-5"
+    },
+    {
+      "id": "E5",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Extraversie",
+      "kader": "Big Five: extraversie (Jungs introversie/extraversie)",
+      "bronnen": [
+        "bfi2",
+        "mcgowan"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2 voor meer diepgang: minimaal drie stellingen per schaal. Eigen formulering; moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "Ik sta graag in het middelpunt van de aandacht.",
+      "subschaal": "extra",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "E6",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Extraversie",
+      "kader": "Big Five: extraversie (Jungs introversie/extraversie)",
+      "bronnen": [
+        "bfi2",
+        "mcgowan"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2 voor meer diepgang: minimaal drie stellingen per schaal. Eigen formulering; moet in de pilot psychometrisch worden getoetst.",
+      "tekst": "In een groep ben ik meestal degene die luistert.",
+      "subschaal": "extra",
+      "omgekeerd": true,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B7",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Autonomie: bevrediging (energiebron)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per behoefte (bevrediging en frustratie apart). Eigen formulering, geen vertaling van bestaande items; te toetsen in de pilot.",
+      "tekst": "Ik kan in mijn werk mezelf zijn.",
+      "subschaal": "satA",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B8",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Autonomie: bevrediging (energiebron)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per behoefte (bevrediging en frustratie apart). Eigen formulering, geen vertaling van bestaande items; te toetsen in de pilot.",
+      "tekst": "Wat ik in mijn werk doe, past bij wat ik zelf belangrijk vind.",
+      "subschaal": "satA",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B9",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Competentie: bevrediging (energiebron)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per behoefte (bevrediging en frustratie apart). Eigen formulering, geen vertaling van bestaande items; te toetsen in de pilot.",
+      "tekst": "Ik krijg de dingen die ik me in mijn werk voorneem voor elkaar.",
+      "subschaal": "satC",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B10",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Competentie: bevrediging (energiebron)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per behoefte (bevrediging en frustratie apart). Eigen formulering, geen vertaling van bestaande items; te toetsen in de pilot.",
+      "tekst": "In mijn werk kan ik laten zien waar ik goed in ben.",
+      "subschaal": "satC",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B11",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Verbondenheid: bevrediging (energiebron)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per behoefte (bevrediging en frustratie apart). Eigen formulering, geen vertaling van bestaande items; te toetsen in de pilot.",
+      "tekst": "Op mijn werk zijn mensen bij wie ik me echt op mijn gemak voel.",
+      "subschaal": "satR",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B12",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Verbondenheid: bevrediging (energiebron)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per behoefte (bevrediging en frustratie apart). Eigen formulering, geen vertaling van bestaande items; te toetsen in de pilot.",
+      "tekst": "De mensen met wie ik werk, geven om mij.",
+      "subschaal": "satR",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B13",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Autonomie: frustratie (energielek)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per behoefte (bevrediging en frustratie apart). Eigen formulering, geen vertaling van bestaande items; te toetsen in de pilot.",
+      "tekst": "Een groot deel van mijn werkdag bestaat uit verplichtingen waar ik niet zelf voor heb gekozen.",
+      "subschaal": "frA",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B14",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Autonomie: frustratie (energielek)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per behoefte (bevrediging en frustratie apart). Eigen formulering, geen vertaling van bestaande items; te toetsen in de pilot.",
+      "tekst": "Ik heb het gevoel dat anderen bepalen hoe ik mijn werk moet doen.",
+      "subschaal": "frA",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B15",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Competentie: frustratie (energielek)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per behoefte (bevrediging en frustratie apart). Eigen formulering, geen vertaling van bestaande items; te toetsen in de pilot.",
+      "tekst": "Na een werkdag heb ik vaak het gevoel dat ik tekort ben geschoten.",
+      "subschaal": "frC",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B16",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Competentie: frustratie (energielek)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per behoefte (bevrediging en frustratie apart). Eigen formulering, geen vertaling van bestaande items; te toetsen in de pilot.",
+      "tekst": "Ik ben bang dat ik de eisen van mijn werk niet aankan.",
+      "subschaal": "frC",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B17",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Verbondenheid: frustratie (energielek)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per behoefte (bevrediging en frustratie apart). Eigen formulering, geen vertaling van bestaande items; te toetsen in de pilot.",
+      "tekst": "Op mijn werk hoor ik er niet echt bij.",
+      "subschaal": "frR",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "B18",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Verbondenheid: frustratie (energielek)",
+      "kader": "Zelfdeterminatietheorie: basisbehoeften",
+      "bronnen": [
+        "sdt",
+        "bpnsfs"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per behoefte (bevrediging en frustratie apart). Eigen formulering, geen vertaling van bestaande items; te toetsen in de pilot.",
+      "tekst": "Ik heb de indruk dat collega's mij op afstand houden.",
+      "subschaal": "frR",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C6",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Forceren",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per strategie. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Ik geef in een discussie pas toe als de ander met betere argumenten komt.",
+      "subschaal": "forc",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C7",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Forceren",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per strategie. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Als ik zeker weet dat ik gelijk heb, zet ik door, ook tegen de zin van de ander in.",
+      "subschaal": "forc",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C8",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Probleemoplossen",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per strategie. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Bij een meningsverschil leg ik alle belangen op tafel om samen tot de beste oplossing te komen.",
+      "subschaal": "prob",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C9",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Probleemoplossen",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per strategie. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Ik zoek naar een oplossing waar beide partijen echt beter van worden, ook als dat langer duurt.",
+      "subschaal": "prob",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C10",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Compromis",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per strategie. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Ik ben bereid water bij de wijn te doen als de ander dat ook doet.",
+      "subschaal": "comp",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C11",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Compromis",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per strategie. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Bij onenigheid stel ik snel een middenweg voor.",
+      "subschaal": "comp",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C12",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Toegeven",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per strategie. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Ik geef liever toe dan dat de verhouding met de ander eronder lijdt.",
+      "subschaal": "yield",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C13",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Toegeven",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per strategie. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Als de ander iets heel graag wil, ga ik daar meestal in mee.",
+      "subschaal": "yield",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C14",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Vermijden",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per strategie. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Lastige gesprekken stel ik vaak uit.",
+      "subschaal": "avoid",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "C15",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Vermijden",
+      "kader": "Dual concern-model: vijf conflictstrategieën",
+      "bronnen": [
+        "dutch",
+        "tk"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Toegevoegd in itembank v2: drie stellingen per strategie. Eigen formulering; geen TKI- of DUTCH-items overgenomen.",
+      "tekst": "Als er spanning ontstaat, houd ik me liever op de achtergrond.",
+      "subschaal": "avoid",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "T1",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Rationele denkstijl (ratio)",
+      "kader": "Dual-process: rationele en ervaringsgerichte (intuïtieve) denkstijl",
+      "bronnen": [
+        "rei",
+        "witteman"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: ratio, gevoel en intuïtie. Rationeel en ervaringsgericht zijn twee onafhankelijke schalen, geen tegenpolen. Eigen formulering; te toetsen in de pilot.",
+      "tekst": "Ik neem belangrijke beslissingen pas als ik alle feiten op een rij heb.",
+      "subschaal": "rationeel",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "T2",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Rationele denkstijl (ratio)",
+      "kader": "Dual-process: rationele en ervaringsgerichte (intuïtieve) denkstijl",
+      "bronnen": [
+        "rei",
+        "witteman"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: ratio, gevoel en intuïtie. Rationeel en ervaringsgericht zijn twee onafhankelijke schalen, geen tegenpolen. Eigen formulering; te toetsen in de pilot.",
+      "tekst": "Ik denk graag lang en grondig na over ingewikkelde vraagstukken.",
+      "subschaal": "rationeel",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "T3",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Rationele denkstijl (ratio)",
+      "kader": "Dual-process: rationele en ervaringsgerichte (intuïtieve) denkstijl",
+      "bronnen": [
+        "rei",
+        "witteman"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: ratio, gevoel en intuïtie. Rationeel en ervaringsgericht zijn twee onafhankelijke schalen, geen tegenpolen. Eigen formulering; te toetsen in de pilot.",
+      "tekst": "Bij een keuze vertrouw ik meer op analyse dan op mijn gevoel.",
+      "subschaal": "rationeel",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "T4",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Rationele denkstijl (ratio)",
+      "kader": "Dual-process: rationele en ervaringsgerichte (intuïtieve) denkstijl",
+      "bronnen": [
+        "rei",
+        "witteman"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: ratio, gevoel en intuïtie. Rationeel en ervaringsgericht zijn twee onafhankelijke schalen, geen tegenpolen. Eigen formulering; te toetsen in de pilot.",
+      "tekst": "Ik heb weinig geduld voor uitgebreide analyses.",
+      "subschaal": "rationeel",
+      "omgekeerd": true,
+      "schaal": "1-5"
+    },
+    {
+      "id": "T5",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Ervaringsgerichte denkstijl (gevoel en intuïtie)",
+      "kader": "Dual-process: rationele en ervaringsgerichte (intuïtieve) denkstijl",
+      "bronnen": [
+        "rei",
+        "witteman"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: ratio, gevoel en intuïtie. Rationeel en ervaringsgericht zijn twee onafhankelijke schalen, geen tegenpolen. Eigen formulering; te toetsen in de pilot.",
+      "tekst": "Bij beslissingen ga ik vaak op mijn eerste ingeving af.",
+      "subschaal": "ervaringsgericht",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "T6",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Ervaringsgerichte denkstijl (gevoel en intuïtie)",
+      "kader": "Dual-process: rationele en ervaringsgerichte (intuïtieve) denkstijl",
+      "bronnen": [
+        "rei",
+        "witteman"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: ratio, gevoel en intuïtie. Rationeel en ervaringsgericht zijn twee onafhankelijke schalen, geen tegenpolen. Eigen formulering; te toetsen in de pilot.",
+      "tekst": "Ik voel vaak aan wat de juiste keuze is, ook als ik niet kan uitleggen waarom.",
+      "subschaal": "ervaringsgericht",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "T7",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Ervaringsgerichte denkstijl (gevoel en intuïtie)",
+      "kader": "Dual-process: rationele en ervaringsgerichte (intuïtieve) denkstijl",
+      "bronnen": [
+        "rei",
+        "witteman"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: ratio, gevoel en intuïtie. Rationeel en ervaringsgericht zijn twee onafhankelijke schalen, geen tegenpolen. Eigen formulering; te toetsen in de pilot.",
+      "tekst": "Na een eerste gesprek heb ik meestal al een goed beeld van iemand.",
+      "subschaal": "ervaringsgericht",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "T8",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Ervaringsgerichte denkstijl (gevoel en intuïtie)",
+      "kader": "Dual-process: rationele en ervaringsgerichte (intuïtieve) denkstijl",
+      "bronnen": [
+        "rei",
+        "witteman"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: ratio, gevoel en intuïtie. Rationeel en ervaringsgericht zijn twee onafhankelijke schalen, geen tegenpolen. Eigen formulering; te toetsen in de pilot.",
+      "tekst": "Een beslissing die alleen op gevoel berust, vertrouw ik niet.",
+      "subschaal": "ervaringsgericht",
+      "omgekeerd": true,
+      "schaal": "1-5"
+    },
+    {
+      "id": "O1",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Openheid: intuïtief versus feitelijk waarnemen",
+      "kader": "Big Five: openheid (Jungs feitelijk versus intuïtief waarnemen)",
+      "bronnen": [
+        "bfi2",
+        "mccrae89"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: feitelijkheid en intuïtie. Hoog = intuïtief, laag = feitelijk. Jungs indeling wordt zo gemeten als een onderbouwde dimensie. Te toetsen in de pilot.",
+      "tekst": "Ik denk graag na over wat er in de toekomst mogelijk zou kunnen zijn.",
+      "subschaal": "openheid",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "O2",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Openheid: intuïtief versus feitelijk waarnemen",
+      "kader": "Big Five: openheid (Jungs feitelijk versus intuïtief waarnemen)",
+      "bronnen": [
+        "bfi2",
+        "mccrae89"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: feitelijkheid en intuïtie. Hoog = intuïtief, laag = feitelijk. Jungs indeling wordt zo gemeten als een onderbouwde dimensie. Te toetsen in de pilot.",
+      "tekst": "Ik zie snel verbanden die anderen nog niet zien.",
+      "subschaal": "openheid",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "O3",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Openheid: intuïtief versus feitelijk waarnemen",
+      "kader": "Big Five: openheid (Jungs feitelijk versus intuïtief waarnemen)",
+      "bronnen": [
+        "bfi2",
+        "mccrae89"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: feitelijkheid en intuïtie. Hoog = intuïtief, laag = feitelijk. Jungs indeling wordt zo gemeten als een onderbouwde dimensie. Te toetsen in de pilot.",
+      "tekst": "Ik houd me liever bij concrete feiten dan bij ideeën.",
+      "subschaal": "openheid",
+      "omgekeerd": true,
+      "schaal": "1-5"
+    },
+    {
+      "id": "O4",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Openheid: intuïtief versus feitelijk waarnemen",
+      "kader": "Big Five: openheid (Jungs feitelijk versus intuïtief waarnemen)",
+      "bronnen": [
+        "bfi2",
+        "mccrae89"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: feitelijkheid en intuïtie. Hoog = intuïtief, laag = feitelijk. Jungs indeling wordt zo gemeten als een onderbouwde dimensie. Te toetsen in de pilot.",
+      "tekst": "Ik werk het liefst met methoden die zich al bewezen hebben.",
+      "subschaal": "openheid",
+      "omgekeerd": true,
+      "schaal": "1-5"
+    },
+    {
+      "id": "W1",
+      "versie": 2,
       "fase": 2,
       "format": "dilemma",
       "construct": "Zelfverheffing versus Zelfoverstijging",
@@ -752,14 +1706,15 @@
       "bronnen": [
         "schwartz",
         "pvq",
-        "tirt"
+        "tirt",
+        "brysbaert"
       ],
       "bewijs": {
         "construct": "sterk",
         "methode": "matig",
         "item": "nieuw"
       },
-      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft.",
+      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft. Versie 2: tijdslimiet afgeleid van de leestijd (238 woorden per minuut) maal 1,5 plus 3 seconden, zodat de vraag altijd te lezen is.",
       "vraag": "Wat weegt voor jou zwaarder in je werk?",
       "optie_a": {
         "waarde": "SE",
@@ -769,11 +1724,14 @@
         "waarde": "ST",
         "tekst": "dat mijn werk anderen en de samenleving echt verder helpt"
       },
-      "tijdslimiet_s": 8
+      "tijd": {
+        "leesfactor": 1.5,
+        "beslis_s": 3
+      }
     },
     {
       "id": "W2",
-      "versie": 1,
+      "versie": 2,
       "fase": 2,
       "format": "dilemma",
       "construct": "Openheid voor verandering versus Behoud",
@@ -781,14 +1739,15 @@
       "bronnen": [
         "schwartz",
         "pvq",
-        "tirt"
+        "tirt",
+        "brysbaert"
       ],
       "bewijs": {
         "construct": "sterk",
         "methode": "matig",
         "item": "nieuw"
       },
-      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft.",
+      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft. Versie 2: tijdslimiet afgeleid van de leestijd (238 woorden per minuut) maal 1,5 plus 3 seconden, zodat de vraag altijd te lezen is.",
       "vraag": "Wat weegt voor jou zwaarder in je werk?",
       "optie_a": {
         "waarde": "OC",
@@ -798,11 +1757,14 @@
         "waarde": "CO",
         "tekst": "dat er zekerheid, structuur en betrouwbaarheid is"
       },
-      "tijdslimiet_s": 8
+      "tijd": {
+        "leesfactor": 1.5,
+        "beslis_s": 3
+      }
     },
     {
       "id": "W3",
-      "versie": 1,
+      "versie": 2,
       "fase": 2,
       "format": "dilemma",
       "construct": "Openheid voor verandering versus Zelfoverstijging",
@@ -810,14 +1772,15 @@
       "bronnen": [
         "schwartz",
         "pvq",
-        "tirt"
+        "tirt",
+        "brysbaert"
       ],
       "bewijs": {
         "construct": "sterk",
         "methode": "matig",
         "item": "nieuw"
       },
-      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft.",
+      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft. Versie 2: tijdslimiet afgeleid van de leestijd (238 woorden per minuut) maal 1,5 plus 3 seconden, zodat de vraag altijd te lezen is.",
       "vraag": "Wat weegt voor jou zwaarder in je werk?",
       "optie_a": {
         "waarde": "OC",
@@ -827,11 +1790,14 @@
         "waarde": "ST",
         "tekst": "dat mijn werk anderen en de samenleving echt verder helpt"
       },
-      "tijdslimiet_s": 8
+      "tijd": {
+        "leesfactor": 1.5,
+        "beslis_s": 3
+      }
     },
     {
       "id": "W4",
-      "versie": 1,
+      "versie": 2,
       "fase": 2,
       "format": "dilemma",
       "construct": "Behoud versus Zelfverheffing",
@@ -839,14 +1805,15 @@
       "bronnen": [
         "schwartz",
         "pvq",
-        "tirt"
+        "tirt",
+        "brysbaert"
       ],
       "bewijs": {
         "construct": "sterk",
         "methode": "matig",
         "item": "nieuw"
       },
-      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft.",
+      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft. Versie 2: tijdslimiet afgeleid van de leestijd (238 woorden per minuut) maal 1,5 plus 3 seconden, zodat de vraag altijd te lezen is.",
       "vraag": "Wat weegt voor jou zwaarder in je werk?",
       "optie_a": {
         "waarde": "CO",
@@ -856,11 +1823,14 @@
         "waarde": "SE",
         "tekst": "dat ik invloed heb en zichtbaar resultaat neerzet"
       },
-      "tijdslimiet_s": 8
+      "tijd": {
+        "leesfactor": 1.5,
+        "beslis_s": 3
+      }
     },
     {
       "id": "W5",
-      "versie": 1,
+      "versie": 2,
       "fase": 2,
       "format": "dilemma",
       "construct": "Zelfoverstijging versus Behoud",
@@ -868,14 +1838,15 @@
       "bronnen": [
         "schwartz",
         "pvq",
-        "tirt"
+        "tirt",
+        "brysbaert"
       ],
       "bewijs": {
         "construct": "sterk",
         "methode": "matig",
         "item": "nieuw"
       },
-      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft.",
+      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft. Versie 2: tijdslimiet afgeleid van de leestijd (238 woorden per minuut) maal 1,5 plus 3 seconden, zodat de vraag altijd te lezen is.",
       "vraag": "Wat weegt voor jou zwaarder in je werk?",
       "optie_a": {
         "waarde": "ST",
@@ -885,11 +1856,14 @@
         "waarde": "CO",
         "tekst": "dat er zekerheid, structuur en betrouwbaarheid is"
       },
-      "tijdslimiet_s": 8
+      "tijd": {
+        "leesfactor": 1.5,
+        "beslis_s": 3
+      }
     },
     {
       "id": "W6",
-      "versie": 1,
+      "versie": 2,
       "fase": 2,
       "format": "dilemma",
       "construct": "Zelfverheffing versus Openheid voor verandering",
@@ -897,14 +1871,15 @@
       "bronnen": [
         "schwartz",
         "pvq",
-        "tirt"
+        "tirt",
+        "brysbaert"
       ],
       "bewijs": {
         "construct": "sterk",
         "methode": "matig",
         "item": "nieuw"
       },
-      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft.",
+      "toelichting": "Gedwongen keuze tussen hogere-orde-waarden. Productie: scoren met Thurstonian IRT. Dit prototype telt keuzes (ipsatief), waardoor alleen de rangorde binnen de persoon betekenis heeft. Versie 2: tijdslimiet afgeleid van de leestijd (238 woorden per minuut) maal 1,5 plus 3 seconden, zodat de vraag altijd te lezen is.",
       "vraag": "Wat weegt voor jou zwaarder in je werk?",
       "optie_a": {
         "waarde": "SE",
@@ -914,25 +1889,29 @@
         "waarde": "OC",
         "tekst": "dat ik vrij ben om nieuwe wegen te verkennen"
       },
-      "tijdslimiet_s": 8
+      "tijd": {
+        "leesfactor": 1.5,
+        "beslis_s": 3
+      }
     },
     {
       "id": "W7",
-      "versie": 1,
+      "versie": 2,
       "fase": 2,
       "format": "dilemma",
       "construct": "Agentische versus communale zorg",
       "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
       "bronnen": [
         "abele",
-        "tirt"
+        "tirt",
+        "brysbaert"
       ],
       "bewijs": {
         "construct": "sterk",
         "methode": "matig",
         "item": "nieuw"
       },
-      "toelichting": "Afkomstig uit de blueprint (fase 2). Meet welke dimensie zwaarder weegt als het misgaat. Derde meetmethode op hetzelfde construct, ter triangulatie.",
+      "toelichting": "Afkomstig uit de blueprint (fase 2). Meet welke dimensie zwaarder weegt als het misgaat. Derde meetmethode op hetzelfde construct, ter triangulatie. Versie 2: tijdslimiet afgeleid van de leestijd (238 woorden per minuut) maal 1,5 plus 3 seconden, zodat de vraag altijd te lezen is.",
       "vraag": "Wat vind jij erger?",
       "optie_a": {
         "pool": "agentisch",
@@ -942,25 +1921,29 @@
         "pool": "communaal",
         "tekst": "Een project dat mislukt doordat het team ruzie kreeg."
       },
-      "tijdslimiet_s": 8
+      "tijd": {
+        "leesfactor": 1.5,
+        "beslis_s": 3
+      }
     },
     {
       "id": "W8",
-      "versie": 1,
+      "versie": 2,
       "fase": 2,
       "format": "dilemma",
       "construct": "Agentische versus communale zorg",
       "kader": "Big Two: agency (daadkracht) en communion (verbinding)",
       "bronnen": [
         "abele",
-        "tirt"
+        "tirt",
+        "brysbaert"
       ],
       "bewijs": {
         "construct": "sterk",
         "methode": "matig",
         "item": "nieuw"
       },
-      "toelichting": "Zie W7.",
+      "toelichting": "Zie W7. Versie 2: tijdslimiet afgeleid van de leestijd (238 woorden per minuut) maal 1,5 plus 3 seconden, zodat de vraag altijd te lezen is.",
       "vraag": "Wat vind jij erger?",
       "optie_a": {
         "pool": "agentisch",
@@ -970,11 +1953,14 @@
         "pool": "communaal",
         "tekst": "Dat iemand in je team zich door jou niet gesteund voelde."
       },
-      "tijdslimiet_s": 8
+      "tijd": {
+        "leesfactor": 1.5,
+        "beslis_s": 3
+      }
     },
     {
       "id": "D1",
-      "versie": 1,
+      "versie": 2,
       "fase": 3,
       "format": "vignet",
       "construct": "Conflictstrategie onder oplopende druk",
@@ -982,16 +1968,17 @@
       "bronnen": [
         "dutch",
         "tk",
-        "vignet"
+        "vignet",
+        "brysbaert",
+        "louviere"
       ],
       "bewijs": {
         "construct": "sterk",
         "methode": "matig",
         "item": "nieuw"
       },
-      "toelichting": "Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk?",
+      "toelichting": "Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk? Versie 2: tijd afgeleid van de leestijd maal 1,6 plus 3 seconden (de druk loopt op, maar de tekst blijft leesbaar). Eerst de meest waarschijnlijke reactie onder tijdsdruk, daarna zonder tijdslimiet de minst waarschijnlijke.",
       "tekst": "Een collega presenteert in het managementoverleg jouw idee als het zijne.",
-      "tijdslimiet_s": 15,
       "drukniveau": "Druk 1 van 4",
       "opties": {
         "forc": "Ik corrigeer het direct in de vergadering: het idee komt van mij.",
@@ -999,11 +1986,16 @@
         "comp": "Ik stel voor dat we het idee voortaan samen presenteren.",
         "yield": "Ik laat het zo; het gaat om het resultaat.",
         "avoid": "Ik zeg er niets over en houd voortaan meer afstand."
-      }
+      },
+      "tijd": {
+        "leesfactor": 1.6,
+        "beslis_s": 3
+      },
+      "antwoord": "meest-minst"
     },
     {
       "id": "D2",
-      "versie": 1,
+      "versie": 2,
       "fase": 3,
       "format": "vignet",
       "construct": "Conflictstrategie onder oplopende druk",
@@ -1011,16 +2003,17 @@
       "bronnen": [
         "dutch",
         "tk",
-        "vignet"
+        "vignet",
+        "brysbaert",
+        "louviere"
       ],
       "bewijs": {
         "construct": "sterk",
         "methode": "matig",
         "item": "nieuw"
       },
-      "toelichting": "Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk?",
+      "toelichting": "Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk? Versie 2: tijd afgeleid van de leestijd maal 1,45 plus 3 seconden (de druk loopt op, maar de tekst blijft leesbaar). Eerst de meest waarschijnlijke reactie onder tijdsdruk, daarna zonder tijdslimiet de minst waarschijnlijke.",
       "tekst": "Twee teamleden zijn het fundamenteel oneens over de prioriteit. De klant wacht op jullie antwoord.",
-      "tijdslimiet_s": 12,
       "drukniveau": "Druk 2 van 4",
       "opties": {
         "forc": "Ik hak de knoop zelf door en communiceer het besluit.",
@@ -1028,11 +2021,16 @@
         "comp": "We doen van beide voorstellen een deel.",
         "yield": "Ik volg degene die het hardst aandringt, dan is het klaar.",
         "avoid": "Ik vraag de klant om uitstel en laat het even rusten."
-      }
+      },
+      "tijd": {
+        "leesfactor": 1.45,
+        "beslis_s": 3
+      },
+      "antwoord": "meest-minst"
     },
     {
       "id": "D3",
-      "versie": 1,
+      "versie": 2,
       "fase": 3,
       "format": "vignet",
       "construct": "Conflictstrategie onder oplopende druk",
@@ -1040,27 +2038,33 @@
       "bronnen": [
         "dutch",
         "tk",
-        "vignet"
+        "vignet",
+        "brysbaert",
+        "louviere"
       ],
       "bewijs": {
         "construct": "sterk",
         "methode": "matig",
         "item": "nieuw"
       },
-      "toelichting": "Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk?",
+      "toelichting": "Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk? Versie 2: tijd afgeleid van de leestijd maal 1,3 plus 3 seconden (de druk loopt op, maar de tekst blijft leesbaar). Eerst de meest waarschijnlijke reactie onder tijdsdruk, daarna zonder tijdslimiet de minst waarschijnlijke.",
       "tekst": "Je leidinggevende wil een besluit doordrukken waarvan jij denkt dat het je team schaadt. Het overleg eindigt over vijf minuten.",
-      "tijdslimiet_s": 9,
       "drukniveau": "Druk 3 van 4",
       "opties": {
         "forc": "Ik zeg nu duidelijk dat ik dit besluit niet steun en waarom.",
         "prob": "Ik vraag om tien minuten extra om het samen anders op te lossen.",
         "yield": "Ik ga akkoord; het is uiteindelijk haar besluit.",
         "avoid": "Ik houd me stil en zie later wel wat ik ermee doe."
-      }
+      },
+      "tijd": {
+        "leesfactor": 1.3,
+        "beslis_s": 3
+      },
+      "antwoord": "meest-minst"
     },
     {
       "id": "D4",
-      "versie": 1,
+      "versie": 2,
       "fase": 3,
       "format": "vignet",
       "construct": "Conflictstrategie onder oplopende druk",
@@ -1068,22 +2072,28 @@
       "bronnen": [
         "dutch",
         "tk",
-        "vignet"
+        "vignet",
+        "brysbaert",
+        "louviere"
       ],
       "bewijs": {
         "construct": "sterk",
         "methode": "matig",
         "item": "nieuw"
       },
-      "toelichting": "Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk?",
+      "toelichting": "Vignetkeuzes hebben matige voorspellende waarde voor werkelijk gedrag. Het wegvallen van opties en de kortere tijd (uit de blueprint) zijn eigen ontwerp en worden als hypothese getoetst: verschuift de strategie onder druk? Versie 2: tijd afgeleid van de leestijd maal 1,15 plus 3 seconden (de druk loopt op, maar de tekst blijft leesbaar). Eerst de meest waarschijnlijke reactie onder tijdsdruk, daarna zonder tijdslimiet de minst waarschijnlijke.",
       "tekst": "Midden in een crisisoverleg verwijt een stakeholder jou publiekelijk een fout die niet van jou is. Er moet nu gereageerd worden.",
-      "tijdslimiet_s": 7,
       "drukniveau": "Druk 4 van 4",
       "opties": {
         "forc": "Ik weerleg het direct en zet de feiten op tafel.",
         "yield": "Ik neem het op me om de rust te bewaren.",
         "avoid": "Ik ga er niet op in en stuur het gesprek terug naar de crisis."
-      }
+      },
+      "tijd": {
+        "leesfactor": 1.15,
+        "beslis_s": 3
+      },
+      "antwoord": "meest-minst"
     }
   ]
 }

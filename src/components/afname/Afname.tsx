@@ -42,10 +42,12 @@ function nieuweSeed(): number {
 const isStelling = (s: Stap | undefined) => s?.soort === "item" && s.item.format === "likert";
 
 export function Afname({ register }: { register: Itemregister }) {
-  const stappen = useMemo(() => bouwStappen(register), [register]);
-  const totaalItems = useMemo(() => stappen.filter((s) => s.soort === "item").length, [stappen]);
   const opslag = useRef<AfnameOpslag | null>(null);
   const [afname, setAfname] = useState<AfnameData | null>(null);
+  // De volgorde van de stellingen hangt af van de seed van de afname (gemengd, reproduceerbaar).
+  const seed = afname?.seed ?? 0;
+  const stappen = useMemo(() => bouwStappen(register, seed), [register, seed]);
+  const totaalItems = useMemo(() => stappen.filter((s) => s.soort === "item").length, [stappen]);
   const [index, setIndex] = useState(-1); // -1 = welkomstscherm
   const [toonData, setToonData] = useState(false);
   const [zonderTijd, setZonderTijd] = useState(false);
@@ -83,6 +85,8 @@ export function Afname({ register }: { register: Itemregister }) {
         volgorde: optieVolgorde(item, afname.seed),
         nu: new Date().toISOString(),
         onderbroken: keuze.onderbroken,
+        minst: keuze.minst,
+        reactietijd_minst_ms: keuze.reactietijd_minst_ms,
       });
       let bijgewerkt = registreer(afname, antwoord);
       // Na het laatste item volgt het eindscherm: dan wordt de afname direct afgerond.

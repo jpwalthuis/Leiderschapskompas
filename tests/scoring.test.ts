@@ -18,6 +18,8 @@ const VOORBEELD: Record<string, string | null> = {
   W1: "a", W2: "a", W3: "a", W4: "b", W5: "a", W6: "b", W7: "a", W8: "b",
   D1: "prob", D2: "prob", D3: "forc", D4: "forc",
 };
+/** Minst waarschijnlijke reactie per vignet (meest/minst-formaat, itembank v2). */
+const MINST: Record<string, string> = { D1: "avoid", D2: "forc", D3: "avoid", D4: "yield" };
 const RT: Record<string, number> = { R1: 612, R2: 845, R3: 540, R4: 701, R5: 590, D1: 8200, D2: 6100, D3: 3900, D4: 2800 };
 
 function afnameMet(antwoorden: Record<string, string | null>, opts: { tijdslimieten?: boolean; rt?: Record<string, number>; onderbroken?: string[] } = {}): Afname {
@@ -31,6 +33,7 @@ function afnameMet(antwoorden: Record<string, string | null>, opts: { tijdslimie
         waarde,
         reactietijd_ms: waarde === null ? null : (opts.rt?.[i.id] ?? 1500),
         volgorde: optieVolgorde(i, a.seed),
+        minst: i.antwoord === "meest-minst" && waarde !== null ? (MINST[i.id] ?? Object.keys(i.opties!).find((k) => k !== waarde)) : undefined,
         nu: NU,
         onderbroken: opts.onderbroken?.includes(i.id),
       }),
@@ -181,7 +184,7 @@ describe("regel 2: alleen onderbouwde constructen tellen", () => {
     const zwak = structuredClone(reg);
     zwak.items.find((i) => i.id === "Z1")!.bewijs.construct = "experimenteel";
     const p = scoor(afnameMet(VOORBEELD), zwak);
-    expect(p.metingen.agency.nItems).toBe(2);
+    expect(p.metingen.agency.nItems).toBe(5); // 6 stellingen, Z1 telt niet
     expect(p.metingen.agency.waarde).toBe(75); // (4+4)/2 → 75
   });
 });
@@ -191,12 +194,12 @@ describe("ontbrekende antwoorden en herzieningen", () => {
     const zonderZ3: Record<string, string | null> = { ...VOORBEELD };
     delete zonderZ3.Z3;
     const p = scoor(afnameMet(zonderZ3), reg);
-    expect(p.metingen.agency).toMatchObject({ nItems: 3, nBeantwoord: 2, waarde: 88 }); // (5+4)/2 = 4.5 → 87.5 → 88
+    expect(p.metingen.agency).toMatchObject({ nItems: 6, nBeantwoord: 2, waarde: 88 }); // (5+4)/2 = 4.5 → 87.5 → 88
   });
 
   it("geeft geen waarde als een schaal helemaal ontbreekt", () => {
     const zonder: Record<string, string | null> = { ...VOORBEELD };
-    ["Z1", "Z2", "Z3"].forEach((k) => delete zonder[k]);
+    ["Z1", "Z2", "Z3"].forEach((k) => delete zonder[k]); // de nieuwe agency-stellingen (Z7–Z9) staan niet in VOORBEELD
     const p = scoor(afnameMet(zonder), reg);
     expect(p.metingen.agency).toMatchObject({ waarde: null, status: "onvoldoende-gegevens" });
     expect(p.duiding.archetypegroep).toBeNull();
@@ -260,5 +263,37 @@ describe("herberekenbaarheid (regel 10)", () => {
 
   it("nieuwe antwoorden krijgen de huidige scoringsversie", () => {
     expect(afnameMet(VOORBEELD).antwoorden[0].scoringsversie).toBe(SCORINGSVERSIE);
+  });
+});
+
+describe("itembank v2: nieuwe schalen", () => {
+  const extra = {
+    T1: "5", T2: "4", T3: "5", T4: "1", // rationeel hoog (T4 omgekeerd → 5)
+    T5: "2", T6: "1", T7: "2", T8: "5", // ervaringsgericht laag (T8 omgekeerd → 1)
+    O1: "4", O2: "4", O3: "2", O4: "2", // openheid: (4+4+4+4)/4 = 4 → 75
+  };
+  const p = scoor(afnameMet({ ...VOORBEELD, ...extra }), reg);
+
+  it("denkstijl: rationeel en ervaringsgericht als twee aparte schalen", () => {
+    expect(p.metingen.denkstijl.rationeel.waarde).toBe(94); // (5+4+5+5)/4 = 4,75 → 93,75 → 94
+    expect(p.metingen.denkstijl.ervaringsgericht.waarde).toBe(13); // (2+1+2+1)/4 = 1,5 → 12,5 → 13
+  });
+
+  it("waarnemen: openheid, hoog = intuïtief, laag = feitelijk", () => {
+    expect(p.metingen.waarnemen.openheid.waarde).toBe(75);
+  });
+
+  it("nieuwe schalen zijn ook posities op de antwoordschaal (regel 6)", () => {
+    expect(p.metingen.denkstijl.rationeel.betekenis).toBe("positie-op-antwoordschaal");
+    expect(p.metingen.waarnemen.openheid.betekenis).toBe("positie-op-antwoordschaal");
+  });
+});
+
+describe("itembank v2: conflict onder druk met meest en minst", () => {
+  it("legt per vignet de meest en minst waarschijnlijke reactie vast", () => {
+    const p = scoor(afnameMet(VOORBEELD, { rt: RT }), reg);
+    expect(p.onderDruk.keuzes.map((k) => [k.keuze, k.minst])).toEqual([
+      ["prob", "avoid"], ["prob", "forc"], ["forc", "avoid"], ["forc", "yield"],
+    ]);
   });
 });

@@ -16,10 +16,10 @@
     "verder": "Verder",
     "welkom": {
       "titel": "Leiderschapskompas",
-      "tekst": "Je maakt drie korte fasen, ongeveer zeven minuten. Er zijn geen goede of foute antwoorden.",
-      "fase1": "Reflex: zes woorden, steeds twee beelden. Kies binnen 2 seconden.",
-      "fase2": "Zelfbeeld: stellingen en dilemma's over hoe je werkt en wat je drijft.",
-      "fase3": "Onder druk: vier conflicten. De tijd wordt korter, de opties minder.",
+      "tekst": "Je maakt drie fasen, samen ongeveer 12 tot 15 minuten. Er zijn geen goede of foute antwoorden.",
+      "fase1": "Reflex: zes woorden, steeds twee beelden. Kies binnen 3 seconden.",
+      "fase2": "Zelfbeeld: stellingen en dilemma's over hoe je werkt, denkt en wat je drijft.",
+      "fase3": "Onder druk: vier conflicten. De tijd wordt korter, de opties minder, maar je hebt altijd genoeg tijd om te lezen.",
       "privacy": "Dit is een demo. Je antwoorden blijven in deze browser en worden nergens naartoe gestuurd.",
       "start": "Start",
       "fase1ZonderTijd": "Reflex: zes woorden, steeds twee beelden. Kies wat je het eerst raakt.",
@@ -31,7 +31,7 @@
       "1": {
         "label": "Fase 1 · Reflex",
         "titel": "Kies wat je het eerst raakt",
-        "tekst": "Je ziet een woord en twee abstracte beelden. Tik binnen 2 seconden op het beeld dat het best bij het woord past. Er is geen goed of fout. Te laat is ook een antwoord.",
+        "tekst": "Je ziet een woord en twee abstracte beelden. Tik binnen 3 seconden op het beeld dat het best bij het woord past. Er is geen goed of fout. Te laat is ook een antwoord.",
         "extra": "Op een toetsenbord kun je de pijltjes links en rechts gebruiken. Eerst een oefenronde.",
         "knop": "Oefenronde",
         "tekstZonderTijd": "Je ziet een woord en twee abstracte beelden. Tik op het beeld dat het best bij het woord past. Er is geen goed of fout. Kies wat je het eerst raakt."
@@ -39,7 +39,7 @@
       "2": {
         "label": "Fase 2 · Zelfbeeld",
         "titel": "Hoe zie je jezelf?",
-        "tekst": "Eerst stellingen over hoe je werkt: geef aan in hoeverre ze bij je passen. Je kunt bij de stellingen terug naar de vorige. Daarna dilemma's: kies binnen 8 seconden wat zwaarder weegt.",
+        "tekst": "Eerst stellingen over hoe je werkt en denkt: geef aan in hoeverre ze bij je passen. Je kunt bij de stellingen terug naar de vorige. Daarna dilemma's: kies wat zwaarder weegt. Je hebt genoeg tijd om elk dilemma rustig te lezen.",
         "extra": "",
         "knop": "Verder",
         "tekstZonderTijd": "Eerst stellingen over hoe je werkt: geef aan in hoeverre ze bij je passen. Je kunt bij de stellingen terug naar de vorige. Daarna dilemma's: kies wat zwaarder weegt."
@@ -47,10 +47,10 @@
       "3": {
         "label": "Fase 3 · Onder druk",
         "titel": "Wat doe je als het spannend wordt?",
-        "tekst": "Vier situaties. Kies wat je in het eerste moment werkelijk zou doen, niet wat het beste klinkt. Bij elke situatie wordt de tijd korter en vallen er opties weg.",
+        "tekst": "Vier situaties. Kies eerst wat je in het eerste moment werkelijk zou doen, niet wat het beste klinkt. De tijd wordt per situatie korter en er vallen opties weg, maar je hebt altijd genoeg tijd om te lezen. Daarna kies je, zonder tijdsdruk, wat je het minst waarschijnlijk zou doen.",
         "extra": "",
         "knop": "Start fase 3",
-        "tekstZonderTijd": "Vier situaties. Kies wat je in het eerste moment werkelijk zou doen, niet wat het beste klinkt. Bij elke situatie vallen er opties weg."
+        "tekstZonderTijd": "Vier situaties. Kies eerst wat je in het eerste moment werkelijk zou doen, niet wat het beste klinkt. Bij elke situatie vallen er opties weg. Daarna kies je wat je het minst waarschijnlijk zou doen."
       }
     },
     "oefen": {
@@ -76,7 +76,10 @@
     "vignet": {
       "label": "Fase 3 · {drukniveau}",
       "meta": "{seconden} seconden · {opties} opties",
-      "metaZonderTijd": "{opties} opties"
+      "metaZonderTijd": "{opties} opties",
+      "meestVraag": "Wat zou je het eerst doen?",
+      "minstLabel": "Zonder tijdslimiet",
+      "minstVraag": "En wat zou je het minst waarschijnlijk doen?"
     },
     "einde": {
       "titel": "Klaar",

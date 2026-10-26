@@ -13,7 +13,7 @@ Status: voorstel, afgeleid van het prototype (tab "Datamodel en rollen" in het c
 | identiteit | pseudoniem_id, naam, e-mail | Aparte, versleutelde opslag; alleen deelnemer en eigen coach |
 | afname | id, pseudoniem_id, opdracht_id, datum, itemset_versie, scoringsversie, seed, tijdslimieten (aan/uit) | Tijdslimieten uit: reflex- en drukscores vervallen |
 | profielsnapshot | afname_id, isco_code, isco_versie, sector_code, sector_lijst_versie, leiderschapsniveau, aantal_medewerkers, geboortejaar, land, regio (ISO 3166-2), isced, gender (optioneel) | Per afname, niet per persoon |
-| antwoord | afname_id, item_id, itemversie, poging, waarde, reactietijd_ms, tijdslimiet_ms, getoonde_positie, gekozen_positie, time_out, onderbroken, vastgelegd_op | Ruwe data, nooit overschreven |
+| antwoord | afname_id, item_id, itemversie, poging, antwoordformaat, waarde, minst, reactietijd_ms, reactietijd_minst_ms, tijdslimiet_ms, getoonde_positie, gekozen_positie, time_out, onderbroken, vastgelegd_op | Ruwe data, nooit overschreven |
 | score | afname_id, construct, waarde, marge, scoringsversie | Herberekenbaar uit `antwoord` |
 | item | id, versie, teksten per taal, construct, kader, bronnen, bewijs_construct, bewijs_methode, bewijs_item | Gevuld uit `content/itemregister.json` |
 | toestemming | afname_id, doel (coachrapport, benchmark), gegeven_op, ingetrokken_op | |
