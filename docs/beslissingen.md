@@ -52,3 +52,10 @@
 | 2026-10-26 | Grafiekkleuren: oranje en blauw als aparte tokens per thema, gevalideerd met de dataviz-validator; elke waarde staat ook als getal in beeld | Het merkoranje als UI-accent haalt in het donkere thema de grafiekchecks niet; kleur draagt nooit alleen de betekenis |
 | 2026-10-26 | Op een telefoon worden tabellen gestapelde rijen met gelabelde waarden | Brede tabellen vielen weg of scrolden zijwaarts (regel 18) |
 | 2026-10-26 | In de demo zijn deelnemer- en coachrapport beide zichtbaar, met een uitleg | Rollen en toestemming volgen in bouwfase 4 |
+| 2026-10-26 | Itembank v3: ratio, gevoel, intuïtie en realisme als vier aparte schalen (scoringsversie 1.3.0). Openheid is opgesplitst: O1, O2 naar intuïtie, O3, O4 naar realisme (nieuwe itemversies), plus O5 tot en met O8 nieuw | Keuze eigenaar. Intuïtie onderbouwd met Pretz e.a. (2014) en Big Five-openheid. Realisme als losse schaal is minder onderbouwd (construct matig); de pilot toetst of beide schalen standhouden |
+| 2026-10-26 | Kaartenoefening versie 2: foto's van de eigenaar in plaats van emblemen; Verbinder vervangen door Rebel (pool agentisch) | Keuze eigenaar: de achtste foto paste niet bij Verbinder. Gevolg: één communale kaart (Zorggever) tegenover vijf agentische |
+| 2026-10-26 | Rapport: per onderdeel een diagram (positie, as, balans, kompas, waardencirkel, drukverloop) en een blok "Wat dit zou kunnen betekenen" met een reflectievraag | Wens eigenaar: meer visuals en meer duiding. Alle duiding blijft voorzichtig geformuleerd ("zou kunnen") |
+| 2026-10-26 | Waardencirkel toont alleen de plaats in de eigen rangorde, geen sterkte | Regel 7 |
+| 2026-10-26 | Coachrapport: leeswijzer bovenaan en per onderdeel een uitklapbare toelichting (wat het meet, theorie, hoe je het leest) | Wens eigenaar |
+| 2026-10-26 | Test op alle vertaalteksten tegen namen van bestaande instrumenten | Regel 8 gold alleen voor items; ook coachteksten noemen bronnen |
+| 2026-10-26 | Spoor achter balken lichter (eigen token), zodat beide grafiekkleuren er minstens 3:1 tegen halen | Regel 18 |

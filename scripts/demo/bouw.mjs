@@ -2,10 +2,11 @@
  * Bouwt dist/demo.html: één zelfstandig HTML-bestand met de echte afname (React, testmotor, itemregister, huisstijl).
  * Gebruik: npm run demo
  *
- * Het lettertype Cardo wordt ingesloten vanuit @fontsource/cardo, zodat de demo geen externe bronnen laadt.
+ * Het lettertype Cardo (uit @fontsource/cardo) en de kaartfoto's (uit public/kaarten) worden ingesloten,
+ * zodat de demo geen externe bronnen laadt.
  */
 import { build } from "esbuild";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -33,7 +34,14 @@ async function lettertype(gewicht) {
 }
 
 const css = (await readFile(resolve(wortel, "src/app/globals.css"), "utf8")) + (await lettertype(400)) + (await lettertype(700));
-const script = js.outputFiles[0].text.replace(/<\/script/gi, "<\\/script");
+// Kaartfoto's uit public/kaarten insluiten: de demo heeft geen server die public/ uitlevert.
+let script = js.outputFiles[0].text;
+for (const naam of await readdir(resolve(wortel, "public/kaarten"))) {
+  const data = (await readFile(resolve(wortel, "public/kaarten", naam))).toString("base64");
+  script = script.split(`"/kaarten/${naam}"`).join(`"data:image/jpeg;base64,${data}"`);
+}
+if (script.includes('"/kaarten/')) throw new Error("Niet alle kaartfoto's zijn ingesloten.");
+script = script.replace(/<\/script/gi, "<\\/script");
 
 const html = `<title>Leiderschapskompas demo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">

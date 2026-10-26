@@ -155,7 +155,7 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
   expect(k.sortering).toEqual({ voorkeur: ["wijze", "schepper"], afwijzing: ["heerser", "strijder"] });
   expect(k.waarde).toBe("wijze");
   expect(k.tijdslimiet_ms).toBeNull();
-  expect([...k.getoonde_positie].sort()).toEqual(["heerser", "nar", "ontdekker", "schepper", "strijder", "verbinder", "wijze", "zorggever"]);
+  expect([...k.getoonde_positie].sort()).toEqual(["heerser", "nar", "ontdekker", "rebel", "schepper", "strijder", "wijze", "zorggever"]);
 
   // Het geldige antwoord per item is de laatste poging.
   const laatste = new Map<string, { item_id: string }>();
@@ -167,7 +167,7 @@ test("volledige afname: alle antwoorden met reactietijd en versies opgeslagen", 
     const item = items.find((i) => i.id === antw.item_id)!;
     expect(item, `onbekend item ${antw.item_id}`).toBeTruthy();
     expect(antw.itemversie).toBe(item.versie);
-    expect(antw.scoringsversie).toBe("1.2.0");
+    expect(antw.scoringsversie).toBe("1.3.0");
     expect(antw.getoonde_positie.length).toBeGreaterThanOrEqual(2);
     if (antw.time_out) {
       expect(antw.waarde).toBeNull();

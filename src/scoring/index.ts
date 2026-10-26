@@ -50,10 +50,10 @@ export interface Scoreprofiel {
     extraversie: Schaalscore;
     behoeften: Record<"autonomie" | "competentie" | "verbondenheid", { bevrediging: Schaalscore; frustratie: Schaalscore }>;
     conflictInRust: { scores: Record<Stijl, Schaalscore>; voorkeur: Stijl[] };
-    /** Ratio versus gevoel en intuïtie: twee onafhankelijke schalen, geen tegenpolen. */
-    denkstijl: { rationeel: Schaalscore; ervaringsgericht: Schaalscore };
-    /** Hoog = intuïtief waarnemen, laag = feitelijk waarnemen. */
-    waarnemen: { openheid: Schaalscore };
+    /** Oordelen: ratio en gevoel, twee onafhankelijke schalen, geen tegenpolen (REI). */
+    denkstijl: { ratio: Schaalscore; gevoel: Schaalscore };
+    /** Waarnemen: intuïtie (holistisch) en realisme (concreet, feitelijk), twee aparte schalen. */
+    waarnemen: { intuitie: Schaalscore; realisme: Schaalscore };
     waarden: {
       ipsatief: true;
       aantalDilemmas: number;
@@ -100,7 +100,7 @@ export interface Scoreprofiel {
   };
 }
 
-export type KaartInfo = Pick<Kaart, "id" | "naam" | "binnen" | "buiten" | "pool" | "beeld">;
+export type KaartInfo = Pick<Kaart, "id" | "naam" | "binnen" | "buiten" | "pool" | "beeld" | "omschrijving">;
 
 export interface Kaartkeuze {
   soort: "duiding";
@@ -114,7 +114,7 @@ function kaartkeuze(items: Item[], perItem: Map<string, Antwoord>): Kaartkeuze |
   if (!item || !s) return null;
   const info = (id: string): KaartInfo => {
     const k = item.kaarten!.find((c) => c.id === id)!;
-    return { id: k.id, naam: k.naam, binnen: k.binnen, buiten: k.buiten, pool: k.pool, beeld: k.beeld };
+    return { id: k.id, naam: k.naam, binnen: k.binnen, buiten: k.buiten, pool: k.pool, beeld: k.beeld, omschrijving: k.omschrijving };
   };
   return { soort: "duiding", voorkeur: s.voorkeur.map(info), afwijzing: s.afwijzing.map(info) };
 }
@@ -280,8 +280,8 @@ export function scoor(afname: Afname, register: Itemregister): Scoreprofiel {
       extraversie,
       behoeften,
       conflictInRust: { scores: conflictScores, voorkeur },
-      denkstijl: { rationeel: schaal("rationeel", items, perItem), ervaringsgericht: schaal("ervaringsgericht", items, perItem) },
-      waarnemen: { openheid: schaal("openheid", items, perItem) },
+      denkstijl: { ratio: schaal("rationeel", items, perItem), gevoel: schaal("ervaringsgericht", items, perItem) },
+      waarnemen: { intuitie: schaal("intuitie", items, perItem), realisme: schaal("realisme", items, perItem) },
       waarden: { ipsatief: true, aantalDilemmas: waardeDilemmas.length, beantwoord: waardeBeantwoord, rangorde },
       zorgBijFalen: zorg,
     },

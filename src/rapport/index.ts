@@ -7,12 +7,12 @@
  * - regel 3: archetypen alleen in secties van soort "duiding", zonder getallen;
  * - regel 4: daadkracht en verbinding met de uitleg dat het los staat van geslacht;
  * - regel 5: de reflex alleen als balk naast daadkracht; zonder tijdslimieten "niet beschikbaar";
- * - regel 6: bij elke balk de uitleg dat 0 tot 100 de positie op de antwoordschaal is;
- * - regel 7: waarden alleen als rangorde binnen de persoon.
+ * - regel 6: bij elke schaalweergave de uitleg dat 0 tot 100 de positie op de antwoordschaal is;
+ * - regel 7: waarden alleen als rangorde binnen de persoon, ook in de waardencirkel.
  */
 import { BEWIJSNIVEAUS, isMeetbaar, type Bewijsniveau, type Item, type Itemregister } from "@/content/itemregister";
 import { vertaal } from "@/i18n";
-import { STIJLEN, type KaartInfo, type Schaalscore, type Scoreprofiel, type Stijl } from "@/scoring";
+import { BALANSMARGE, STIJLEN, type KaartInfo, type Schaalscore, type Scoreprofiel, type Stijl } from "@/scoring";
 
 /** Grenzen voor de duiding in woorden: onder 35 laag, 35 tot en met 65 midden, boven 65 hoog. */
 export const BAND_LAAG = 35;
@@ -23,8 +23,12 @@ export const REFLEX_AFWIJKING = 20;
 export const BRON_DREMPEL = 65;
 /** Frustratie boven deze waarde: energielek. */
 export const LEK_DREMPEL = 50;
-/** Verschil tussen de twee denkstijlen vanaf waar de coach een vraag krijgt. */
-export const DENKSTIJL_VERSCHIL = 30;
+/** Verschil tussen hoogste en laagste deel van het kompas vanaf waar de coach een vraag krijgt. */
+export const KOMPAS_VERSCHIL = 30;
+/** Liggen alle vier de delen van het kompas binnen deze marge, dan heet het profiel evenwichtig. */
+export const KOMPAS_EVENWICHT = 15;
+/** Marge rond de diagonaal waarbinnen daadkracht en verbinding als in balans gelden (duiding); uit de scoring. */
+export { BALANSMARGE };
 
 export type Band = "laag" | "midden" | "hoog";
 export function band(v: number | null): Band | null {
@@ -52,6 +56,7 @@ export function vertaalTekst(x: Tekst): string {
   );
   return vertaal(x.sleutel, waarden);
 }
+
 export type Cel = Tekst | string | number | null;
 
 export interface Balk {
@@ -62,6 +67,14 @@ export interface Balk {
   experimenteel?: boolean;
 }
 
+export type KompasDeel = "ratio" | "intuitie" | "gevoel" | "realisme";
+/** Volgorde rond de cirkel, met de klok mee vanaf boven: oordelen verticaal, waarnemen horizontaal. */
+export const KOMPAS_DELEN: KompasDeel[] = ["ratio", "intuitie", "gevoel", "realisme"];
+
+export type WaardeCode = "OC" | "SE" | "CO" | "ST";
+/** Volgorde rond de waardencirkel (Schwartz): tegenover elkaar staan de waarden die botsen. */
+export const WAARDEN_CIRKEL: WaardeCode[] = ["OC", "SE", "CO", "ST"];
+
 export type Blok =
   | { soort: "tekst"; tekst: Tekst; toon?: "gedempt" }
   | { soort: "balken"; balken: Balk[] }
@@ -71,7 +84,21 @@ export type Blok =
   | { soort: "kerngetallen"; items: { waarde: Cel; label: Tekst }[] }
   | { soort: "tabel"; kop: Tekst[]; rijen: Cel[][] }
   | { soort: "kaarten"; voorkeur: KaartInfo[]; afwijzing: KaartInfo[] }
-  | { soort: "bewijs"; rijen: BewijsRij[] };
+  | { soort: "bewijs"; rijen: BewijsRij[] }
+  /** Positie in het vlak daadkracht (verticaal) tegen verbinding (horizontaal), met de balansband rond de diagonaal. */
+  | { soort: "positie"; agency: number | null; communion: number | null; marge: number }
+  /** Eén schaal als as tussen twee polen, met een markering. */
+  | { soort: "as"; label: Tekst; waarde: number | null; links: Tekst; rechts: Tekst }
+  /** Per rij twee kanten: gefrustreerd naar links, vervuld naar rechts. */
+  | { soort: "balans"; rijen: { label: Tekst; vervuld: number | null; gefrustreerd: number | null }[] }
+  /** Cirkel met vier delen; de straal van elk deel is de score. */
+  | { soort: "kompas"; delen: { deel: KompasDeel; label: Tekst; waarde: number | null }[] }
+  /** Waardencirkel: alleen de plaats in de eigen rangorde, geen sterkte (regel 7). */
+  | { soort: "waardencirkel"; waarden: { code: WaardeCode; label: Tekst; plaats: number | null }[] }
+  /** Keuze per drukniveau: meest (gevuld) en minst (open), en welke opties er nog waren. */
+  | { soort: "drukverloop"; stijlen: { stijl: Stijl; label: Tekst }[]; kolommen: { label: Tekst; opties: Stijl[]; meest: Stijl | null; minst: Stijl | null }[] }
+  /** "Wat dit zou kunnen betekenen": duiding in woorden met een vraag om over na te denken. */
+  | { soort: "betekenis"; alineas: Tekst[]; vraag?: Tekst };
 
 export interface BewijsRij {
   onderdeel: Tekst;
@@ -90,6 +117,8 @@ export interface Sectie {
   titel: Tekst;
   soort: "meting" | "duiding" | "info";
   blokken: Blok[];
+  /** Uitleg voor de coach: wat dit onderdeel meet en hoe je het leest. Alineas gescheiden door een witregel. */
+  toelichting?: Tekst;
 }
 
 export interface Rapport {
@@ -105,6 +134,7 @@ const schaaluitleg = (): Blok => tekst("rapport.schaaluitleg", undefined, "gedem
 const DUIDING = t("rapport.duiding");
 
 const BEHOEFTEN = ["autonomie", "competentie", "verbondenheid"] as const;
+const TEGENOVER: Record<WaardeCode, WaardeCode> = { OC: "CO", CO: "OC", SE: "ST", ST: "SE" };
 
 const balk = (label: string, s: Schaalscore, reeks: Balk["reeks"] = "zelfbeeld"): Balk => ({ label: t(`rapport.label.${label}`), waarde: s.waarde, reeks });
 
@@ -119,8 +149,25 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
   const lekken = BEHOEFTEN.filter((b) => (m.behoeften[b].frustratie.waarde ?? -1) > LEK_DREMPEL);
   const behoefteNaam = (b: (typeof BEHOEFTEN)[number]) => t(`rapport.behoefte.${b}.inZin`);
   const stijlNaam = (s: Stijl) => t(`rapport.stijl.${s}`);
-  const topWaarde = m.waarden.beantwoord > 0 ? m.waarden.rangorde[0]?.waarde : undefined;
+  const waardenBeantwoord = m.waarden.beantwoord > 0;
+  const topWaarde = waardenBeantwoord ? (m.waarden.rangorde[0]?.waarde as WaardeCode | undefined) : undefined;
+  const onderWaarde = waardenBeantwoord ? (m.waarden.rangorde.at(-1)?.waarde as WaardeCode | undefined) : undefined;
   const groep = p.duiding.archetypegroep;
+
+  // Kompas: vier delen
+  const kompasWaarden: Record<KompasDeel, number | null> = {
+    ratio: m.denkstijl.ratio.waarde,
+    gevoel: m.denkstijl.gevoel.waarde,
+    intuitie: m.waarnemen.intuitie.waarde,
+    realisme: m.waarnemen.realisme.waarde,
+  };
+  const kompasCompleet = KOMPAS_DELEN.every((d) => kompasWaarden[d] !== null);
+  const kompasMax = kompasCompleet ? Math.max(...KOMPAS_DELEN.map((d) => kompasWaarden[d]!)) : null;
+  const kompasMin = kompasCompleet ? Math.min(...KOMPAS_DELEN.map((d) => kompasWaarden[d]!)) : null;
+  const evenwichtig = kompasMax !== null && kompasMin !== null && kompasMax - kompasMin <= KOMPAS_EVENWICHT;
+  const sterkste = kompasCompleet ? KOMPAS_DELEN.filter((d) => kompasWaarden[d] === kompasMax) : [];
+  const zwakste = kompasCompleet ? KOMPAS_DELEN.filter((d) => kompasWaarden[d] === kompasMin) : [];
+  const deelNaam = (d: KompasDeel) => t(`rapport.kompas.inZin.${d}`);
 
   // ---------- Deelnemer ----------
   const samenvatting: Sectie = {
@@ -130,14 +177,16 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     blokken: [
       ...(groep ? [tekst(`rapport.samenvatting.balans.${groep}`)] : []),
       ...(band(m.extraversie.waarde) ? [tekst(`rapport.samenvatting.energie.${band(m.extraversie.waarde)}`)] : []),
-      ...(topWaarde ? [tekst("rapport.samenvatting.waarde", { waarde: t(`rapport.waarde.${topWaarde}.naam`) })] : []),
-      ...(m.denkstijl.rationeel.waarde !== null && m.denkstijl.ervaringsgericht.waarde !== null
-        ? [tekst(`rapport.samenvatting.denken.${denkcombinatie(m.denkstijl.rationeel.waarde, m.denkstijl.ervaringsgericht.waarde)}`)]
+      ...(kompasCompleet
+        ? [evenwichtig ? tekst("rapport.samenvatting.kompas.evenwichtig") : tekst("rapport.samenvatting.kompas.sterkste", { delen: sterkste.map(deelNaam) })]
         : []),
+      ...(topWaarde ? [tekst("rapport.samenvatting.waarde", { waarde: t(`rapport.waarde.${topWaarde}.naam`) })] : []),
+      ...(rustTop ? [tekst("rapport.samenvatting.conflict", { stijl: stijlNaam(rustTop) })] : []),
+      tekst("rapport.samenvatting.leeswijzer", undefined, "gedempt"),
     ],
   };
 
-  const gerichtheidBalken: Balk[] = [balk("agency", m.agency), balk("communion", m.communion, "zelfbeeld")];
+  const gerichtheidBalken: Balk[] = [balk("agency", m.agency), balk("communion", m.communion)];
   if (reflexBeschikbaar) {
     gerichtheidBalken.push({ label: t("rapport.label.reflex"), waarde: p.reflex.agentisch, reeks: "reflex", experimenteel: true });
   }
@@ -155,36 +204,66 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     label: t("rapport.gerichtheid.label"),
     titel: t("rapport.gerichtheid.titel"),
     soort: "meting",
-    blokken: [tekst("rapport.gerichtheid.uitleg", undefined, "gedempt"), { soort: "balken", balken: gerichtheidBalken }, tekst(reflexTekst), schaaluitleg()],
+    blokken: [
+      tekst("rapport.gerichtheid.uitleg", undefined, "gedempt"),
+      { soort: "positie", agency: m.agency.waarde, communion: m.communion.waarde, marge: BALANSMARGE },
+      { soort: "balken", balken: gerichtheidBalken },
+      tekst(reflexTekst),
+      ...(groep
+        ? [{
+            soort: "betekenis" as const,
+            alineas: [t(`rapport.betekenis.balans.${groep}.zien`), t(`rapport.betekenis.balans.${groep}.kracht`), t(`rapport.betekenis.balans.${groep}.valkuil`)],
+            vraag: t(`rapport.betekenis.balans.${groep}.vraag`),
+          }]
+        : []),
+      schaaluitleg(),
+    ],
   };
 
+  const extraBand = band(m.extraversie.waarde);
+  const energieBetekenis: Tekst[] = [
+    ...(extraBand ? [t(`rapport.betekenis.extraversie.${extraBand}`)] : []),
+    ...bronnen.map((b) => t(`rapport.betekenis.bron.${b}`)),
+    ...lekken.map((b) => t(`rapport.betekenis.lek.${b}`)),
+  ];
   const energie: Sectie = {
     id: "energie",
     label: t("rapport.energie.label"),
     titel: t("rapport.energie.titel"),
     soort: "meting",
     blokken: [
-      { soort: "balken", balken: [balk("extraversie", m.extraversie)] },
-      ...(band(m.extraversie.waarde) ? [tekst(`rapport.energie.extraversie.${band(m.extraversie.waarde)}`)] : []),
+      { soort: "as", label: t("rapport.label.extraversie"), waarde: m.extraversie.waarde, links: t("rapport.as.rust"), rechts: t("rapport.as.contact") },
+      ...(extraBand ? [tekst(`rapport.energie.extraversie.${extraBand}`)] : []),
       tekst("rapport.energie.behoeftenTitel"),
+      tekst("rapport.energie.behoeftenUitleg", undefined, "gedempt"),
       {
-        soort: "balken",
-        balken: BEHOEFTEN.flatMap((b) => [
-          { label: t(`rapport.label.${b}.vervuld`), waarde: m.behoeften[b].bevrediging.waarde, reeks: "vervuld" as const },
-          { label: t(`rapport.label.${b}.gefrustreerd`), waarde: m.behoeften[b].frustratie.waarde, reeks: "gefrustreerd" as const },
-        ]),
+        soort: "balans",
+        rijen: BEHOEFTEN.map((b) => ({
+          label: t(`rapport.behoefte.${b}.naam`),
+          vervuld: m.behoeften[b].bevrediging.waarde,
+          gefrustreerd: m.behoeften[b].frustratie.waarde,
+        })),
       },
-      bronnen.length
-        ? tekst("rapport.energie.bronnen", { behoeften: bronnen.map(behoefteNaam) })
-        : tekst("rapport.energie.geenBron"),
-      lekken.length
-        ? tekst("rapport.energie.lekken", { behoeften: lekken.map(behoefteNaam) })
-        : tekst("rapport.energie.geenLek"),
+      bronnen.length ? tekst("rapport.energie.bronnen", { behoeften: bronnen.map(behoefteNaam) }) : tekst("rapport.energie.geenBron"),
+      lekken.length ? tekst("rapport.energie.lekken", { behoeften: lekken.map(behoefteNaam) }) : tekst("rapport.energie.geenLek"),
+      ...(energieBetekenis.length
+        ? [{ soort: "betekenis" as const, alineas: energieBetekenis, vraag: t(lekken.length ? "rapport.betekenis.energie.vraagLek" : "rapport.betekenis.energie.vraag") }]
+        : []),
       tekst("rapport.energie.onderzoek", undefined, "gedempt"),
       schaaluitleg(),
     ],
   };
 
+  const kompasBetekenis: Tekst[] = !kompasCompleet
+    ? []
+    : evenwichtig
+      ? [t("rapport.betekenis.kompas.evenwichtig")]
+      : [
+          ...sterkste.map((d) => t(`rapport.betekenis.kompas.sterk.${d}`)),
+          ...zwakste.map((d) => t(`rapport.betekenis.kompas.zwak.${d}`)),
+          ...(kompasWaarden.intuitie! > BAND_HOOG && kompasWaarden.realisme! > BAND_HOOG ? [t("rapport.betekenis.kompas.beideWaarnemen")] : []),
+          ...(kompasWaarden.ratio! > BAND_HOOG && kompasWaarden.gevoel! > BAND_HOOG ? [t("rapport.betekenis.kompas.beideOordelen")] : []),
+        ];
   const denken: Sectie = {
     id: "denken",
     label: t("rapport.denken.label"),
@@ -192,12 +271,9 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     soort: "meting",
     blokken: [
       tekst("rapport.denken.uitleg", undefined, "gedempt"),
-      { soort: "balken", balken: [balk("rationeel", m.denkstijl.rationeel), balk("ervaringsgericht", m.denkstijl.ervaringsgericht)] },
-      ...(m.denkstijl.rationeel.waarde !== null && m.denkstijl.ervaringsgericht.waarde !== null
-        ? [tekst(`rapport.denken.combinatie.${denkcombinatie(m.denkstijl.rationeel.waarde, m.denkstijl.ervaringsgericht.waarde)}`)]
-        : []),
-      { soort: "balken", balken: [balk("openheid", m.waarnemen.openheid)] },
-      ...(band(m.waarnemen.openheid.waarde) ? [tekst(`rapport.denken.waarnemen.${band(m.waarnemen.openheid.waarde)}`)] : []),
+      { soort: "kompas", delen: KOMPAS_DELEN.map((d) => ({ deel: d, label: t(`rapport.label.${d}`), waarde: kompasWaarden[d] })) },
+      { soort: "lijst", items: KOMPAS_DELEN.map((d) => t(`rapport.kompas.betekent.${d}`, { waarde: kompasWaarden[d] ?? "–" })) },
+      ...(kompasBetekenis.length ? [{ soort: "betekenis" as const, alineas: kompasBetekenis, vraag: t("rapport.betekenis.kompas.vraag") }] : []),
       schaaluitleg(),
     ],
   };
@@ -211,20 +287,37 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
         : zorg.communaal > zorg.agentisch
           ? "rapport.drijfveren.zorg.communaal"
           : "rapport.drijfveren.zorg.beide";
+  const plaatsVan = (c: WaardeCode) => (waardenBeantwoord ? (m.waarden.rangorde.find((r) => r.waarde === c)?.plaats ?? null) : null);
   const drijfveren: Sectie = {
     id: "drijfveren",
     label: t("rapport.drijfveren.label"),
     titel: t("rapport.drijfveren.titel"),
     soort: "meting",
     blokken: [
-      ...(m.waarden.beantwoord > 0
-        ? [{
-            soort: "rangorde" as const,
-            items: m.waarden.rangorde.map((r) => ({ label: t(`rapport.waarde.${r.waarde}.naam`), uitleg: t(`rapport.waarde.${r.waarde}.uitleg`), plaats: r.plaats })),
-          }]
+      ...(waardenBeantwoord
+        ? [
+            { soort: "waardencirkel" as const, waarden: WAARDEN_CIRKEL.map((c) => ({ code: c, label: t(`rapport.waarde.${c}.naam`), plaats: plaatsVan(c) })) },
+            {
+              soort: "rangorde" as const,
+              items: m.waarden.rangorde.map((r) => ({ label: t(`rapport.waarde.${r.waarde}.naam`), uitleg: t(`rapport.waarde.${r.waarde}.uitleg`), plaats: r.plaats })),
+            },
+          ]
         : [tekst("rapport.drijfveren.geen")]),
       tekst("rapport.drijfveren.ipsatief", undefined, "gedempt"),
-      ...(zorgTekst ? [tekst(zorgTekst)] : []),
+      ...(topWaarde && onderWaarde
+        ? [{
+            soort: "betekenis" as const,
+            alineas: [
+              t(`rapport.betekenis.waarde.${topWaarde}.top`),
+              t(`rapport.betekenis.waarde.${onderWaarde}.onder`),
+              ...(TEGENOVER[topWaarde] === onderWaarde ? [t("rapport.betekenis.waarden.tegenpolen")] : [t("rapport.betekenis.waarden.cirkel")]),
+              ...(zorgTekst ? [t(zorgTekst)] : []),
+            ],
+            vraag: t("rapport.betekenis.waarden.vraag"),
+          }]
+        : zorgTekst
+          ? [tekst(zorgTekst)]
+          : []),
     ],
   };
 
@@ -232,12 +325,29 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     { soort: "balken", balken: STIJLEN.map((s) => balk(`stijl.${s}`, m.conflictInRust.scores[s])) },
     ...(rustTop ? [tekst("rapport.conflict.rust", { stijl: stijlNaam(rustTop) })] : []),
   ];
+  const conflictBetekenis: Tekst[] = rustTop ? [t(`rapport.betekenis.stijl.${rustTop}.kracht`), t(`rapport.betekenis.stijl.${rustTop}.valkuil`)] : [];
   if (p.onderDruk.status !== "beschikbaar") conflictBlokken.push(tekst("rapport.druk.nietBeschikbaar"));
-  else if (!drukTop) conflictBlokken.push(tekst("rapport.druk.geenKeuze"));
   else {
-    conflictBlokken.push(tekst("rapport.druk.keuze", { stijl: stijlNaam(drukTop) }));
-    if (rustTop && !m.conflictInRust.voorkeur.includes(drukTop)) conflictBlokken.push(tekst("rapport.druk.verschil"));
+    conflictBlokken.push(tekst("rapport.druk.verloopUitleg", undefined, "gedempt"), {
+      soort: "drukverloop",
+      stijlen: STIJLEN.map((s) => ({ stijl: s, label: t(`rapport.label.stijl.${s}`) })),
+      kolommen: p.onderDruk.keuzes.map((k, i) => ({
+        label: t("rapport.druk.niveau", { niveau: i + 1 }),
+        opties: (register.items.find((x) => x.id === k.itemId)?.opties ? Object.keys(register.items.find((x) => x.id === k.itemId)!.opties!) : []) as Stijl[],
+        meest: k.keuze,
+        minst: k.minst,
+      })),
+    });
+    if (!drukTop) conflictBlokken.push(tekst("rapport.druk.geenKeuze"));
+    else {
+      conflictBlokken.push(tekst("rapport.druk.keuze", { stijl: stijlNaam(drukTop) }));
+      if (rustTop && !m.conflictInRust.voorkeur.includes(drukTop)) {
+        conflictBlokken.push(tekst("rapport.druk.verschil"));
+        conflictBetekenis.push(t(`rapport.betekenis.druk.${drukTop}`));
+      } else conflictBetekenis.push(t("rapport.betekenis.druk.zelfde"));
+    }
   }
+  if (conflictBetekenis.length) conflictBlokken.push({ soort: "betekenis", alineas: conflictBetekenis, vraag: t("rapport.betekenis.conflict.vraag") });
   conflictBlokken.push(tekst("rapport.conflict.geenBeste", undefined, "gedempt"), schaaluitleg());
   const conflict: Sectie = { id: "conflict", label: t("rapport.conflict.label"), titel: t("rapport.conflict.titel"), soort: "meting", blokken: conflictBlokken };
 
@@ -251,7 +361,19 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     blokken: [
       tekst("rapport.archetypen.uitleg"),
       ...(kaarten
-        ? [tekst("rapport.archetypen.kaarten"), { soort: "kaarten" as const, voorkeur: kaarten.voorkeur, afwijzing: kaarten.afwijzing }]
+        ? [
+            tekst("rapport.archetypen.kaarten"),
+            { soort: "kaarten" as const, voorkeur: kaarten.voorkeur, afwijzing: kaarten.afwijzing },
+            {
+              soort: "betekenis" as const,
+              alineas: [
+                ...kaarten.voorkeur.map((k) => t(`rapport.betekenis.kaart.${k.id}.voorkeur`)),
+                ...kaarten.afwijzing.map((k) => t(`rapport.betekenis.kaart.${k.id}.afwijzing`)),
+                t("rapport.betekenis.kaart.schaduw"),
+              ],
+              vraag: t("rapport.betekenis.kaart.vraag"),
+            },
+          ]
         : []),
       ...(groep && poolKaarten.length ? [tekst(`rapport.archetypen.balans.${groep}`, { kaarten: poolKaarten })] : []),
       tekst("rapport.archetypen.vraag", undefined, "gedempt"),
@@ -269,6 +391,7 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
           t("rapport.nietZegt.oordeel"),
           t("rapport.nietZegt.geenNorm"),
           t("rapport.nietZegt.prototype"),
+          t("rapport.nietZegt.momentopname"),
           t("rapport.nietZegt.reflex"),
           t("rapport.nietZegt.archetypen"),
           ...(p.tijdslimieten ? [] : [t("rapport.nietZegt.zonderTijd")]),
@@ -278,10 +401,26 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
   };
 
   // ---------- Coach ----------
+  const uitleg = (id: string) => t(`rapport.toelichting.${id}`);
+
+  const leeswijzer: Sectie = {
+    id: "leeswijzer",
+    titel: t("rapport.coach.leeswijzer.titel"),
+    soort: "info",
+    blokken: [
+      tekst("rapport.coach.leeswijzer.intro"),
+      {
+        soort: "lijst",
+        items: ["opbouw", "schaal", "bewijs", "duiding", "gesprek", "grenzen"].map((k) => t(`rapport.coach.leeswijzer.${k}`)),
+      },
+    ],
+  };
+
   const kerngetallen: Sectie = {
     id: "kerngetallen",
     titel: t("rapport.coach.kerngetallen.titel"),
     soort: "meting",
+    toelichting: uitleg("kerngetallen"),
     blokken: [
       {
         soort: "kerngetallen",
@@ -291,10 +430,11 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
           { waarde: reflexBeschikbaar ? p.reflex.agentisch : null, label: t("rapport.coach.kerngetallen.reflex", { aantal: p.reflex.geldigeKeuzes }) },
           { waarde: p.reflex.medianeReactietijdMs, label: t("rapport.coach.kerngetallen.reactietijd") },
           { waarde: m.extraversie.waarde, label: t("rapport.coach.kerngetallen.extraversie") },
-          { waarde: m.denkstijl.rationeel.waarde, label: t("rapport.coach.kerngetallen.rationeel") },
-          { waarde: m.denkstijl.ervaringsgericht.waarde, label: t("rapport.coach.kerngetallen.ervaringsgericht") },
-          { waarde: m.waarnemen.openheid.waarde, label: t("rapport.coach.kerngetallen.openheid") },
-          { waarde: groep ? t(`rapport.groep.${groep}`) : null, label: t("rapport.coach.kerngetallen.balans", { marge: 12 }) },
+          { waarde: kompasWaarden.ratio, label: t("rapport.coach.kerngetallen.ratio") },
+          { waarde: kompasWaarden.gevoel, label: t("rapport.coach.kerngetallen.gevoel") },
+          { waarde: kompasWaarden.intuitie, label: t("rapport.coach.kerngetallen.intuitie") },
+          { waarde: kompasWaarden.realisme, label: t("rapport.coach.kerngetallen.realisme") },
+          { waarde: groep ? t(`rapport.groep.${groep}`) : null, label: t("rapport.coach.kerngetallen.balans", { marge: BALANSMARGE }) },
         ],
       },
       schaaluitleg(),
@@ -313,6 +453,7 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     id: "kwaliteit",
     titel: t("rapport.coach.kwaliteit.titel"),
     soort: "info",
+    toelichting: uitleg("kwaliteit"),
     blokken: [
       meldingen.length ? { soort: "melding", toon: "let-op", items: meldingen } : { soort: "melding", toon: "ok", items: [t("rapport.kwaliteit.geen")] },
       ...(k.herzieningen ? [tekst("rapport.kwaliteit.herzien", { aantal: k.herzieningen }, "gedempt")] : []),
@@ -328,10 +469,11 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
   }
   for (const b of lekken) vragen.push(t("rapport.vraag.frustratie", { behoefte: behoefteNaam(b), waarde: m.behoeften[b].frustratie.waarde! }));
   if (zorg.agentisch > 0 && zorg.communaal > 0) vragen.push(t("rapport.vraag.zorgTegengesteld"));
-  const r = m.denkstijl.rationeel.waarde;
-  const e = m.denkstijl.ervaringsgericht.waarde;
-  if (r !== null && e !== null && Math.abs(r - e) >= DENKSTIJL_VERSCHIL) {
-    vragen.push(t("rapport.vraag.denkstijl", { stijl: t(r > e ? "rapport.denkstijl.ervaringsgericht" : "rapport.denkstijl.rationeel") }));
+  if (kompasMax !== null && kompasMin !== null && kompasMax - kompasMin >= KOMPAS_VERSCHIL) {
+    vragen.push(t("rapport.vraag.kompas", { sterk: sterkste.map(deelNaam), zwak: zwakste.map(deelNaam) }));
+  }
+  if (topWaarde && onderWaarde && TEGENOVER[topWaarde] === onderWaarde) {
+    vragen.push(t("rapport.vraag.waarden", { top: t(`rapport.waarde.${topWaarde}.naam`), onder: t(`rapport.waarde.${onderWaarde}.naam`) }));
   }
   if (kaarten) {
     vragen.push(t("rapport.vraag.kaarten", { voorkeur: kaarten.voorkeur[0].naam, afwijzing: kaarten.afwijzing[0].naam }));
@@ -340,12 +482,19 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     }
   }
   if (!vragen.length) vragen.push(t("rapport.vraag.consistent"));
-  const gespreksvragen: Sectie = { id: "gespreksvragen", titel: t("rapport.coach.gespreksvragen.titel"), soort: "info", blokken: [{ soort: "lijst", items: vragen }] };
+  const gespreksvragen: Sectie = {
+    id: "gespreksvragen",
+    titel: t("rapport.coach.gespreksvragen.titel"),
+    soort: "info",
+    toelichting: uitleg("gespreksvragen"),
+    blokken: [{ soort: "lijst", items: vragen }],
+  };
 
   const behoeftenTabel: Sectie = {
     id: "behoeften",
     titel: t("rapport.coach.behoeften.titel"),
     soort: "meting",
+    toelichting: uitleg("behoeften"),
     blokken: [
       {
         soort: "tabel",
@@ -356,10 +505,26 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     ],
   };
 
+  const kompasCoach: Sectie = {
+    id: "kompas",
+    titel: t("rapport.coach.kompas.titel"),
+    soort: "meting",
+    toelichting: uitleg("kompas"),
+    blokken: [
+      {
+        soort: "tabel",
+        kop: [t("rapport.coach.kompas.deel"), t("rapport.coach.kompas.score"), t("rapport.coach.kompas.kolomAs")],
+        rijen: KOMPAS_DELEN.map((d) => [t(`rapport.label.${d}`), kompasWaarden[d], t(`rapport.coach.kompas.assen.${d === "ratio" || d === "gevoel" ? "oordelen" : "waarnemen"}`)]),
+      },
+      schaaluitleg(),
+    ],
+  };
+
   const druk: Sectie = {
     id: "druk",
     titel: t("rapport.coach.druk.titel"),
     soort: "meting",
+    toelichting: uitleg("druk"),
     blokken:
       p.onderDruk.status === "beschikbaar"
         ? [
@@ -383,6 +548,7 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     id: "waarden",
     titel: t("rapport.coach.waarden.titel"),
     soort: "meting",
+    toelichting: uitleg("waarden"),
     blokken: [
       {
         soort: "tabel",
@@ -398,6 +564,7 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     label: DUIDING,
     titel: t("rapport.coach.kaarten.titel"),
     soort: "duiding",
+    toelichting: uitleg("kaarten"),
     blokken: kaarten
       ? [{ soort: "kaarten", voorkeur: kaarten.voorkeur, afwijzing: kaarten.afwijzing }, tekst("rapport.coach.kaarten.uitleg", undefined, "gedempt")]
       : [tekst("rapport.kaarten.nietGedaan")],
@@ -407,6 +574,7 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     id: "bewijs",
     titel: t("rapport.coach.bewijs.titel"),
     soort: "info",
+    toelichting: uitleg("bewijs"),
     blokken: [tekst("rapport.coach.bewijs.uitleg", undefined, "gedempt"), { soort: "bewijs", rijen: bewijsRijen(register) }],
   };
 
@@ -414,6 +582,7 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     id: "regels",
     titel: t("rapport.coach.regels.titel"),
     soort: "info",
+    toelichting: uitleg("regels"),
     blokken: [
       {
         soort: "lijst",
@@ -422,9 +591,9 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
           t("rapport.regel.reflex", { marge: REFLEX_AFWIJKING }),
           t("rapport.regel.behoeften", { bron: BRON_DREMPEL, lek: LEK_DREMPEL }),
           t("rapport.regel.waarden"),
-          t("rapport.regel.balans", { marge: 12 }),
+          t("rapport.regel.balans", { marge: BALANSMARGE }),
+          t("rapport.regel.kompas", { evenwicht: KOMPAS_EVENWICHT, verschil: KOMPAS_VERSCHIL }),
           t("rapport.regel.kaarten"),
-          t("rapport.regel.denkstijl", { verschil: DENKSTIJL_VERSCHIL }),
         ],
       },
     ],
@@ -434,6 +603,7 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     id: "verantwoording",
     titel: t("rapport.coach.verantwoording.titel"),
     soort: "info",
+    toelichting: uitleg("verantwoording"),
     blokken: [
       {
         soort: "tabel",
@@ -451,15 +621,8 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
   return {
     meta: { afnameId: p.afnameId, scoringsversie: p.scoringsversie, itemsetVersie: p.itemsetVersie, tijdslimieten: p.tijdslimieten },
     deelnemer: [samenvatting, gerichtheid, energie, denken, drijfveren, conflict, archetypen, nietZegt],
-    coach: [kerngetallen, kwaliteit, gespreksvragen, behoeftenTabel, druk, waarden, kaartenCoach, bewijs, regels, verantwoording],
+    coach: [leeswijzer, kerngetallen, kwaliteit, gespreksvragen, behoeftenTabel, kompasCoach, druk, waarden, kaartenCoach, bewijs, regels, verantwoording],
   };
-}
-
-/** Beide denkstijlen in woorden: welke hoog is, of allebei. */
-function denkcombinatie(rationeel: number, ervaring: number): "beide" | "rationeel" | "ervaring" | "geen" {
-  const r = rationeel > BAND_HOOG;
-  const e = ervaring > BAND_HOOG;
-  return r && e ? "beide" : r ? "rationeel" : e ? "ervaring" : "geen";
 }
 
 const ONDERDELEN: [string, (i: Item) => boolean][] = [
@@ -468,8 +631,10 @@ const ONDERDELEN: [string, (i: Item) => boolean][] = [
   ["extraversie", (i) => i.subschaal === "extra"],
   ["behoeften", (i) => /^(sat|fr)[ACR]$/.test(i.subschaal ?? "")],
   ["conflictInRust", (i) => i.format === "likert" && (STIJLEN as string[]).includes(i.subschaal ?? "")],
-  ["denkstijl", (i) => i.subschaal === "rationeel" || i.subschaal === "ervaringsgericht"],
-  ["waarnemen", (i) => i.subschaal === "openheid"],
+  ["ratio", (i) => i.subschaal === "rationeel"],
+  ["gevoel", (i) => i.subschaal === "ervaringsgericht"],
+  ["intuitie", (i) => i.subschaal === "intuitie"],
+  ["realisme", (i) => i.subschaal === "realisme"],
   ["waarden", (i) => i.format === "dilemma" && !!i.optie_a?.waarde],
   ["zorgBijFalen", (i) => i.format === "dilemma" && !!i.optie_a?.pool],
   ["reflex", (i) => i.format === "beeldkeuze"],

@@ -12,7 +12,7 @@ export const VOORBEELD_PROFIEL: Record<string, number> = {
   agency: 4, communion: 3, extra: 4,
   satA: 4, satC: 4, satR: 3, frA: 4, frC: 2, frR: 2,
   forc: 3, prob: 4, comp: 3, yield: 2, avoid: 2,
-  rationeel: 4, ervaringsgericht: 3, openheid: 4,
+  rationeel: 4, ervaringsgericht: 3, intuitie: 4, realisme: 2,
 };
 
 /** Overige vaste antwoorden: reflex, dilemma's, vignetten (meest), kaarten (eerste voorkeur). */

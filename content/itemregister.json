@@ -97,6 +97,10 @@
     "jung": {
       "t": "Jung, C. G. (1959). The Archetypes and the Collective Unconscious. Collected Works, deel 9.1.",
       "n": "Archetypen als universele beelden en patronen. De empirische basis is omstreden; daarom alleen als duiding en gespreksstof gebruikt."
+    },
+    "pretz": {
+      "t": "Pretz, J. E., Brookings, J. B., Carlson, L. A., Humbert, T. K., Roy, M., Jones, M. & Memmert, D. (2014). Development and validation of a new measure of intuition: The Types of Intuition Scale. Journal of Behavioral Decision Making. doi:10.1002/bdm.1820",
+      "n": "Intuïtie is meervoudig: holistisch (het grote geheel, abstracte verbanden), inferentieel (geautomatiseerde ervaring) en affectief (op gevoel). Basis voor intuïtie als eigen schaal, los van gevoel."
     }
   },
   "waarden": {
@@ -1614,12 +1618,13 @@
     },
     {
       "id": "O1",
-      "versie": 1,
+      "versie": 2,
       "fase": 2,
       "format": "likert",
-      "construct": "Openheid: intuïtief versus feitelijk waarnemen",
-      "kader": "Big Five: openheid (Jungs feitelijk versus intuïtief waarnemen)",
+      "construct": "Intuïtie: holistisch waarnemen",
+      "kader": "Typen intuïtie (holistisch) en Big Five-openheid; Jungs intuïtie",
       "bronnen": [
+        "pretz",
         "bfi2",
         "mccrae89"
       ],
@@ -1628,20 +1633,21 @@
         "methode": "sterk",
         "item": "nieuw"
       },
-      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: feitelijkheid en intuïtie. Hoog = intuïtief, laag = feitelijk. Jungs indeling wordt zo gemeten als een onderbouwde dimensie. Te toetsen in de pilot.",
+      "toelichting": "Itembank v3, op verzoek van de eigenaar: ratio, gevoel, intuïtie en realisme als vier aparte schalen. Intuïtie = holistisch waarnemen: het grote geheel, verbanden en mogelijkheden zien. Eigen formulering; te toetsen in de pilot, ook op samenhang met realisme.",
       "tekst": "Ik denk graag na over wat er in de toekomst mogelijk zou kunnen zijn.",
-      "subschaal": "openheid",
+      "subschaal": "intuitie",
       "omgekeerd": false,
       "schaal": "1-5"
     },
     {
       "id": "O2",
-      "versie": 1,
+      "versie": 2,
       "fase": 2,
       "format": "likert",
-      "construct": "Openheid: intuïtief versus feitelijk waarnemen",
-      "kader": "Big Five: openheid (Jungs feitelijk versus intuïtief waarnemen)",
+      "construct": "Intuïtie: holistisch waarnemen",
+      "kader": "Typen intuïtie (holistisch) en Big Five-openheid; Jungs intuïtie",
       "bronnen": [
+        "pretz",
         "bfi2",
         "mccrae89"
       ],
@@ -1650,42 +1656,67 @@
         "methode": "sterk",
         "item": "nieuw"
       },
-      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: feitelijkheid en intuïtie. Hoog = intuïtief, laag = feitelijk. Jungs indeling wordt zo gemeten als een onderbouwde dimensie. Te toetsen in de pilot.",
+      "toelichting": "Itembank v3, op verzoek van de eigenaar: ratio, gevoel, intuïtie en realisme als vier aparte schalen. Intuïtie = holistisch waarnemen: het grote geheel, verbanden en mogelijkheden zien. Eigen formulering; te toetsen in de pilot, ook op samenhang met realisme.",
       "tekst": "Ik zie snel verbanden die anderen nog niet zien.",
-      "subschaal": "openheid",
+      "subschaal": "intuitie",
       "omgekeerd": false,
       "schaal": "1-5"
     },
     {
       "id": "O3",
-      "versie": 1,
+      "versie": 2,
       "fase": 2,
       "format": "likert",
-      "construct": "Openheid: intuïtief versus feitelijk waarnemen",
-      "kader": "Big Five: openheid (Jungs feitelijk versus intuïtief waarnemen)",
+      "construct": "Realisme: concreet en feitelijk waarnemen",
+      "kader": "Jungs gewaarwording (feitelijk waarnemen); Big Five-openheid, laag uiteinde",
       "bronnen": [
-        "bfi2",
-        "mccrae89"
+        "jung",
+        "mccrae89",
+        "bfi2"
       ],
       "bewijs": {
-        "construct": "sterk",
+        "construct": "matig",
         "methode": "sterk",
         "item": "nieuw"
       },
-      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: feitelijkheid en intuïtie. Hoog = intuïtief, laag = feitelijk. Jungs indeling wordt zo gemeten als een onderbouwde dimensie. Te toetsen in de pilot.",
-      "tekst": "Ik houd me liever bij concrete feiten dan bij ideeën.",
-      "subschaal": "openheid",
-      "omgekeerd": true,
+      "toelichting": "Itembank v3, op verzoek van de eigenaar: realisme als eigen schaal naast intuïtie. Realisme = concreet en feitelijk waarnemen (Jungs gewaarwording). In de Big Five is dit de tegenpool van openheid; als losse voorkeur is het minder onderbouwd, daarom construct matig. De pilot toetst of intuïtie en realisme als twee schalen standhouden.",
+      "tekst": "Ik let vooral op wat concreet, zichtbaar en meetbaar is.",
+      "subschaal": "realisme",
+      "omgekeerd": false,
       "schaal": "1-5"
     },
     {
       "id": "O4",
+      "versie": 2,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Realisme: concreet en feitelijk waarnemen",
+      "kader": "Jungs gewaarwording (feitelijk waarnemen); Big Five-openheid, laag uiteinde",
+      "bronnen": [
+        "jung",
+        "mccrae89",
+        "bfi2"
+      ],
+      "bewijs": {
+        "construct": "matig",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Itembank v3, op verzoek van de eigenaar: realisme als eigen schaal naast intuïtie. Realisme = concreet en feitelijk waarnemen (Jungs gewaarwording). In de Big Five is dit de tegenpool van openheid; als losse voorkeur is het minder onderbouwd, daarom construct matig. De pilot toetst of intuïtie en realisme als twee schalen standhouden.",
+      "tekst": "Ik werk het liefst met methoden die zich al bewezen hebben.",
+      "subschaal": "realisme",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "O5",
       "versie": 1,
       "fase": 2,
       "format": "likert",
-      "construct": "Openheid: intuïtief versus feitelijk waarnemen",
-      "kader": "Big Five: openheid (Jungs feitelijk versus intuïtief waarnemen)",
+      "construct": "Intuïtie: holistisch waarnemen",
+      "kader": "Typen intuïtie (holistisch) en Big Five-openheid; Jungs intuïtie",
       "bronnen": [
+        "pretz",
         "bfi2",
         "mccrae89"
       ],
@@ -1694,9 +1725,78 @@
         "methode": "sterk",
         "item": "nieuw"
       },
-      "toelichting": "Nieuw in itembank v2, op verzoek van de eigenaar: feitelijkheid en intuïtie. Hoog = intuïtief, laag = feitelijk. Jungs indeling wordt zo gemeten als een onderbouwde dimensie. Te toetsen in de pilot.",
-      "tekst": "Ik werk het liefst met methoden die zich al bewezen hebben.",
-      "subschaal": "openheid",
+      "toelichting": "Itembank v3, op verzoek van de eigenaar: ratio, gevoel, intuïtie en realisme als vier aparte schalen. Intuïtie = holistisch waarnemen: het grote geheel, verbanden en mogelijkheden zien. Eigen formulering; te toetsen in de pilot, ook op samenhang met realisme.",
+      "tekst": "Ik zie eerst het grote geheel; de details komen later.",
+      "subschaal": "intuitie",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "O6",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Realisme: concreet en feitelijk waarnemen",
+      "kader": "Jungs gewaarwording (feitelijk waarnemen); Big Five-openheid, laag uiteinde",
+      "bronnen": [
+        "jung",
+        "mccrae89",
+        "bfi2"
+      ],
+      "bewijs": {
+        "construct": "matig",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Itembank v3, op verzoek van de eigenaar: realisme als eigen schaal naast intuïtie. Realisme = concreet en feitelijk waarnemen (Jungs gewaarwording). In de Big Five is dit de tegenpool van openheid; als losse voorkeur is het minder onderbouwd, daarom construct matig. De pilot toetst of intuïtie en realisme als twee schalen standhouden.",
+      "tekst": "Details die anderen over het hoofd zien, vallen mij meteen op.",
+      "subschaal": "realisme",
+      "omgekeerd": false,
+      "schaal": "1-5"
+    },
+    {
+      "id": "O7",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Intuïtie: holistisch waarnemen",
+      "kader": "Typen intuïtie (holistisch) en Big Five-openheid; Jungs intuïtie",
+      "bronnen": [
+        "pretz",
+        "bfi2",
+        "mccrae89"
+      ],
+      "bewijs": {
+        "construct": "sterk",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Itembank v3, op verzoek van de eigenaar: ratio, gevoel, intuïtie en realisme als vier aparte schalen. Intuïtie = holistisch waarnemen: het grote geheel, verbanden en mogelijkheden zien. Eigen formulering; te toetsen in de pilot, ook op samenhang met realisme.",
+      "tekst": "Abstracte ideeën zeggen me weinig als ik er niets concreets mee kan.",
+      "subschaal": "intuitie",
+      "omgekeerd": true,
+      "schaal": "1-5"
+    },
+    {
+      "id": "O8",
+      "versie": 1,
+      "fase": 2,
+      "format": "likert",
+      "construct": "Realisme: concreet en feitelijk waarnemen",
+      "kader": "Jungs gewaarwording (feitelijk waarnemen); Big Five-openheid, laag uiteinde",
+      "bronnen": [
+        "jung",
+        "mccrae89",
+        "bfi2"
+      ],
+      "bewijs": {
+        "construct": "matig",
+        "methode": "sterk",
+        "item": "nieuw"
+      },
+      "toelichting": "Itembank v3, op verzoek van de eigenaar: realisme als eigen schaal naast intuïtie. Realisme = concreet en feitelijk waarnemen (Jungs gewaarwording). In de Big Five is dit de tegenpool van openheid; als losse voorkeur is het minder onderbouwd, daarom construct matig. De pilot toetst of intuïtie en realisme als twee schalen standhouden.",
+      "tekst": "Praktische details laat ik het liefst aan anderen over.",
+      "subschaal": "realisme",
       "omgekeerd": true,
       "schaal": "1-5"
     },
@@ -2101,7 +2201,7 @@
     },
     {
       "id": "K1",
-      "versie": 1,
+      "versie": 2,
       "fase": 4,
       "format": "kaartsortering",
       "construct": "Archetypische voorkeur en afwijzing (duiding, geen meting)",
@@ -2117,7 +2217,7 @@
         "methode": "experimenteel",
         "item": "nieuw"
       },
-      "toelichting": "Reflectie-oefening op verzoek van de eigenaar: de deelnemer kiest uit acht kaarten een eerste en tweede voorkeur en een eerste en tweede afwijzing. De kaarten zijn eigen ontwerp. Het construct is niet onderbouwd genoeg om te meten (regel 2 en 3): de keuzes worden nooit gescoord of vergeleken, alleen als gespreksstof aan de coach getoond, naast de gemeten balans agency/communion.",
+      "toelichting": "Reflectie-oefening op verzoek van de eigenaar: de deelnemer kiest uit acht kaarten een eerste en tweede voorkeur en een eerste en tweede afwijzing. De kaarten zijn eigen ontwerp. Het construct is niet onderbouwd genoeg om te meten (regel 2 en 3): de keuzes worden nooit gescoord of vergeleken, alleen als gespreksstof aan de coach getoond, naast de gemeten balans agency/communion. Versie 2 (2026-10-26): foto's aangeleverd door de eigenaar in plaats van abstracte emblemen; de kaart Verbinder is vervangen door Rebel, omdat de achtste foto daar beter bij past.",
       "vraag": "Welke kaart spreekt je het meest aan?",
       "stappen": [
         "voorkeur",
@@ -2129,66 +2229,74 @@
         {
           "id": "strijder",
           "naam": "Strijder",
-          "beeld": "k-schild",
+          "beeld": "foto-strijder",
           "binnen": "Discipline",
           "buiten": "Daadkracht",
-          "pool": "agentisch"
+          "pool": "agentisch",
+          "omschrijving": "Een klimmer trekt zich tegen de zon in omhoog langs een steile rotswand."
         },
         {
           "id": "heerser",
           "naam": "Heerser",
-          "beeld": "k-kroon",
+          "beeld": "foto-heerser",
           "binnen": "Overzicht",
           "buiten": "Regie",
-          "pool": "agentisch"
+          "pool": "agentisch",
+          "omschrijving": "Een figuur in een rode mantel staat op een balkon en overziet een stad bij zonsondergang."
         },
         {
           "id": "ontdekker",
           "naam": "Ontdekker",
-          "beeld": "k-kompas",
+          "beeld": "foto-ontdekker",
           "binnen": "Onafhankelijkheid",
           "buiten": "Avontuur",
-          "pool": "agentisch"
+          "pool": "agentisch",
+          "omschrijving": "Een wandelaar met rugzak staat op een bergtop boven de wolken."
         },
         {
           "id": "schepper",
           "naam": "Schepper",
-          "beeld": "k-vonk",
+          "beeld": "foto-schepper",
           "binnen": "Verbeelding",
           "buiten": "Vernieuwing",
-          "pool": "agentisch"
+          "pool": "agentisch",
+          "omschrijving": "Handen vormen klei op een draaiende pottenbakkersschijf."
         },
         {
           "id": "zorggever",
           "naam": "Zorggever",
-          "beeld": "k-handen",
+          "beeld": "foto-zorggever",
           "binnen": "Aandacht",
           "buiten": "Steun",
-          "pool": "communaal"
+          "pool": "communaal",
+          "omschrijving": "Een hand pakt een andere hand vast en helpt iemand omhoog."
         },
         {
-          "id": "verbinder",
-          "naam": "Verbinder",
-          "beeld": "k-ringen",
-          "binnen": "Betrokkenheid",
-          "buiten": "Gastvrijheid",
-          "pool": "communaal"
+          "id": "rebel",
+          "naam": "Rebel",
+          "beeld": "foto-rebel",
+          "binnen": "Eigenzinnigheid",
+          "buiten": "Regels vernieuwen",
+          "pool": "agentisch",
+          "omschrijving": "Een figuur in een capuchontrui zit alleen op een muur vol graffiti boven de stad."
         },
         {
           "id": "wijze",
           "naam": "Wijze",
-          "beeld": "k-lamp",
+          "beeld": "foto-wijze",
           "binnen": "Reflectie",
           "buiten": "Kennis delen",
-          "pool": "geintegreerd"
+          "pool": "geintegreerd",
+          "omschrijving": "Een figuur in een pij zit op een rots en leest in een boek, met uitzicht over het water."
         },
         {
           "id": "nar",
           "naam": "Nar",
-          "beeld": "k-spiraal",
+          "beeld": "foto-nar",
           "binnen": "Relativeren",
           "buiten": "Humor",
-          "pool": "geintegreerd"
+          "pool": "geintegreerd",
+          "omschrijving": "Iemand springt met gespreide armen uitgelaten op in een zonnig veld."
         }
       ]
     }
