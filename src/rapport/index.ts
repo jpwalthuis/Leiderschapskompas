@@ -416,12 +416,17 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     ],
   };
 
+  // De coach ziet dezelfde diagrammen als de deelnemer, met de tabel als detail eronder.
+  const uit = (s: Sectie, ...soorten: Blok["soort"][]) => s.blokken.filter((b) => soorten.includes(b.soort));
+
   const kerngetallen: Sectie = {
     id: "kerngetallen",
     titel: t("rapport.coach.kerngetallen.titel"),
     soort: "meting",
     toelichting: uitleg("kerngetallen"),
     blokken: [
+      ...uit(gerichtheid, "positie", "balken"),
+      ...uit(energie, "as"),
       {
         soort: "kerngetallen",
         items: [
@@ -496,8 +501,9 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     soort: "meting",
     toelichting: uitleg("behoeften"),
     blokken: [
+      ...uit(energie, "balans"),
       {
-        soort: "tabel",
+        soort: "tabel" as const,
         kop: [t("rapport.coach.behoeften.behoefte"), t("rapport.coach.behoeften.vervuld"), t("rapport.coach.behoeften.gefrustreerd")],
         rijen: BEHOEFTEN.map((b) => [t(`rapport.behoefte.${b}.naam`), m.behoeften[b].bevrediging.waarde, m.behoeften[b].frustratie.waarde]),
       },
@@ -511,8 +517,9 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     soort: "meting",
     toelichting: uitleg("kompas"),
     blokken: [
+      ...uit(denken, "kompas"),
       {
-        soort: "tabel",
+        soort: "tabel" as const,
         kop: [t("rapport.coach.kompas.deel"), t("rapport.coach.kompas.score"), t("rapport.coach.kompas.kolomAs")],
         rijen: KOMPAS_DELEN.map((d) => [t(`rapport.label.${d}`), kompasWaarden[d], t(`rapport.coach.kompas.assen.${d === "ratio" || d === "gevoel" ? "oordelen" : "waarnemen"}`)]),
       },
@@ -525,11 +532,13 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     titel: t("rapport.coach.druk.titel"),
     soort: "meting",
     toelichting: uitleg("druk"),
-    blokken:
-      p.onderDruk.status === "beschikbaar"
+    blokken: [
+      ...uit(conflict, "balken"),
+      ...(p.onderDruk.status === "beschikbaar"
         ? [
+            ...uit(conflict, "drukverloop"),
             {
-              soort: "tabel",
+              soort: "tabel" as const,
               kop: [t("rapport.coach.druk.situatie"), t("rapport.coach.druk.opties"), t("rapport.coach.druk.meest"), t("rapport.coach.druk.minst"), t("rapport.coach.druk.tijd")],
               rijen: p.onderDruk.keuzes.map((x) => [
                 x.itemId,
@@ -541,7 +550,9 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
             },
             tekst("rapport.coach.druk.uitleg", undefined, "gedempt"),
           ]
-        : [tekst("rapport.druk.nietBeschikbaar")],
+        : [tekst("rapport.druk.nietBeschikbaar")]),
+      schaaluitleg(),
+    ],
   };
 
   const waarden: Sectie = {
@@ -550,8 +561,9 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     soort: "meting",
     toelichting: uitleg("waarden"),
     blokken: [
+      ...uit(drijfveren, "waardencirkel"),
       {
-        soort: "tabel",
+        soort: "tabel" as const,
         kop: [t("rapport.coach.waarden.waarde"), t("rapport.coach.waarden.keuzes"), t("rapport.coach.waarden.plaats")],
         rijen: m.waarden.rangorde.map((x) => [t(`rapport.waarde.${x.waarde}.vol`), x.keuzes, x.plaats]),
       },
@@ -606,7 +618,7 @@ export function maakRapport(p: Scoreprofiel, register: Itemregister): Rapport {
     toelichting: uitleg("verantwoording"),
     blokken: [
       {
-        soort: "tabel",
+        soort: "tabel" as const,
         kop: [t("rapport.coach.verantwoording.wat"), t("rapport.coach.verantwoording.waarde")],
         rijen: [
           [t("rapport.coach.verantwoording.afname"), p.afnameId],

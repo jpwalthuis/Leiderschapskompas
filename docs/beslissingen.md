@@ -59,3 +59,4 @@
 | 2026-10-26 | Coachrapport: leeswijzer bovenaan en per onderdeel een uitklapbare toelichting (wat het meet, theorie, hoe je het leest) | Wens eigenaar |
 | 2026-10-26 | Test op alle vertaalteksten tegen namen van bestaande instrumenten | Regel 8 gold alleen voor items; ook coachteksten noemen bronnen |
 | 2026-10-26 | Spoor achter balken lichter (eigen token), zodat beide grafiekkleuren er minstens 3:1 tegen halen | Regel 18 |
+| 2026-10-26 | Het coachrapport toont dezelfde diagrammen als het deelnemerrapport, steeds boven de tabel | Feedback eigenaar: in het coachrapport waren geen visuals te zien. Standaard: elk onderdeel met scores begint in beide rapporten met het diagram; tabellen zijn detail. Vastgelegd in een test |

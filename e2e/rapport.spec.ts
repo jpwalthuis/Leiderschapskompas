@@ -49,6 +49,10 @@ for (const schema of ["light", "dark"] as const) {
       for (const kop of ["Leeswijzer voor de coach", "Kompas: ratio, gevoel, intuïtie en realisme", "Kerngetallen", "Kwaliteit van de afname", "Gespreksvragen voor de debrief", "Bewijsniveaus", "Interpretatieregels", "Verantwoording"]) {
         await expect(page.getByRole("heading", { name: kop, exact: true })).toBeVisible();
       }
+      // Dezelfde diagrammen als de deelnemer, boven de tabellen.
+      for (const [sectie, diagram] of [["kerngetallen", ".diagram-positie"], ["kompas", ".diagram-kompas"], ["behoeften", ".diagram-balans"], ["druk", ".drukverloop"], ["waarden", ".waardencirkel"]]) {
+        await expect(page.locator(`[data-sectie="${sectie}"] ${diagram}`), sectie).toBeVisible();
+      }
       const bewijs = page.locator('[data-sectie="bewijs"]');
       await expect(bewijs.locator('tr[data-gebruik="duiding"]')).toContainText("Kaartenoefening");
       await expect(bewijs.locator('tr[data-gebruik="indicatie"]')).toContainText("Reflexindicatie");

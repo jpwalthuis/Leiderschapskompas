@@ -125,12 +125,14 @@ describe("regel 5: reflex alleen naast het zelfbeeld", () => {
     expect(b.balken.find((y) => y.reeks === "reflex")!.experimenteel).toBe(true);
   });
 
-  it("toont de reflex nergens anders als balk", () => {
-    const r = rapport();
-    for (const s of volledig(r)) {
-      if (s.id === "gerichtheid") continue;
-      for (const b of blokken(s, "balken")) expect(b.balken.some((y) => y.reeks === "reflex"), s.id).toBe(false);
+  it("toont de reflex alleen in hetzelfde blok als het zelfbeeld daadkracht", () => {
+    let gevonden = 0;
+    for (const s of volledig(rapport())) for (const b of blokken(s, "balken")) {
+      if (!b.balken.some((y) => y.reeks === "reflex")) continue;
+      gevonden++;
+      expect(b.balken.some((y) => y.reeks === "zelfbeeld" && y.label.sleutel === "rapport.label.agency"), s.id).toBe(true);
     }
+    expect(gevonden).toBeGreaterThan(0);
   });
 
   it("zonder tijdslimieten: geen reflexbalk en geen drukkeuzes, wel de melding niet beschikbaar", () => {
@@ -444,5 +446,31 @@ describe("uitleg voor de coach", () => {
       expect(s.toelichting, s.id).toBeTruthy();
       expect(vertaalTekst(s.toelichting!).length, s.id).toBeGreaterThan(150);
     }
+  });
+});
+
+describe("visuals ook in het coachrapport", () => {
+  const diagrammen = ["positie", "as", "balans", "kompas", "waardencirkel", "drukverloop", "balken"];
+
+  it("elk onderdeel met scores begint met een diagram, de tabel staat eronder", () => {
+    for (const id of ["kerngetallen", "behoeften", "kompas", "druk", "waarden"]) {
+      const s = sectie(rapport(), "coach", id);
+      const eerste = s.blokken.findIndex((b) => diagrammen.includes(b.soort));
+      expect(eerste, id).toBeGreaterThanOrEqual(0);
+      const tabel = s.blokken.findIndex((b) => b.soort === "tabel" || b.soort === "kerngetallen");
+      if (tabel >= 0) expect(eerste, id).toBeLessThan(tabel);
+    }
+  });
+
+  it("toont conflict in rust en onder druk samen", () => {
+    const s = sectie(rapport(), "coach", "druk");
+    expect(blokken(s, "balken")).toHaveLength(1);
+    expect(blokken(s, "drukverloop")).toHaveLength(1);
+  });
+
+  it("zonder tijdslimieten: wel conflict in rust, geen drukverloop", () => {
+    const s = sectie(rapport({ tijdslimieten: false }), "coach", "druk");
+    expect(blokken(s, "balken")).toHaveLength(1);
+    expect(blokken(s, "drukverloop")).toHaveLength(0);
   });
 });
