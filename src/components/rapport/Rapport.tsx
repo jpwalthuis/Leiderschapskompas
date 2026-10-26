@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from "react";
 import type { Itemregister } from "@/content/itemregister";
-import { Beeld } from "@/content/beelden";
+import { KaartBeeld } from "@/content/kaartfotos";
+import { As, Balans, Drukverloop, Kompas, Positie, Waardencirkel } from "./Diagrammen";
 import { vertaal } from "@/i18n";
 import { maakRapport, vertaalTekst, type Balk, type Blok, type Cel, type Sectie, type Tekst } from "@/rapport";
 import { scoor, type KaartInfo } from "@/scoring";
@@ -73,6 +74,12 @@ function SectieWeergave({ sectie }: { sectie: Sectie }) {
       {sectie.blokken.map((b, i) => (
         <BlokWeergave key={i} blok={b} />
       ))}
+      {sectie.toelichting && (
+        <details className="toelichting">
+          <summary>{vertaal("rapport.ui.toelichting")}</summary>
+          {vertaalTekst(sectie.toelichting).split("\n\n").map((alinea, i) => <p key={i}>{alinea}</p>)}
+        </details>
+      )}
     </section>
   );
 }
@@ -83,6 +90,32 @@ function BlokWeergave({ blok }: { blok: Blok }) {
       return <p className={blok.toon === "gedempt" ? "muted" : undefined}>{vertaalTekst(blok.tekst)}</p>;
     case "balken":
       return <Balken balken={blok.balken} />;
+    case "positie":
+      return <Positie blok={blok} />;
+    case "as":
+      return <As blok={blok} />;
+    case "balans":
+      return <Balans blok={blok} />;
+    case "kompas":
+      return <Kompas blok={blok} />;
+    case "waardencirkel":
+      return <Waardencirkel blok={blok} />;
+    case "drukverloop":
+      return <Drukverloop blok={blok} />;
+    case "betekenis":
+      return (
+        <aside className="betekenis">
+          <h3>{vertaal("rapport.ui.betekenis")}</h3>
+          {blok.alineas.map((a, i) => <p key={i}>{vertaalTekst(a)}</p>)}
+          {blok.vraag && (
+            <p className="betekenis-vraag">
+              <span className="eyebrow">{vertaal("rapport.ui.vraag")}</span>
+              <br />
+              {vertaalTekst(blok.vraag)}
+            </p>
+          )}
+        </aside>
+      );
     case "rangorde":
       return (
         <ol className="rangorde">
@@ -229,7 +262,7 @@ function KaartGroep({ titel, kaarten, soort }: { titel: string; kaarten: KaartIn
       <ol className="kaartrij" data-soort={soort}>
         {kaarten.map((k) => (
           <li key={k.id} className="minikaart" data-kaart={k.id}>
-            <span className="minikaart-beeld"><Beeld naam={k.beeld} /></span>
+            <span className="minikaart-beeld"><KaartBeeld beeld={k.beeld} omschrijving={k.omschrijving} /></span>
             <span>
               <b className="kaart-naam">{k.naam}</b>
               <br />

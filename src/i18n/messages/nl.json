@@ -178,16 +178,45 @@
         "indicatie": "indicatie",
         "duiding": "duiding"
       },
-      "afdrukken": "Afdrukken of opslaan als pdf"
+      "afdrukken": "Afdrukken of opslaan als pdf",
+      "betekenis": "Wat dit zou kunnen betekenen",
+      "vraag": "Om over na te denken",
+      "toelichting": "Wat betekent dit onderdeel?",
+      "positie": {
+        "x": "Verbinding",
+        "y": "Daadkracht",
+        "balans": "band van balans",
+        "jij": "jij",
+        "laag": "0",
+        "hoog": "100",
+        "uitleg": "Positie in het vlak: hoger is meer daadkracht, verder naar rechts meer verbinding."
+      },
+      "kompas": {
+        "uitleg": "Cirkel in vier delen; hoe groter het vlak, hoe hoger de score.",
+        "oordelen": "beslissen (ratio, gevoel)",
+        "waarnemen": "waarnemen (intuïtie, realisme)",
+        "ringen": "ringen: 25, 50, 75, 100"
+      },
+      "waardencirkel": {
+        "uitleg": "Waardencirkel: tegenover elkaar staan waarden die vaak botsen. Het getal is de plaats in jouw eigen rangorde.",
+        "plaats": "{plaats}e"
+      },
+      "drukverloop": {
+        "meest": "eerste reactie",
+        "minst": "minst waarschijnlijk",
+        "weg": "geen optie meer",
+        "uitleg": "Keuze per drukniveau"
+      },
+      "balans": {
+        "gefrustreerd": "gefrustreerd",
+        "vervuld": "vervuld"
+      }
     },
     "label": {
       "agency": "Daadkracht",
       "communion": "Verbinding",
       "reflex": "Reflex: daadkracht",
       "extraversie": "Extraversie",
-      "rationeel": "Ratio",
-      "ervaringsgericht": "Gevoel en intuïtie",
-      "openheid": "Intuïtief waarnemen",
       "autonomie": {
         "vervuld": "Autonomie: vervuld",
         "gefrustreerd": "Autonomie: gefrustreerd"
@@ -206,7 +235,11 @@
         "comp": "Compromis",
         "yield": "Toegeven",
         "avoid": "Vermijden"
-      }
+      },
+      "ratio": "Ratio",
+      "gevoel": "Gevoel",
+      "intuitie": "Intuïtie",
+      "realisme": "Realisme"
     },
     "stijl": {
       "forc": "forceren",
@@ -229,10 +262,6 @@
         "inZin": "verbondenheid"
       }
     },
-    "denkstijl": {
-      "rationeel": "ratio",
-      "ervaringsgericht": "gevoel en intuïtie"
-    },
     "groep": {
       "agentisch": "daadkracht",
       "communaal": "verbinding",
@@ -251,12 +280,12 @@
         "laag": "Je laadt vooral op in rust en tijd voor jezelf."
       },
       "waarde": "In je keuzes weegt dit het zwaarst: {waarde}.",
-      "denken": {
-        "beide": "Je gebruikt ratio en gevoel allebei volop.",
-        "rationeel": "Je leunt vooral op ratio: analyseren en beredeneren.",
-        "ervaring": "Je leunt vooral op gevoel en intuïtie.",
-        "geen": "Ratio en gevoel spelen allebei een gematigde rol in hoe je beslist."
-      }
+      "kompas": {
+        "evenwichtig": "Ratio, gevoel, intuïtie en realisme gebruik je ongeveer even sterk.",
+        "sterkste": "In hoe je kijkt en beslist, spreekt {delen} het sterkst."
+      },
+      "conflict": "Bij een meningsverschil kies je in rust het liefst voor {stijl}.",
+      "leeswijzer": "Hieronder lees je per onderdeel wat we zien en wat dat zou kunnen betekenen. Het is een vertrekpunt voor het gesprek met je coach, geen eindoordeel."
     },
     "gerichtheid": {
       "label": "Gerichtheid",
@@ -283,23 +312,13 @@
       "geenBron": "Geen van de drie behoeften is nu duidelijk een energiebron.",
       "lekken": "Energie lekt weg bij {behoeften}: daar voel je je in je werk geremd.",
       "geenLek": "Er is geen duidelijk energielek zichtbaar.",
-      "onderzoek": "Onderzoek laat zien dat vervulde behoeften samengaan met vitaliteit, en gefrustreerde behoeften met uitputting."
+      "onderzoek": "Onderzoek laat zien dat vervulde behoeften samengaan met vitaliteit, en gefrustreerde behoeften met uitputting.",
+      "behoeftenUitleg": "Per behoefte zie je twee kanten: hoe vervuld hij is (naar rechts) en hoe gefrustreerd (naar links). Dat zijn twee aparte metingen: je kunt allebei tegelijk ervaren."
     },
     "denken": {
-      "label": "Denken en waarnemen",
-      "titel": "Ratio, gevoel en intuïtie",
-      "uitleg": "Ratio en gevoel zijn geen tegenpolen: je kunt op allebei hoog of laag scoren. Ze worden daarom apart getoond.",
-      "combinatie": {
-        "beide": "Je gebruikt allebei volop: je beredeneert en je vertrouwt op je gevoel.",
-        "rationeel": "Je beslist vooral door te analyseren en te beredeneren.",
-        "ervaring": "Je beslist vooral op gevoel en intuïtie.",
-        "geen": "Geen van beide springt eruit."
-      },
-      "waarnemen": {
-        "hoog": "Je neemt vooral intuïtief waar: je ziet verbanden, mogelijkheden en nieuwe ideeën.",
-        "midden": "Je neemt zowel feitelijk als intuïtief waar.",
-        "laag": "Je neemt vooral feitelijk waar: je let op wat concreet en bewezen is."
-      }
+      "label": "Jouw kompas",
+      "titel": "Ratio, gevoel, intuïtie en realisme",
+      "uitleg": "Hoe kijk je naar de wereld, en hoe kom je tot een besluit? Ratio en gevoel gaan over beslissen, intuïtie en realisme over waarnemen. Het zijn vier aparte schalen, geen tegenpolen: je kunt op alle vier hoog of laag scoren. Hoe groter het vlak in de cirkel, hoe hoger de score."
     },
     "drijfveren": {
       "label": "Drijfveren",
@@ -344,7 +363,9 @@
       "keuze": "Toen de druk opliep en er opties wegvielen, koos je voor {stijl}.",
       "verschil": "Dat verschil is waardevol: het laat zien waar je op terugvalt als het spannend wordt.",
       "geenKeuze": "Onder de hoogste druk maakte je geen keuze binnen de tijd.",
-      "nietBeschikbaar": "Je hebt de test zonder tijdslimieten gemaakt. Daarom is er geen uitkomst voor conflict onder druk."
+      "nietBeschikbaar": "Je hebt de test zonder tijdslimieten gemaakt. Daarom is er geen uitkomst voor conflict onder druk.",
+      "verloopUitleg": "Per situatie zie je wat je als eerste zou doen (gevuld) en wat je het minst waarschijnlijk zou doen (open). Van links naar rechts liep de druk op en vielen er opties weg.",
+      "niveau": "Druk {niveau}"
     },
     "archetypen": {
       "titel": "Archetypische beelden",
@@ -364,7 +385,8 @@
       "prototype": "De vragen zijn nog niet getoetst in een pilot. Neem de uitkomsten als gespreksstof, niet als feit.",
       "reflex": "De reflexindicatie is experimenteel. Eén meting zegt weinig.",
       "archetypen": "De archetypische beelden zijn duiding en geen meting.",
-      "zonderTijd": "Je hebt de test zonder tijdslimieten gemaakt. De reflexindicatie en conflict onder druk tellen daarom niet mee."
+      "zonderTijd": "Je hebt de test zonder tijdslimieten gemaakt. De reflexindicatie en conflict onder druk tellen daarom niet mee.",
+      "momentopname": "Het is een momentopname. Hoe je nu in je werk zit, kleurt vooral de energie en de basisbehoeften; die kunnen veranderen als je situatie verandert."
     },
     "coach": {
       "kerngetallen": {
@@ -374,10 +396,11 @@
         "reflex": "Reflex agentisch, % van {aantal} geldige keuzes",
         "reactietijd": "Mediane reactietijd reflex (ms)",
         "extraversie": "Extraversie",
-        "rationeel": "Rationeel",
-        "ervaringsgericht": "Ervaringsgericht",
-        "openheid": "Openheid (intuïtief waarnemen)",
-        "balans": "Balans voor duiding (marge {marge})"
+        "balans": "Balans voor duiding (marge {marge})",
+        "ratio": "Ratio",
+        "gevoel": "Gevoel",
+        "intuitie": "Intuïtie",
+        "realisme": "Realisme"
       },
       "kwaliteit": {
         "titel": "Kwaliteit van de afname"
@@ -427,6 +450,26 @@
         "scoringsversie": "Scoringsversie",
         "itemset": "Itemset",
         "tijdslimieten": "Met tijdslimieten"
+      },
+      "leeswijzer": {
+        "titel": "Leeswijzer voor de coach",
+        "intro": "Dit rapport ondersteunt het debriefgesprek. Het geeft geen diagnose en geen oordeel. Het laat zien hoe de deelnemer zichzelf beschrijft, wat de deelnemer onder tijdsdruk koos, en welke beelden aanspraken.",
+        "opbouw": "Opbouw: eerst de kerngetallen en de kwaliteit van de afname (lees die vóór je iets interpreteert), dan de gespreksvragen, daarna per onderdeel de details. Het deelnemerrapport is ook zichtbaar; daarin staat de duiding in gewone taal.",
+        "schaal": "Scores: 0 tot 100 is de positie op de antwoordschaal, geen vergelijking met anderen. 75 betekent dat de deelnemer gemiddeld 'past goed bij mij' antwoordde, niet dat de deelnemer hoger scoort dan 75 procent van de mensen.",
+        "bewijs": "Bewijs: elk onderdeel heeft een bewijsniveau. Leun op de onderdelen met sterk bewijs; gebruik de experimentele en de duidende onderdelen alleen als ingang voor het gesprek.",
+        "duiding": "Duiding: de archetypen en de kaarten worden niet gemeten. Ze zijn gespreksstof, gekoppeld aan wat wel gemeten is.",
+        "gesprek": "Gesprek: verschillen zijn het interessantst. Tussen reflex en zelfbeeld, tussen rust en druk, tussen bovenste en onderste waarde, tussen gekozen kaart en gemeten balans. Vraag naar voorbeelden uit het werk.",
+        "grenzen": "Grenzen: de vragen zijn nog niet getoetst in een pilot. Gebruik het rapport niet voor selectie of beoordeling."
+      },
+      "kompas": {
+        "titel": "Kompas: ratio, gevoel, intuïtie en realisme",
+        "deel": "Deel",
+        "score": "Score",
+        "kolomAs": "As",
+        "assen": {
+          "oordelen": "oordelen (beslissen)",
+          "waarnemen": "waarnemen"
+        }
       }
     },
     "kwaliteit": {
@@ -444,10 +487,11 @@
       "drukVerschuiving": "Van {rust} in rust naar {druk} bij de hoogste druk. Vraag: wat gebeurt er bij jou op het moment dat de tijd op is?",
       "frustratie": "Frustratie {behoefte} ({waarde}). Vraag: waar in je werk merk je dit het sterkst, en wat kost het je?",
       "zorgTegengesteld": "Bij de twee keuzes over falen woog eenmaal het doel en eenmaal de mensen het zwaarst. Vraag: welke situatie maakt het verschil?",
-      "denkstijl": "Eén denkstijl springt eruit. Vraag: wanneer zou {stijl} je helpen, en wat houdt je tegen?",
       "kaarten": "De deelnemer koos {voorkeur} als meest aansprekend en {afwijzing} als minst aansprekend. Vraag: wat trekt je in de een, en wat stoort je aan de ander?",
       "kaartenBalans": "Geen van de gekozen kaarten past bij de gemeten balans ({groep}). Vraag: herken je je meer in het beeld dat je koos, of in wat je antwoorden laten zien?",
-      "consistent": "Het profiel is intern consistent. Vraag: welke van de archetypische beelden herken je, en welke juist niet?"
+      "consistent": "Het profiel is intern consistent. Vraag: welke van de archetypische beelden herken je, en welke juist niet?",
+      "kompas": "Sterkste deel: {sterk}; zwakste: {zwak}. Vraag: wanneer mis je {zwak} in je werk, en wie in je omgeving brengt dat in?",
+      "waarden": "Bovenaan {top}, onderaan {onder}: twee waarden die vaak botsen. Vraag: waar in je werk merk je die spanning?"
     },
     "kaarten": {
       "nietGedaan": "De kaartenoefening is niet gedaan."
@@ -458,13 +502,15 @@
       "extraversie": "Extraversie",
       "behoeften": "Basisbehoeften",
       "conflictInRust": "Conflict in rust",
-      "denkstijl": "Denkstijl",
-      "waarnemen": "Waarnemen",
       "waarden": "Waarden",
       "zorgBijFalen": "Zorg bij falen",
       "reflex": "Reflexindicatie",
       "onderDruk": "Conflict onder druk",
-      "kaarten": "Kaartenoefening"
+      "kaarten": "Kaartenoefening",
+      "ratio": "Ratio",
+      "gevoel": "Gevoel",
+      "intuitie": "Intuïtie",
+      "realisme": "Realisme"
     },
     "regel": {
       "schaal": "Alle scores zijn posities op de antwoordschaal (0 tot 100), geen normscores. Woorden: onder {laag} laag, {laag} tot en met {hoog} midden, boven {hoog} hoog.",
@@ -473,7 +519,189 @@
       "waarden": "Waarden zijn ipsatief tot Thurstonian IRT na de pilot: alleen de rangorde binnen de persoon is te interpreteren.",
       "balans": "De balans voor de duiding volgt uit agency min communion; binnen {marge} punten is in balans. Dit is duiding, geen meting.",
       "kaarten": "De kaartenoefening wordt nooit gescoord en nooit tussen personen of groepen vergeleken.",
-      "denkstijl": "Bij een verschil van {verschil} punten of meer tussen ratio en gevoel stelt het rapport een gespreksvraag."
+      "kompas": "Kompas: liggen de vier delen binnen {evenwicht} punten van elkaar, dan heet het profiel evenwichtig. Bij {verschil} punten of meer verschil tussen het sterkste en zwakste deel volgt een gespreksvraag."
+    },
+    "kompas": {
+      "inZin": {
+        "ratio": "ratio",
+        "gevoel": "gevoel",
+        "intuitie": "intuïtie",
+        "realisme": "realisme"
+      },
+      "betekent": {
+        "ratio": "Ratio ({waarde}): beslissen door te analyseren, af te wegen en te beredeneren.",
+        "gevoel": "Gevoel ({waarde}): beslissen op wat goed voelt, je eerste ingeving en je indruk van mensen.",
+        "intuitie": "Intuïtie ({waarde}): waarnemen in samenhang: het grote geheel, verbanden en wat er mogelijk is.",
+        "realisme": "Realisme ({waarde}): waarnemen wat concreet is: feiten, details en wat zich bewezen heeft."
+      }
+    },
+    "as": {
+      "rust": "Opladen in rust",
+      "contact": "Opladen in contact"
+    },
+    "betekenis": {
+      "balans": {
+        "agentisch": {
+          "zien": "Je beschrijft jezelf duidelijk meer vanuit daadkracht dan vanuit verbinding: je punt in het vlak ligt boven de band van balans.",
+          "kracht": "Dat past bij iemand die richting geeft, knopen doorhakt en zorgt dat er resultaat komt. Anderen weten bij jou waar ze aan toe zijn.",
+          "valkuil": "Onder druk kan de aandacht voor het doel de aandacht voor de mensen verdringen. Anderen kunnen je dan als hard of ongeduldig ervaren, ook als je dat niet zo bedoelt.",
+          "vraag": "Wanneer helpt jouw daadkracht het team, en wanneer zou een stap terug, luisteren of samen zoeken meer opleveren?"
+        },
+        "communaal": {
+          "zien": "Je beschrijft jezelf duidelijk meer vanuit verbinding dan vanuit daadkracht: je punt in het vlak ligt onder de band van balans.",
+          "kracht": "Dat past bij iemand die ziet wat mensen nodig hebben, vertrouwen opbouwt en een team bij elkaar houdt. Mensen voelen zich bij jou gehoord.",
+          "valkuil": "Het risico is dat je lastige besluiten uitstelt of je eigen standpunt te weinig inbrengt, om de relatie niet te belasten.",
+          "vraag": "In welke situatie zou je eerder je eigen koers mogen kiezen, ook als niet iedereen het meteen eens is?"
+        },
+        "geintegreerd": {
+          "zien": "Daadkracht en verbinding liggen bij jou dicht bij elkaar: je punt in het vlak ligt binnen de band van balans.",
+          "kracht": "Dat kan betekenen dat je goed kunt schakelen: doorpakken als het moet, en verbinden als dat nodig is.",
+          "valkuil": "Een gelijke score kan ook betekenen dat geen van beide er sterk uitspringt. Dan helpt het om te weten op welke kant je onder druk vanzelf terugvalt.",
+          "vraag": "Op welke kant val je terug als het spannend wordt: doorpakken of verbinden?"
+        }
+      },
+      "extraversie": {
+        "hoog": "Je laadt op in contact. Overleg, samenwerken en zichtbaar zijn kosten je weinig en geven je energie. Let erop dat er voor stillere collega's ook ruimte is om mee te denken.",
+        "midden": "Je kunt zowel met contact als met rust. Je energie hangt vooral af van de balans: te lang alleen of te lang in overleg kost je allebei iets.",
+        "laag": "Je laadt op in rust en tijd voor jezelf. Lange dagen vol overleg kunnen je uitputten, ook als je ze goed doet. Bewust tijd inplannen om na te denken helpt je scherp te blijven."
+      },
+      "bron": {
+        "autonomie": "Autonomie is een bron: je ervaart ruimte om zelf keuzes te maken en je werk op je eigen manier in te richten.",
+        "competentie": "Competentie is een bron: je ervaart dat je goed bent in wat je doet en dat je groeit.",
+        "verbondenheid": "Verbondenheid is een bron: je voelt je verbonden met de mensen met wie je werkt."
+      },
+      "lek": {
+        "autonomie": "Bij autonomie lekt energie weg: je voelt je mogelijk gecontroleerd of onder druk gezet om dingen te doen op een manier die niet de jouwe is. Dat kost meer energie dan het lijkt.",
+        "competentie": "Bij competentie lekt energie weg: je twijfelt mogelijk of je het goed doet, of je krijgt te weinig kans om te laten zien wat je kunt.",
+        "verbondenheid": "Bij verbondenheid lekt energie weg: je voelt je mogelijk buitengesloten of niet gezien door de mensen om je heen."
+      },
+      "energie": {
+        "vraag": "Wat in je huidige werk geeft je de meeste energie, en hoe zorg je dat daar ruimte voor blijft?",
+        "vraagLek": "Waar in je werk merk je het energielek het sterkst, en wat zou één kleine verandering kunnen zijn?"
+      },
+      "kompas": {
+        "evenwichtig": "De vier delen liggen dicht bij elkaar. Dat kan betekenen dat je flexibel tussen manieren van kijken en beslissen schakelt. Het kan ook betekenen dat geen van de vier er duidelijk uitspringt; dan is het interessant te ontdekken waar je onder druk vanzelf op leunt.",
+        "sterk": {
+          "ratio": "Ratio springt eruit. Je beslist het liefst onderbouwd en neemt de tijd om af te wegen. Dat geeft zorgvuldige besluiten; de keerzijde kan zijn dat je blijft analyseren als een snelle keuze nodig is.",
+          "gevoel": "Gevoel springt eruit. Je merkt snel wat een besluit met mensen doet en vertrouwt op je eerste ingeving. Dat maakt je besluiten menselijk; lastig wordt het als je ze aan anderen moet onderbouwen.",
+          "intuitie": "Intuïtie springt eruit. Je ziet snel het grote geheel, verbanden en mogelijkheden. Dat helpt bij visie en vernieuwing; de keerzijde kan zijn dat details of haalbaarheid aandacht tekortkomen.",
+          "realisme": "Realisme springt eruit. Je let op feiten, details en wat werkt. Dat maakt je betrouwbaar en praktisch; de keerzijde kan zijn dat nieuwe, nog onbewezen ideeën het bij jou lastig hebben."
+        },
+        "zwak": {
+          "ratio": "Ratio gebruik je het minst. Een tweede blik met cijfers of argumenten kan je besluiten sterker maken.",
+          "gevoel": "Gevoel gebruik je het minst. Even stilstaan bij wat een besluit met mensen doet, kan draagvlak opleveren.",
+          "intuitie": "Intuïtie gebruik je het minst. Af en toe uitzoomen naar het grote plaatje kan nieuwe kansen laten zien.",
+          "realisme": "Realisme gebruik je het minst. Een toets op feiten en haalbaarheid kan voorkomen dat goede ideeën stranden."
+        },
+        "beideWaarnemen": "Intuïtie en realisme scoren allebei hoog: je kunt het grote geheel en de details allebei zien. Dat is niet vanzelfsprekend.",
+        "beideOordelen": "Ratio en gevoel scoren allebei hoog: je weegt zowel argumenten als wat een besluit met mensen doet.",
+        "vraag": "In welke situatie zou het helpen om bewust je minst gebruikte deel in te zetten, of iemand erbij te vragen die daar sterk in is?"
+      },
+      "waarde": {
+        "OC": {
+          "top": "Bovenaan staat vrijheid en vernieuwing. Je wilt ruimte om nieuwe wegen te verkennen; te veel regels en routine kunnen je remmen.",
+          "onder": "Vrijheid en vernieuwing staat onderaan. Je kiest liever voor wat bekend en beproefd is dan voor vernieuwing om de vernieuwing."
+        },
+        "SE": {
+          "top": "Bovenaan staat invloed en resultaat. Je wilt dat je werk zichtbaar effect heeft en dat jij daar het verschil in maakt.",
+          "onder": "Invloed en resultaat staat onderaan. Persoonlijk succes en zichtbaarheid drijven je minder dan andere dingen."
+        },
+        "CO": {
+          "top": "Bovenaan staat zekerheid en structuur. Je hecht aan betrouwbaarheid, duidelijke afspraken en een stabiele basis.",
+          "onder": "Zekerheid en structuur staat onderaan. Je kunt goed met onzekerheid en verandering; vaste structuren voelen soms als een keurslijf."
+        },
+        "ST": {
+          "top": "Bovenaan staat bijdragen aan anderen. Je wilt dat je werk anderen en de samenleving echt verder helpt.",
+          "onder": "Bijdragen aan anderen staat onderaan. Dat betekent niet dat het je niets kan schelen, wel dat andere dingen in je keuzes vaker zwaarder wogen."
+        }
+      },
+      "waarden": {
+        "tegenpolen": "Je bovenste en onderste waarde staan in de waardencirkel tegenover elkaar. Dat zijn waarden die in de praktijk vaak botsen. Werk waarin de onderste waarde centraal staat, kan je dus meer kosten dan je verwacht.",
+        "cirkel": "In de waardencirkel staan waarden die vaak botsen tegenover elkaar, en waarden die goed samengaan naast elkaar.",
+        "vraag": "Waar in je werk komt je bovenste waarde goed tot zijn recht, en waar botst je werk ermee?"
+      },
+      "stijl": {
+        "forc": {
+          "kracht": "Forceren als voorkeur betekent: je komt op voor je standpunt en neemt een besluit als het moet. Dat helpt bij crises en als er snel duidelijkheid nodig is.",
+          "valkuil": "Als je het vaak inzet, kunnen anderen afhaken of hun mening voor zich houden."
+        },
+        "prob": {
+          "kracht": "Probleemoplossen als voorkeur betekent: je zoekt naar de belangen achter standpunten en naar een uitkomst waar iedereen achter staat. Dat bouwt vertrouwen en betere oplossingen.",
+          "valkuil": "Het kost tijd en energie; niet elk meningsverschil is die investering waard."
+        },
+        "comp": {
+          "kracht": "Compromis als voorkeur betekent: je zoekt een werkbaar midden en houdt de vaart erin. Dat helpt als beide kanten een punt hebben en er tijd dringt.",
+          "valkuil": "Het risico is dat niemand echt krijgt wat nodig is en het onderliggende probleem blijft."
+        },
+        "yield": {
+          "kracht": "Toegeven als voorkeur betekent: je laat de ander ruimte en spaart de relatie. Dat werkt goed als het voor de ander belangrijker is dan voor jou.",
+          "valkuil": "Als je het vaak doet, kunnen je eigen belangen en ideeën ondersneeuwen."
+        },
+        "avoid": {
+          "kracht": "Vermijden als voorkeur betekent: je kiest je momenten en laat iets rusten als het niet de moeite waard is of als gemoederen eerst moeten bekoelen.",
+          "valkuil": "Als belangrijke kwesties blijven liggen, kunnen ze groter worden."
+        }
+      },
+      "druk": {
+        "forc": "Onder de hoogste druk viel je terug op forceren: zelf het besluit nemen of je standpunt doordrukken. Veel mensen worden directiever als de tijd op is; de vraag is of dat bij jou bewust gebeurt.",
+        "prob": "Onder de hoogste druk bleef je zoeken naar een gezamenlijke oplossing. Dat is onder tijdsdruk niet vanzelfsprekend.",
+        "comp": "Onder de hoogste druk koos je voor een compromis: snel een werkbaar midden.",
+        "yield": "Onder de hoogste druk gaf je toe aan de ander. Mogelijk kies je onder druk voor de rust in de relatie boven je eigen standpunt.",
+        "avoid": "Onder de hoogste druk koos je ervoor de confrontatie te vermijden. Mogelijk trek je je onder druk terug om later te reageren.",
+        "zelfde": "Onder de hoogste druk bleef je bij de stijl die in rust ook je voorkeur heeft. Je gedrag is in dit opzicht stabiel."
+      },
+      "conflict": {
+        "vraag": "Herken je de stijl waarop je onder druk terugvalt? Wat helpt jou om op zo'n moment bewust te kiezen?"
+      },
+      "kaart": {
+        "strijder": {
+          "voorkeur": "Je voelt je aangetrokken tot de Strijder: doorzetten, discipline en het gevecht aangaan voor wat belangrijk is.",
+          "afwijzing": "Je voelt weinig voor de Strijder. Misschien zie je strijd vooral als iets dat te veel kost, of zoek je liever een andere weg dan de confrontatie."
+        },
+        "heerser": {
+          "voorkeur": "Je voelt je aangetrokken tot de Heerser: overzicht houden, verantwoordelijkheid nemen en orde scheppen.",
+          "afwijzing": "Je voelt weinig voor de Heerser. Misschien roept macht of controle bij jou weerstand op, of laat je regie liever aan anderen."
+        },
+        "ontdekker": {
+          "voorkeur": "Je voelt je aangetrokken tot de Ontdekker: vrijheid, nieuwe horizonnen en je eigen weg gaan.",
+          "afwijzing": "Je voelt weinig voor de Ontdekker. Misschien vind je houvast en verbondenheid belangrijker dan steeds iets nieuws."
+        },
+        "schepper": {
+          "voorkeur": "Je voelt je aangetrokken tot de Schepper: iets nieuws maken, verbeelding omzetten in iets tastbaars.",
+          "afwijzing": "Je voelt weinig voor de Schepper. Misschien geef je de voorkeur aan wat werkt boven wat nieuw is."
+        },
+        "zorggever": {
+          "voorkeur": "Je voelt je aangetrokken tot de Zorggever: er zijn voor een ander, steun bieden, iemand omhoog helpen.",
+          "afwijzing": "Je voelt weinig voor de Zorggever. Misschien is zorgen voor anderen voor jou te vanzelfsprekend geworden, of kost het je juist te veel."
+        },
+        "rebel": {
+          "voorkeur": "Je voelt je aangetrokken tot de Rebel: eigenzinnig, je niet neerleggen bij hoe het altijd ging, regels vernieuwen.",
+          "afwijzing": "Je voelt weinig voor de Rebel. Misschien hecht je aan wat werkt en vind je dat verandering binnen de bestaande kaders moet gebeuren."
+        },
+        "wijze": {
+          "voorkeur": "Je voelt je aangetrokken tot de Wijze: begrijpen, reflecteren en kennis delen.",
+          "afwijzing": "Je voelt weinig voor de Wijze. Misschien kies je liever voor doen dan voor nadenken, of vind je beschouwen te afstandelijk."
+        },
+        "nar": {
+          "voorkeur": "Je voelt je aangetrokken tot de Nar: lichtheid, humor en het vermogen om dingen te relativeren.",
+          "afwijzing": "Je voelt weinig voor de Nar. Misschien vind je dat ernstige zaken ernst verdienen, of ervaar je humor op het werk als ongemakkelijk."
+        },
+        "schaduw": "In de traditie van Jung zegt een beeld dat je afwijst soms net zoveel als een beeld dat je kiest: wat ons sterk tegenstaat, raakt vaak iets wat we bij onszelf niet zo graag zien of nog niet ontwikkeld hebben. Dat is een uitnodiging tot gesprek, geen conclusie.",
+        "vraag": "Wat trekt je in de kaart die je het eerst koos? En wat zegt het je dat je de andere juist afwees?"
+      }
+    },
+    "toelichting": {
+      "kerngetallen": "Wat het is: de belangrijkste schaalscores op één plek.\n\nAgency en communion zijn de twee basisdimensies uit de sociale psychologie (Bakan; Abele en Wojciszke): daadkracht en verbinding. Ze zijn de onderbouwde vorm van wat soms masculiene en feminiene kracht heet, en staan los van geslacht. Ze zijn onafhankelijk: iemand kan op beide hoog scoren.\n\nDe reflex agentisch is het percentage snelle beeldkeuzes voor het agentische beeld. Experimenteel: lees het alleen naast de zelfbeeldscore voor agency. Extraversie komt uit de Big Five. Ratio, gevoel, intuïtie en realisme vormen het kompas.\n\nHoe je het leest: kijk eerst naar opvallende verschillen, niet naar losse getallen.",
+      "kwaliteit": "Wat het is: signalen dat de antwoorden minder goed te interpreteren zijn.\n\nTime-outs betekenen dat er bij een getimede vraag geen keuze kwam. Reacties onder 300 ms zijn waarschijnlijk niet bekeken. Een rechtlijnig patroon (overal hetzelfde antwoord) wijst op weinig betrokkenheid. Onderbroken betekent dat de deelnemer de app verliet terwijl een vraag openstond.\n\nHoe je het leest: bij meerdere signalen bespreek je eerst hoe de afname verliep, en ben je terughoudend met conclusies over de betrokken onderdelen.",
+      "gespreksvragen": "Wat het is: vragen die het rapport voorstelt op basis van verschillen en opvallende scores.\n\nDe vragen volgen vaste regels (zie Interpretatieregels). Ze zijn bedoeld als opening, niet als script. Begin bij wat de deelnemer zelf herkent.\n\nHoe je het gebruikt: kies er twee of drie die passen bij de vraag waarmee de deelnemer bij je komt.",
+      "behoeften": "Wat het is: de drie psychologische basisbehoeften uit de zelfdeterminatietheorie (Deci en Ryan): autonomie, competentie en verbondenheid.\n\nBevrediging en frustratie zijn apart gemeten (Chen e.a., 2015). Ze zijn geen tegenpolen: iemand kan veel autonomie ervaren en zich tegelijk ergens gecontroleerd voelen. Bevrediging gaat samen met vitaliteit en motivatie; frustratie voorspelt uitputting en afhaken beter dan een lage bevrediging.\n\nHoe je het leest: een hoge frustratie is het belangrijkste signaal. Vraag naar concrete situaties in het huidige werk. Dit onderdeel is sterk situatieafhankelijk.",
+      "kompas": "Wat het is: vier manieren van kijken en beslissen, geïnspireerd op Jungs vier functies, gemeten als vier aparte schalen.\n\nRatio en gevoel gaan over beslissen. Ze komen uit de Rational-Experiential Inventory (Pacini en Epstein), in Nederland gevalideerd door Witteman e.a.: twee onafhankelijke denkstijlen. Intuïtie en realisme gaan over waarnemen. Intuïtie is holistisch waarnemen, het grote geheel en verbanden zien (Pretz e.a., 2014). Realisme is concreet en feitelijk waarnemen.\n\nAnders dan in typologieën is niemand een type: het zijn vier schalen. Realisme als losse schaal is minder onderbouwd (bewijsniveau matig); de pilot toetst of intuïtie en realisme als twee schalen standhouden.\n\nHoe je het leest: kijk naar het sterkste en zwakste deel en vraag naar voorbeelden.",
+      "druk": "Wat het is: vier conflictsituaties met oplopende tijdsdruk en steeds minder opties. Gebaseerd op het dual-concernmodel van conflicthantering: zorg voor het eigen belang en zorg voor dat van de ander (Blake en Mouton; De Dreu e.a.).\n\nDe eerste keuze is getimed: wat doet iemand werkelijk in het eerste moment? De minst waarschijnlijke keuze kwam zonder tijdsdruk. Het verschil met de voorkeur in rust laat zien waarop iemand terugvalt.\n\nHoe je het leest: één keuze per situatie is weinig; zie het als illustratie, niet als score. Zonder tijdslimieten vervalt dit onderdeel.",
+      "waarden": "Wat het is: de vier hogere-orde waarden uit de waardentheorie van Schwartz: openheid voor verandering, zelfverheffing, behoud en zelfoverstijging.\n\nDe deelnemer koos steeds tussen twee waarden (gedwongen keuze). Daardoor is alleen de rangorde binnen de persoon te interpreteren (ipsatief), niet de sterkte en niet de vergelijking met anderen. Dat verandert pas met Thurstonian IRT na de pilot.\n\nHoe je het leest: waarden die in de cirkel tegenover elkaar staan, botsen vaak. Spanning tussen de bovenste waarde en het werk is een vruchtbaar gespreksonderwerp.",
+      "kaarten": "Wat het is: een reflectieoefening. De deelnemer koos uit acht kaarten met archetypische beelden twee die aanspreken en twee die afstoten.\n\nArchetypen komen van Jung. Hun empirische basis is omstreden; daarom wordt dit niet gescoord en niet vergeleken. In de Jungiaanse traditie zegt afwijzing soms evenveel als voorkeur.\n\nHoe je het gebruikt: vraag wat de deelnemer in het beeld ziet en waarom. Vergelijk met de gemeten balans tussen daadkracht en verbinding, en vraag naar herkenning, niet naar bevestiging.",
+      "bewijs": "Wat het is: per onderdeel hoe goed het onderbouwd is, op drie niveaus.\n\nConstruct: is het begrip zelf goed onderzocht? Methode: is deze manier van meten onderbouwd (zelfrapportage is dat; snelle beeldkeuze nog niet)? Items: de vragen zelf; die zijn allemaal nieuw tot de pilot ze toetst.\n\nGebruik: meting is gescoord; indicatie is gescoord maar met een experimentele methode; duiding wordt nooit gescoord.",
+      "regels": "Wat het is: de vaste regels waarmee het rapport woorden aan scores koppelt en gespreksvragen kiest.\n\nDe drempels zijn bewust eenvoudig en voor iedereen gelijk. Ze zijn geen normen. Na de pilot worden ze herzien op basis van echte gegevens.",
+      "verantwoording": "Wat het is: de technische gegevens waarmee dit rapport later opnieuw te berekenen is.\n\nDe scoringsversie zegt met welke rekenregels de scores zijn berekend; de itemset met welke versie van de vragen. Bij een nieuwe scoringsversie kan een oude afname opnieuw worden doorgerekend.\n\nHoe je het gebruikt: noem deze gegevens als je een vraag over een uitkomst hebt."
     }
   }
 }

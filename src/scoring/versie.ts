@@ -6,5 +6,6 @@
  * 1.1.0: itembank v2: schalen denkstijl (rationeel, ervaringsgericht) en waarnemen (openheid); bij conflict onder druk
  *        ook de minst waarschijnlijke reactie. Rekenregels per schaal ongewijzigd.
  * 1.2.0: kaartenoefening (fase 4) als duiding doorgegeven; metingen ongewijzigd.
+ * 1.3.0: itembank v3: vier delen ratio, gevoel, intuïtie en realisme; de schaal openheid is opgesplitst in intuïtie en realisme.
  */
-export const SCORINGSVERSIE = "1.2.0";
+export const SCORINGSVERSIE = "1.3.0";

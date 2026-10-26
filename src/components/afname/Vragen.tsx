@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Item } from "@/content/itemregister";
 import { Beeld } from "@/content/beelden";
+import { KaartBeeld } from "@/content/kaartfotos";
 import { vertaal } from "@/i18n";
 import { useKlok } from "./klok";
 
@@ -282,7 +283,7 @@ export function Kaartsortering({ item, volgorde, onKeuze }: Omit<VraagProps, "li
               onClick={() => { if (plek < 0 && !klaar) setKeuzes((v) => [...v, id]); }}
             >
               {badge && <span className="kaart-badge" aria-hidden="true">{vertaal(`afname.kaarten.badge.${badge}`)}</span>}
-              <span className="kaart-beeld"><Beeld naam={k.beeld} /></span>
+              <span className="kaart-beeld"><KaartBeeld beeld={k.beeld} omschrijving={k.omschrijving} /></span>
               <span className="kaart-naam">{k.naam}</span>
               <span className="kaart-kwaliteit"><span>{vertaal("afname.kaarten.binnen")}</span> {k.binnen}</span>
               <span className="kaart-kwaliteit"><span>{vertaal("afname.kaarten.buiten")}</span> {k.buiten}</span>

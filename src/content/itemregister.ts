@@ -41,6 +41,8 @@ export interface Kaart {
   buiten: string;
   /** Alleen voor de duiding naast de gemeten balans; nooit gescoord. */
   pool: "agentisch" | "communaal" | "geintegreerd";
+  /** Beschrijving van het beeld voor schermlezers. */
+  omschrijving?: string;
 }
 
 export const KAARTSTAPPEN = ["voorkeur", "voorkeur", "afwijzing", "afwijzing"] as const;
@@ -215,7 +217,7 @@ function formaatFouten(item: Item): string[] {
       if (new Set(kaarten.map((k) => k.id)).size !== kaarten.length) m.push("Kaart-id's moeten uniek zijn.");
       if (new Set(kaarten.map((k) => k.beeld)).size !== kaarten.length) m.push("Elke kaart heeft een eigen beeld.");
       for (const k of kaarten) {
-        if ([k.id, k.naam, k.beeld, k.binnen, k.buiten].some(leeg)) m.push(`Kaart "${k.id}" is onvolledig.`);
+        if ([k.id, k.naam, k.beeld, k.binnen, k.buiten, k.omschrijving].some(leeg)) m.push(`Kaart "${k.id}" is onvolledig.`);
         if (!["agentisch", "communaal", "geintegreerd"].includes(k.pool)) m.push(`Kaart "${k.id}" heeft een onbekende pool.`);
       }
       if (JSON.stringify(item.stappen) !== JSON.stringify(KAARTSTAPPEN)) m.push("Stappen moeten twee voorkeuren en twee afwijzingen zijn.");

@@ -1,6 +1,6 @@
 /**
- * Abstracte beelden voor de reflexmeting (fase 1), de oefenronde en de kaartenoefening (fase 4).
- * Eigen ontwerp, geen licentie nodig; niet afgeleid van bestaande kaartspellen of instrumenten.
+ * Abstracte beelden voor de reflexmeting (fase 1) en de oefenronde. Eigen ontwerp, geen licentie nodig.
+ * De kaartenoefening (fase 4) gebruikt foto's: zie kaartfotos.ts.
  * Placeholder tot de definitieve beelden zijn ontworpen en in de pilot getest (zie bouwplan, "Buiten de code").
  */
 import type { ReactElement } from "react";
@@ -88,56 +88,6 @@ const BEELDEN = {
   ),
   cirkel: <circle cx="60" cy="46" r="28" {...lijn} strokeWidth={2.5} />,
   vierkant: <rect x="34" y="20" width="52" height="52" {...lijn} strokeWidth={2.5} />,
-  // Kaartenoefening (fase 4)
-  "k-schild": (
-    <g {...lijn} strokeWidth={2.5} strokeLinejoin="round">
-      <path d="M60 12 L88 22 V46 C88 64 74 76 60 82 C46 76 32 64 32 46 V22 Z" />
-      <path d="M60 26 V68 M46 44 H74" />
-    </g>
-  ),
-  "k-kroon": (
-    <g {...lijn} strokeWidth={2.5} strokeLinejoin="round">
-      <path d="M28 66 L24 30 L44 46 L60 22 L76 46 L96 30 L92 66 Z" />
-      <path d="M30 76 H90" />
-    </g>
-  ),
-  "k-kompas": (
-    <g {...lijn} strokeWidth={2.5} strokeLinejoin="round">
-      <circle cx="60" cy="46" r="32" />
-      <path d="M60 20 L68 46 L60 72 L52 46 Z" />
-      <circle cx="60" cy="46" r="3" fill="currentColor" />
-    </g>
-  ),
-  "k-vonk": (
-    <g {...lijn} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M60 14 L66 40 L92 46 L66 52 L60 78 L54 52 L28 46 L54 40 Z" />
-      <path d="M88 18 L84 26 M32 18 L36 26 M88 74 L84 66 M32 74 L36 66" />
-    </g>
-  ),
-  "k-handen": (
-    <g {...lijn} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 52 C30 52 38 66 60 66 C82 66 90 52 102 52" />
-      <path d="M26 64 C40 76 80 76 94 64" />
-      <circle cx="60" cy="40" r="12" />
-    </g>
-  ),
-  "k-ringen": (
-    <g {...lijn} strokeWidth={2.5}>
-      <circle cx="44" cy="38" r="18" /><circle cx="76" cy="38" r="18" /><circle cx="60" cy="62" r="18" />
-    </g>
-  ),
-  "k-lamp": (
-    <g {...lijn} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M48 62 C40 54 36 46 36 38 C36 24 46 14 60 14 C74 14 84 24 84 38 C84 46 80 54 72 62 Z" />
-      <path d="M50 70 H70 M53 78 H67" />
-      <path d="M60 30 V48" />
-    </g>
-  ),
-  "k-spiraal": (
-    <g {...lijn} strokeWidth={2.5} strokeLinecap="round">
-      <path d="M60 46 C60 42 66 42 66 46 C66 54 52 54 52 46 C52 34 74 34 74 46 C74 62 44 62 44 46 C44 26 82 26 82 46 C82 70 36 72 34 46" />
-    </g>
-  ),
 } satisfies Record<string, ReactElement>;
 
 export type BeeldNaam = keyof typeof BEELDEN;

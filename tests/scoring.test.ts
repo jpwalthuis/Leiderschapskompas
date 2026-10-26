@@ -266,26 +266,39 @@ describe("herberekenbaarheid (regel 10)", () => {
   });
 });
 
-describe("itembank v2: nieuwe schalen", () => {
+describe("itembank v3: vier delen ratio, gevoel, intuïtie en realisme", () => {
   const extra = {
-    T1: "5", T2: "4", T3: "5", T4: "1", // rationeel hoog (T4 omgekeerd → 5)
-    T5: "2", T6: "1", T7: "2", T8: "5", // ervaringsgericht laag (T8 omgekeerd → 1)
-    O1: "4", O2: "4", O3: "2", O4: "2", // openheid: (4+4+4+4)/4 = 4 → 75
+    T1: "5", T2: "4", T3: "5", T4: "1", // ratio hoog (T4 omgekeerd → 5)
+    T5: "2", T6: "1", T7: "2", T8: "5", // gevoel laag (T8 omgekeerd → 1)
+    O1: "4", O2: "4", O5: "5", O7: "2", // intuïtie: (4+4+5+4)/4 = 4,25 → 81
+    O3: "4", O4: "5", O6: "4", O8: "1", // realisme: (4+5+4+5)/4 = 4,5 → 88
   };
   const p = scoor(afnameMet({ ...VOORBEELD, ...extra }), reg);
 
-  it("denkstijl: rationeel en ervaringsgericht als twee aparte schalen", () => {
-    expect(p.metingen.denkstijl.rationeel.waarde).toBe(94); // (5+4+5+5)/4 = 4,75 → 93,75 → 94
-    expect(p.metingen.denkstijl.ervaringsgericht.waarde).toBe(13); // (2+1+2+1)/4 = 1,5 → 12,5 → 13
+  it("ratio en gevoel als twee aparte schalen", () => {
+    expect(p.metingen.denkstijl.ratio.waarde).toBe(94); // (5+4+5+5)/4 = 4,75 → 93,75 → 94
+    expect(p.metingen.denkstijl.gevoel.waarde).toBe(13); // (2+1+2+1)/4 = 1,5 → 12,5 → 13
   });
 
-  it("waarnemen: openheid, hoog = intuïtief, laag = feitelijk", () => {
-    expect(p.metingen.waarnemen.openheid.waarde).toBe(75);
+  it("intuïtie en realisme als twee aparte schalen: beide kunnen hoog zijn", () => {
+    expect(p.metingen.waarnemen.intuitie.waarde).toBe(81);
+    expect(p.metingen.waarnemen.realisme.waarde).toBe(88);
   });
 
-  it("nieuwe schalen zijn ook posities op de antwoordschaal (regel 6)", () => {
-    expect(p.metingen.denkstijl.rationeel.betekenis).toBe("positie-op-antwoordschaal");
-    expect(p.metingen.waarnemen.openheid.betekenis).toBe("positie-op-antwoordschaal");
+  it("elk deel telt vier stellingen", () => {
+    for (const s of [p.metingen.denkstijl.ratio, p.metingen.denkstijl.gevoel, p.metingen.waarnemen.intuitie, p.metingen.waarnemen.realisme]) {
+      expect(s.nItems).toBe(4);
+    }
+  });
+
+  it("de vier delen zijn posities op de antwoordschaal (regel 6)", () => {
+    for (const s of [p.metingen.denkstijl.ratio, p.metingen.denkstijl.gevoel, p.metingen.waarnemen.intuitie, p.metingen.waarnemen.realisme]) {
+      expect(s.betekenis).toBe("positie-op-antwoordschaal");
+    }
+  });
+
+  it("de oude schaal openheid bestaat niet meer", () => {
+    expect(p.metingen.waarnemen).not.toHaveProperty("openheid");
   });
 });
 

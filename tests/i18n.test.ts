@@ -23,3 +23,14 @@ describe("teksten volgen het itemregister", () => {
     expect(vertaal("afname.intro.1.tekst", { seconden: s! })).toContain(`${s} seconden`);
   });
 });
+
+describe("regel 8 in alle teksten", () => {
+  it("geen enkele vertaaltekst noemt een bestaand instrument", async () => {
+    const { default: nl } = await import("@/i18n/messages/nl.json");
+    const { verbodenTerm } = await import("@/content/itemregister");
+    const alle: string[] = [];
+    const loop = (x: unknown) => (typeof x === "string" ? alle.push(x) : x && typeof x === "object" && Object.values(x).forEach(loop));
+    loop(nl);
+    expect(alle.map(verbodenTerm).filter(Boolean)).toEqual([]);
+  });
+});

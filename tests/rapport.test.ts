@@ -57,7 +57,7 @@ describe("opbouw", () => {
 
   it("bevat voor de coach daarnaast kerngetallen, kwaliteit, gespreksvragen en bewijsniveaus", () => {
     expect(r.coach.map((s) => s.id)).toEqual([
-      "kerngetallen", "kwaliteit", "gespreksvragen", "behoeften", "druk", "waarden", "kaarten", "bewijs", "regels", "verantwoording",
+      "leeswijzer", "kerngetallen", "kwaliteit", "gespreksvragen", "behoeften", "kompas", "druk", "waarden", "kaarten", "bewijs", "regels", "verantwoording",
     ]);
   });
 
@@ -77,9 +77,22 @@ describe("opbouw", () => {
 });
 
 describe("regel 6: scores zijn posities op de antwoordschaal", () => {
-  it("elk onderdeel met balken legt uit dat 0 tot 100 de positie op de antwoordschaal is", () => {
+  it("elk onderdeel met een schaalweergave legt uit dat 0 tot 100 de positie op de antwoordschaal is", () => {
+    const schaalblokken = ["balken", "positie", "as", "balans", "kompas", "kerngetallen", "tabel"] as const;
     for (const s of volledig(rapport())) {
-      if (blokken(s, "balken").length) expect(sleutels([s]), s.id).toContain("rapport.schaaluitleg");
+      const heeftScores = s.soort === "meting" && s.blokken.some((b) => (schaalblokken as readonly string[]).includes(b.soort));
+      const heeftVisual = s.blokken.some((b) => ["balken", "positie", "as", "balans", "kompas"].includes(b.soort));
+      if (heeftVisual || (heeftScores && s.id !== "druk" && s.id !== "waarden")) expect(sleutels([s]), s.id).toContain("rapport.schaaluitleg");
+    }
+  });
+
+  it("alle waarden in het kompas, de positie, de as en de balans liggen tussen 0 en 100", () => {
+    const binnen = (v: number | null) => v === null || (v >= 0 && v <= 100);
+    for (const s of volledig(rapport())) for (const b of s.blokken) {
+      if (b.soort === "kompas") b.delen.forEach((d) => expect(binnen(d.waarde)).toBe(true));
+      if (b.soort === "positie") expect(binnen(b.agency) && binnen(b.communion)).toBe(true);
+      if (b.soort === "as") expect(binnen(b.waarde)).toBe(true);
+      if (b.soort === "balans") b.rijen.forEach((r) => expect(binnen(r.vervuld) && binnen(r.gefrustreerd)).toBe(true));
     }
   });
 
@@ -180,7 +193,7 @@ describe("regel 3: archetypen als duiding, niet als meting", () => {
     const s = sectie(rapport(), "deelnemer", "archetypen");
     const t = teksten([s]).find((x) => x.sleutel.startsWith("rapport.archetypen.balans."))!;
     expect(t.sleutel).toBe("rapport.archetypen.balans.agentisch");
-    expect(vertaalTekst(t)).toContain("Strijder, Heerser, Ontdekker en Schepper");
+    expect(vertaalTekst(t)).toContain("Strijder, Heerser, Ontdekker, Schepper en Rebel");
   });
 
   it("zonder kaartenoefening: alleen de balans, en de melding dat de oefening niet is gedaan", () => {
@@ -200,7 +213,7 @@ describe("bewijsniveaus in het coachrapport", () => {
 
   it("heeft een rij per onderdeel", () => {
     expect(rijen().map((r) => r.onderdeel.sleutel.split(".").at(-1))).toEqual([
-      "agency", "communion", "extraversie", "behoeften", "conflictInRust", "denkstijl", "waarnemen", "waarden", "zorgBijFalen", "reflex", "onderDruk", "kaarten",
+      "agency", "communion", "extraversie", "behoeften", "conflictInRust", "ratio", "gevoel", "intuitie", "realisme", "waarden", "zorgBijFalen", "reflex", "onderDruk", "kaarten",
     ]);
   });
 
@@ -209,6 +222,8 @@ describe("bewijsniveaus in het coachrapport", () => {
     expect(rij("reflex")).toMatchObject({ methode: "experimenteel", gebruik: "indicatie" });
     expect(rij("waarden")).toMatchObject({ methode: "matig", gebruik: "meting" });
     expect(rij("kaarten")).toMatchObject({ construct: "experimenteel", gebruik: "duiding" });
+    expect(rij("realisme")).toMatchObject({ construct: "matig", gebruik: "meting" });
+    expect(rij("intuitie")).toMatchObject({ construct: "sterk", gebruik: "meting" });
   });
 
   it("noemt het aantal items per onderdeel", () => {
@@ -269,6 +284,14 @@ describe("gespreksvragen voor de coach", () => {
     expect(vragen()).not.toContain("rapport.vraag.reflex");
   });
 
+  it("vraagt naar een groot verschil tussen delen van het kompas", () => {
+    expect(vragen()).toContain("rapport.vraag.kompas"); // 75 tegenover 25
+  });
+
+  it("vraagt naar botsende waarden bovenaan en onderaan", () => {
+    expect(vragen()).toContain("rapport.vraag.waarden"); // vrijheid boven, zekerheid onder
+  });
+
   it("stelt geen drukvraag zonder tijdslimieten", () => {
     expect(vragen({ tijdslimieten: false })).not.toContain("rapport.vraag.drukVerschuiving");
   });
@@ -302,8 +325,7 @@ describe("samenvatting en duiding van de deelnemer", () => {
   it("geeft geen onderdeel een waarde als de schaal ontbreekt", () => {
     const leeg = Object.fromEntries(reg.items.filter((i) => i.subschaal === "extra").map((i) => [i.id, null]));
     const r = rapport({ overschrijf: leeg });
-    const balk = blokken(sectie(r, "deelnemer", "energie"), "balken")[0].balken.find((b) => b.label.sleutel === "rapport.label.extraversie")!;
-    expect(balk.waarde).toBeNull();
+    expect(blokken(sectie(r, "deelnemer", "energie"), "as")[0].waarde).toBeNull();
     expect(sleutels([sectie(r, "deelnemer", "samenvatting")])).not.toContain("rapport.samenvatting.energie.hoog");
   });
 });
@@ -312,5 +334,115 @@ describe("puur (regel 20)", () => {
   it("geeft bij hetzelfde profiel altijd hetzelfde rapport", () => {
     const p: Scoreprofiel = profiel();
     expect(maakRapport(p, reg)).toEqual(maakRapport(structuredClone(p), reg));
+  });
+});
+
+describe("kompas: ratio, gevoel, intuïtie en realisme", () => {
+  const kompas = (opts: Parameters<typeof voorbeeldAfname>[1] = {}) => blokken(sectie(rapport(opts), "deelnemer", "denken"), "kompas")[0];
+
+  it("toont de vier delen in vaste volgorde, met de klok mee vanaf boven", () => {
+    expect(kompas().delen.map((d) => d.deel)).toEqual(["ratio", "intuitie", "gevoel", "realisme"]);
+  });
+
+  it("gebruikt de scores uit de scoring, ongewijzigd", () => {
+    const p = profiel();
+    const w = Object.fromEntries(kompas().delen.map((d) => [d.deel, d.waarde]));
+    expect(w).toEqual({ ratio: p.metingen.denkstijl.ratio.waarde, gevoel: p.metingen.denkstijl.gevoel.waarde, intuitie: p.metingen.waarnemen.intuitie.waarde, realisme: p.metingen.waarnemen.realisme.waarde });
+    expect(w).toEqual({ ratio: 75, gevoel: 50, intuitie: 75, realisme: 25 });
+  });
+
+  it("benoemt de sterkste en zwakste delen", () => {
+    const s = sleutels([sectie(rapport(), "deelnemer", "denken")]);
+    expect(s).toEqual(expect.arrayContaining(["rapport.betekenis.kompas.sterk.ratio", "rapport.betekenis.kompas.sterk.intuitie", "rapport.betekenis.kompas.zwak.realisme"]));
+  });
+
+  it("noemt een profiel evenwichtig als alle delen dicht bij elkaar liggen", () => {
+    const drie = Object.fromEntries(reg.items.filter((i) => ["rationeel", "ervaringsgericht", "intuitie", "realisme"].includes(i.subschaal ?? "")).map((i) => [i.id, "3"]));
+    const s = sleutels([sectie(rapport({ overschrijf: drie }), "deelnemer", "denken")]);
+    expect(s).toContain("rapport.betekenis.kompas.evenwichtig");
+    expect(s.some((x) => x.startsWith("rapport.betekenis.kompas.sterk."))).toBe(false);
+  });
+});
+
+describe("visuals in het deelnemerrapport", () => {
+  const r = rapport();
+
+  it("daadkracht en verbinding als positie in een vlak, met de balansmarge", () => {
+    const b = blokken(sectie(r, "deelnemer", "gerichtheid"), "positie")[0];
+    expect(b).toMatchObject({ agency: 75, communion: 50, marge: 12 });
+  });
+
+  it("extraversie als as tussen rust en contact", () => {
+    expect(blokken(sectie(r, "deelnemer", "energie"), "as")[0]).toMatchObject({ waarde: 75, links: { sleutel: "rapport.as.rust" }, rechts: { sleutel: "rapport.as.contact" } });
+  });
+
+  it("basisbehoeften als balans van vervuld en gefrustreerd", () => {
+    const b = blokken(sectie(r, "deelnemer", "energie"), "balans")[0];
+    expect(b.rijen.map((x) => [x.vervuld, x.gefrustreerd])).toEqual([[75, 75], [75, 25], [50, 25]]);
+  });
+
+  it("regel 7: de waardencirkel bevat alleen plaatsen, geen sterkte", () => {
+    const b = blokken(sectie(r, "deelnemer", "drijfveren"), "waardencirkel")[0];
+    expect(b.waarden.map((w) => w.code)).toEqual(["OC", "SE", "CO", "ST"]);
+    expect(b.waarden.map((w) => w.plaats)).toEqual([1, 2, 4, 3]);
+    for (const w of b.waarden) expect(Object.keys(w).sort()).toEqual(["code", "label", "plaats"]);
+  });
+
+  it("conflict onder druk als verloop over vier niveaus, met de opties die er nog waren", () => {
+    const b = blokken(sectie(r, "deelnemer", "conflict"), "drukverloop")[0];
+    expect(b.kolommen.map((k) => [k.meest, k.minst, k.opties.length])).toEqual([["prob", "avoid", 5], ["prob", "forc", 5], ["forc", "avoid", 4], ["forc", "yield", 3]]);
+  });
+
+  it("zonder tijdslimieten geen drukverloop", () => {
+    expect(blokken(sectie(rapport({ tijdslimieten: false }), "deelnemer", "conflict"), "drukverloop")).toHaveLength(0);
+  });
+
+  it("de reflex staat niet in de positie (regel 5)", () => {
+    expect(Object.keys(blokken(sectie(r, "deelnemer", "gerichtheid"), "positie")[0]).sort()).toEqual(["agency", "communion", "marge", "soort"]);
+  });
+});
+
+describe("wat dit zou kunnen betekenen", () => {
+  it("elke meting voor de deelnemer heeft een duiding in woorden met een vraag", () => {
+    for (const s of rapport().deelnemer.filter((x) => x.soort === "meting")) {
+      const b = blokken(s, "betekenis");
+      expect(b.length, s.id).toBe(1);
+      expect(b[0].alineas.length, s.id).toBeGreaterThan(0);
+      expect(b[0].vraag, s.id).toBeTruthy();
+    }
+  });
+
+  it("de kaarten krijgen een duiding per gekozen kaart", () => {
+    const b = blokken(sectie(rapport(), "deelnemer", "archetypen"), "betekenis")[0];
+    expect(b.alineas.map((x) => x.sleutel)).toEqual([
+      "rapport.betekenis.kaart.wijze.voorkeur", "rapport.betekenis.kaart.ontdekker.voorkeur",
+      "rapport.betekenis.kaart.zorggever.afwijzing", "rapport.betekenis.kaart.nar.afwijzing", "rapport.betekenis.kaart.schaduw",
+    ]);
+  });
+
+  it("benoemt botsende waarden als de bovenste en onderste tegenover elkaar staan", () => {
+    expect(sleutels([sectie(rapport(), "deelnemer", "drijfveren")])).toContain("rapport.betekenis.waarden.tegenpolen");
+  });
+
+  it("alle kaarten hebben een duiding voor voorkeur en afwijzing", () => {
+    for (const k of reg.items.find((i) => i.format === "kaartsortering")!.kaarten!) {
+      expect(() => vertaal(`rapport.betekenis.kaart.${k.id}.voorkeur`)).not.toThrow();
+      expect(() => vertaal(`rapport.betekenis.kaart.${k.id}.afwijzing`)).not.toThrow();
+    }
+  });
+});
+
+describe("uitleg voor de coach", () => {
+  const r = rapport();
+
+  it("begint met een leeswijzer", () => {
+    expect(r.coach[0].id).toBe("leeswijzer");
+  });
+
+  it("elk onderdeel van het coachrapport heeft een toelichting", () => {
+    for (const s of r.coach.slice(1)) {
+      expect(s.toelichting, s.id).toBeTruthy();
+      expect(vertaalTekst(s.toelichting!).length, s.id).toBeGreaterThan(150);
+    }
   });
 });
